@@ -12,3 +12,9 @@ spring:
       name: ${spring.application.name}
   main:
     allow-bean-definition-overriding: true
+
+feign:
+  url:
+    auth: ${AUTH_SERVICE:https://auth.socshared.ml}
+    fb: ${FB_SERVICE:localhost:8081}
+

@@ -13,3 +13,8 @@ spring:
       name: ${spring.application.name}
   main:
     allow-bean-definition-overriding: true
+
+feign:
+  url:
+    auth: ${AUTH_SERVICE:localhost:9999}
+    fb: ${FB_SERVICE:localhost:8081}
