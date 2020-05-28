@@ -27,6 +27,7 @@ import static ml.socshared.gateway.config.Constants.LOCAL_PROFILE;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String PRIVATE_ENDPOINT = "/api/v1/private/**";
+    private static final String PROTECTED_ENDPOINT = "/api/v1/protected/**";
 
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -46,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(PRIVATE_ENDPOINT).authenticated()
+                .antMatchers(PROTECTED_ENDPOINT).authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider))
                 .and()
