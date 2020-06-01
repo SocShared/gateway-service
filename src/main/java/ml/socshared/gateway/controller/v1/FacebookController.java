@@ -25,5 +25,8 @@ public class FacebookController implements FacebookApi {
         return facebookService.getURLForAccess();
     }
 
+//    @PreAuthorize("hasRole('CONTENT_MANAGER')")
+//    @GetMapping(value = "/protected/facebook/groups")
+//    public
 
 }
