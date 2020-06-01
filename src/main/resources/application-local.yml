@@ -12,3 +12,10 @@ spring:
       name: ${spring.application.name}
   main:
     allow-bean-definition-overriding: true
+
+
+feign:
+  vk-adapter:
+    url: localhost:8082
+  tech-support:
+    url: localhost:8885
