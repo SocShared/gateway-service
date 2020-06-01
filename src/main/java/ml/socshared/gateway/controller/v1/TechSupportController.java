@@ -29,7 +29,7 @@ public class TechSupportController implements TechSupportApi {
         return service.createQuestion(question, authToken);
     }
 
-    @Override
+    @Overridez
     @GetMapping("protected/support")
     public Page<ShortQuestion> getQuestionsList(Pageable pageable,
                                                 @RequestHeader(value = "Authorization", required = false) String authToken) {
