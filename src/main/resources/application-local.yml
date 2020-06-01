@@ -13,9 +13,9 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
-
 feign:
-  vk-adapter:
-    url: localhost:8082
-  tech-support:
-    url: localhost:8885
+  url:
+    auth: ${AUTH_SERVICE:https://auth.socshared.ml}
+    fb: ${FB_SERVICE:localhost:8081}
+    vk-adapter: localhost:8082
+    tech-support: localhost:8885

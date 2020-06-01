@@ -14,21 +14,26 @@ build:
   script: ./gradlew clean build
   artifacts:
     paths:
-      - build/libs/socshared-microservice-template-1.0.0-SNAPSHOT.jar
+      - build/libs/socshared-gateway-service-1.0.0-SNAPSHOT.jar
 
 docker-build:
   stage: docker-build
   script:
-    - docker rmi $(docker images -a)
-    - docker build -t $CI_DOCKER_LOGIN/socshared-microservice-template .
+    - docker 2>/dev/null 1>&2 rmi `docker images -aq` || true
+    - docker build -t $CI_DOCKER_LOGIN/socshared-gateway-service .
 
 docker-push:
   stage: docker-push
   script:
     - docker login -u "$CI_DOCKER_LOGIN" -p "$CI_DOCKER_PASSWORD"
-    - docker push $CI_DOCKER_LOGIN/socshared-microservice-template
+    - docker push $CI_DOCKER_LOGIN/socshared-gateway-service
 
 docker-deploy-swarm:
   stage: docker-deploy-swarm
   script:
+    - touch .env_api
+    - echo "SPRING_PROFILE=dev" >> .env_api
+    - echo "AUTH_SERVICE=$AUTH_SERVICE" >> .env_api
+    - echo "FB_SERVICE=$FB_SERVICE" >> .env_api
+    - echo "SECRET_JWT_KEY=$SECRET_JWT_KEY" >> .env_api
     - docker stack deploy -c docker-compose.yaml socshared

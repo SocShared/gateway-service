@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.awt.print.Pageable;
 
-@FeignClient(name = "TechSupportServiceClient", url = "${feign.tech-support.url}")
+@FeignClient(name = "TechSupportServiceClient", url = "${feign.url.tech-support}")
 public interface TechSupportServiceClient {
 
     @GetMapping("/api/v1/private/questions?page={page}&size={size}")

@@ -6,8 +6,6 @@ import io.swagger.annotations.ApiOperation;
 import java.util.HashMap;
 
 @Api(value = "Hello Controller")
-public interface HelloApi {
+public interface FacebookApi {
 
-    @ApiOperation(value = "print hello, world", notes = "print hello, world")
-    HashMap<String, String> printHelloWorld();
 }

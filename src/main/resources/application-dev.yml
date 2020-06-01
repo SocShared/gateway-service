@@ -1,12 +1,4 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://postgres-db:5432/name_db
-    driver-class-name: org.postgresql.Driver
-    username: ${POSTGRES_USER}
-    password: ${POSTGRES_PASSWORD}
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
   zipkin:
     base-url: http://zipkin:9411/
     service:
@@ -15,5 +7,8 @@ spring:
     allow-bean-definition-overriding: true
 
 feign:
-  vk-adapter:
-    url: https://vk.socshared.ml/
+  url:
+    auth: ${AUTH_SERVICE:localhost:9999}
+    fb: ${FB_SERVICE:localhost:8081}
+    vk-adapter: https://vk.socshared.ml/
+
