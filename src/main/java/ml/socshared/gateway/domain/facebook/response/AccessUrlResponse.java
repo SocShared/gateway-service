@@ -1,4 +1,4 @@
-package ml.socshared.gateway.domain.response.facebook;
+package ml.socshared.gateway.domain.facebook.response;
 
 import lombok.Builder;
 import lombok.Getter;

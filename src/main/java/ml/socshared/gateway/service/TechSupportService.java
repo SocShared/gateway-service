@@ -1,6 +1,9 @@
 package ml.socshared.gateway.service;
 
-import ml.socshared.gateway.domain.response.texch_support.*;
+import ml.socshared.gateway.domain.tech_support.response.Comment;
+import ml.socshared.gateway.domain.tech_support.response.FullQuestionResponse;
+import ml.socshared.gateway.domain.tech_support.response.Question;
+import ml.socshared.gateway.domain.tech_support.response.ShortQuestion;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

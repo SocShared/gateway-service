@@ -5,7 +5,7 @@ import ml.socshared.gateway.api.v1.rest.VkApi;
 import ml.socshared.gateway.client.VkServiceClient;
 import ml.socshared.gateway.domain.response.vk_adapter.GroupResponse;
 import ml.socshared.gateway.domain.response.vk_adapter.PageAdapter;
-import ml.socshared.gateway.domain.response.SuccessResponse;
+import ml.socshared.gateway.domain.SuccessResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.repository.query.Param;

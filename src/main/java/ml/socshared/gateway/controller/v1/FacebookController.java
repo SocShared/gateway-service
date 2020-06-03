@@ -1,12 +1,11 @@
 package ml.socshared.gateway.controller.v1;
 
 import lombok.RequiredArgsConstructor;
-import ml.socshared.gateway.domain.response.facebook.AccessUrlResponse;
+import ml.socshared.gateway.domain.facebook.response.AccessUrlResponse;
 import ml.socshared.gateway.service.FacebookService;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ml.socshared.gateway.api.v1.rest.FacebookApi;

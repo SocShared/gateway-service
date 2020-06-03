@@ -1,4 +1,4 @@
-package ml.socshared.gateway.domain.response.texch_support;
+package ml.socshared.gateway.domain.tech_support.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,5 +12,7 @@ import java.util.List;
 public class PageResponse<T> {
     Integer size;
     Integer page;
+    Long totalElements;
+    Integer totalPages;
     List<T> data;
 }

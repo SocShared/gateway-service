@@ -1,6 +1,6 @@
 package ml.socshared.gateway.client;
 
-import ml.socshared.gateway.domain.response.facebook.AccessUrlResponse;
+import ml.socshared.gateway.domain.facebook.response.AccessUrlResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

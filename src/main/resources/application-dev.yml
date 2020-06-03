@@ -11,4 +11,5 @@ feign:
     auth: ${AUTH_SERVICE:localhost:9999}
     fb: ${FB_SERVICE:localhost:8081}
     vk-adapter: https://vk.socshared.ml/
+    storage: ${STORAGE_SERVICE:localhost:8686}
 

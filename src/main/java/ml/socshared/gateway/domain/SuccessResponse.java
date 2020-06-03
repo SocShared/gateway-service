@@ -1,4 +1,4 @@
-package ml.socshared.gateway.domain.response;
+package ml.socshared.gateway.domain;
 
 import lombok.*;
 

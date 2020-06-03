@@ -2,7 +2,10 @@ package ml.socshared.gateway.controller.v1;
 
 import lombok.extern.slf4j.Slf4j;
 import ml.socshared.gateway.api.v1.rest.TechSupportApi;
-import ml.socshared.gateway.domain.response.texch_support.*;
+import ml.socshared.gateway.domain.tech_support.response.Comment;
+import ml.socshared.gateway.domain.tech_support.response.FullQuestionResponse;
+import ml.socshared.gateway.domain.tech_support.response.Question;
+import ml.socshared.gateway.domain.tech_support.response.ShortQuestion;
 import ml.socshared.gateway.service.TechSupportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,7 +43,7 @@ public class TechSupportController implements TechSupportApi {
     @Override
     @GetMapping("protected/support/questions/{questionId}")
     public FullQuestionResponse getFullQuestion(@PathVariable Integer questionId, Pageable pageable,
-                                        @RequestHeader(value = "Authorization", required = false) String authToken) {
+                                                @RequestHeader(value = "Authorization", required = false) String authToken) {
         log.info("Request get of page with question " + String.valueOf(questionId));
         return service.getFullQuestion(questionId, pageable, authToken);
     }

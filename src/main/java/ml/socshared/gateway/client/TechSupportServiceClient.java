@@ -1,13 +1,9 @@
 package ml.socshared.gateway.client;
 
 
-import feign.Headers;
-import ml.socshared.gateway.domain.response.texch_support.*;
+import ml.socshared.gateway.domain.tech_support.response.*;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
-
-import java.awt.print.Pageable;
 
 @FeignClient(name = "TechSupportServiceClient", url = "${feign.url.tech-support}")
 public interface TechSupportServiceClient {

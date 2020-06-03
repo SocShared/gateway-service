@@ -2,7 +2,7 @@ package ml.socshared.gateway.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import ml.socshared.gateway.client.FacebookClient;
-import ml.socshared.gateway.domain.response.facebook.AccessUrlResponse;
+import ml.socshared.gateway.domain.facebook.response.AccessUrlResponse;
 import ml.socshared.gateway.security.model.TokenObject;
 import ml.socshared.gateway.service.FacebookService;
 import org.springframework.beans.factory.annotation.Value;

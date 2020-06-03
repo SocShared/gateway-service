@@ -106,6 +106,7 @@ public class TokenGetter {
         return tokenServiceWorker;
     }
 
+
     public TokenObject getTokenSystemStatistic() {
         if (tokenSystemStatistic != null && jwtTokenProvider.validateServiceToken(tokenSystemStatistic.getToken())) {
             return tokenSystemStatistic;
@@ -121,6 +122,7 @@ public class TokenGetter {
         return tokenSystemStatistic;
     }
 
+    @Before("execution(* ml.socshared.gateway.service.impl.TechSupportServiceImpl.*(..))")
     public TokenObject getTokenTechSupport() {
         if (tokenTechSupport != null && jwtTokenProvider.validateServiceToken(tokenTechSupport.getToken())) {
             return tokenTechSupport;
@@ -136,6 +138,7 @@ public class TokenGetter {
         return tokenTechSupport;
     }
 
+    @Before("execution(* ml.socshared.gateway.service.impl.StorageServiceImpl.*(..))")
     public TokenObject getTokenStorageService() {
         if (tokenStorageService != null && jwtTokenProvider.validateServiceToken(tokenStorageService.getToken())) {
             return tokenStorageService;

@@ -1,4 +1,4 @@
-package ml.socshared.gateway.domain.response.texch_support;
+package ml.socshared.gateway.domain.tech_support.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
