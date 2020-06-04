@@ -20,3 +20,4 @@ feign:
     vk-adapter: localhost:8082
     tech-support: localhost:8885
     storage: ${STORAGE_SERVICE:localhost:8686}
+
