@@ -1,8 +1,8 @@
 package ml.socshared.gateway.client;
 
 
-import ml.socshared.gateway.domain.response.vk_adapter.GroupResponse;
-import ml.socshared.gateway.domain.response.vk_adapter.PageAdapter;
+import ml.socshared.gateway.domain.vk.GroupResponse;
+import ml.socshared.gateway.domain.vk.PageAdapter;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
