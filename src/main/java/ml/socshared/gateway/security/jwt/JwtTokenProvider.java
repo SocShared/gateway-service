@@ -45,6 +45,11 @@ public class JwtTokenProvider {
                 .build();
     }
 
+    public UUID getUserId(String token) {
+        Claims claims =  Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+        return UUID.fromString(claims.get("sub", String.class));
+    }
+
     public boolean validateAccessToken(String token) {
         try {
             Jws<Claims> claims = getJwsClaimsFromToken(token);
