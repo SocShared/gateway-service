@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import ml.socshared.gateway.domain.response.UserResponse;
 import ml.socshared.gateway.service.FacebookService;
 import ml.socshared.gateway.service.SocialService;
+import ml.socshared.gateway.service.VkService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.UUID;
 public class SocialServiceImpl implements SocialService {
 
     private final FacebookService facebookService;
+    private final VkService vkService;
 
     @Override
     public List<UserResponse> getAccountsSocialNetwork(UUID systemUserId) {
@@ -25,7 +27,10 @@ public class SocialServiceImpl implements SocialService {
             accounts.add(facebookAccount);
         }
 
-        // TODO: Требуется добавить получение аккаунта VK
+        UserResponse vkAccount = vkService.getUserDataFacebookAccount(systemUserId);
+        if(vkAccount != null) {
+            accounts.add(vkAccount);
+        }
 
         return accounts;
     }

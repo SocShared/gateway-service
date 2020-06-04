@@ -8,6 +8,7 @@ import ml.socshared.gateway.domain.storage.SocialNetwork;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,8 +16,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class GroupRequest {
 
-    @NotEmpty
-    private String userId;
+    private UUID userId;
     private String vkId;
     private String fbId;
     @NotNull

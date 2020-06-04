@@ -9,11 +9,11 @@ import org.springframework.data.domain.Pageable;
 
 public interface TechSupportService {
 
-    Integer createQuestion(Question q, String authToken);
-    Page<ShortQuestion> getQuestionList(Pageable pageable, String authToken);
-    FullQuestionResponse getFullQuestion(Integer questionId, Pageable pageable, String authToken);
-    Integer addCommentToQuestion(Integer questionId, Comment comm, String authToken);
-    void removeQuestion(Integer questionId, String authToken);
-    void removeComment(Integer QestionId, Integer commentId, String authToken);
+    Integer createQuestion(Question q);
+    Page<ShortQuestion> getQuestionList(Pageable pageable);
+    FullQuestionResponse getFullQuestion(Integer questionId, Pageable pageable);
+    Integer addCommentToQuestion(Integer questionId, Comment comm);
+    void removeQuestion(Integer questionId);
+    void removeComment(Integer QestionId, Integer commentId);
 
 }

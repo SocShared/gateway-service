@@ -1,6 +1,7 @@
 package ml.socshared.gateway.service.impl;
 
 
+import lombok.RequiredArgsConstructor;
 import ml.socshared.gateway.client.TechSupportServiceClient;
 import ml.socshared.gateway.domain.tech_support.response.*;
 import ml.socshared.gateway.security.client.AuthClient;
@@ -17,39 +18,33 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class TechSupportServiceImpl implements TechSupportService {
 
-    JwtTokenProvider jwtProvider;
 
-    TechSupportServiceClient client;
+    private final TechSupportServiceClient client;
 
     @Value("#{tokenGetter.tokenTechSupport}")
     TokenObject tokenTechSupport;
 
-    @Autowired
-    TechSupportServiceImpl(TechSupportServiceClient client, JwtTokenProvider jwtProvider)
-    {
-        this.client = client;
-        this.jwtProvider = jwtProvider;
+    @Override
+    public Integer createQuestion(Question q) {
+        return client.addQuestion(q, techSupportAuthToken());
     }
 
     @Override
-    public Integer createQuestion(Question q, String authToken) {
-        UserDetails user =  jwtProvider.getUserDetails(authToken);
-        return client.addQuestion(q, serviceAuthToken());
-    }
-
-    @Override
-    public Page<ShortQuestion> getQuestionList(Pageable pageable, String authToken) {
-        PageResponse<ShortQuestion> questions = client.getQuestionList(pageable.getPageNumber(), pageable.getPageSize(), serviceAuthToken());
+    public Page<ShortQuestion> getQuestionList(Pageable pageable) {
+        PageResponse<ShortQuestion> questions = client.getQuestionList(pageable.getPageNumber(),
+                pageable.getPageSize(), techSupportAuthToken());
         Pageable p = PageRequest.of(questions.getPage(), pageable.getPageSize());
         return new PageImpl(questions.getData(), p, 0);
 
     }
 
     @Override
-    public FullQuestionResponse getFullQuestion(Integer questionId, Pageable pageable, String authToken) {
-        FullQuestion res = client.getFullQuestion(questionId, pageable.getPageNumber(), pageable.getPageSize(), serviceAuthToken());
+    public FullQuestionResponse getFullQuestion(Integer questionId, Pageable pageable) {
+        FullQuestion res = client.getFullQuestion(questionId, pageable.getPageNumber(), pageable.getPageSize(),
+                techSupportAuthToken());
         Pageable p = PageRequest.of(res.getComments().getPage(), res.getComments().getSize());
         Page<Comment> page = new PageImpl(res.getComments().getData(), p, res.getComments().getTotalElements());
         FullQuestionResponse response = new FullQuestionResponse();
@@ -61,21 +56,21 @@ public class TechSupportServiceImpl implements TechSupportService {
     }
 
     @Override
-    public Integer addCommentToQuestion(Integer questionId, Comment comm, String authToken) {
-        return client.addCommentToQuestion(questionId, comm, serviceAuthToken());
+    public Integer addCommentToQuestion(Integer questionId, Comment comm) {
+        return client.addCommentToQuestion(questionId, comm, techSupportAuthToken());
     }
 
     @Override
-    public void removeQuestion(Integer questionId, String authToken) {
-        client.removeQuestion(questionId, serviceAuthToken());
+    public void removeQuestion(Integer questionId) {
+        client.removeQuestion(questionId, techSupportAuthToken());
     }
 
     @Override
-    public void removeComment(Integer questionId, Integer commentId, String authToken) {
-        client.removeComment(questionId, commentId, serviceAuthToken());
+    public void removeComment(Integer questionId, Integer commentId) {
+        client.removeComment(questionId, commentId, techSupportAuthToken());
     }
 
-    private String serviceAuthToken() {
+    private String techSupportAuthToken() {
         return "Bearer " + tokenTechSupport.getToken();
     }
 }
