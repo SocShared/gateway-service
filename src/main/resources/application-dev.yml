@@ -10,7 +10,7 @@ feign:
   url:
     auth: ${AUTH_SERVICE:http://auth-service:9999}
     fb: ${FB_SERVICE:http://fb-adapter:8081}
-    vk: ${VK_SERVICE:http://vk-adapter}
+    vk: ${VK_SERVICE:http://vk-adapter:8082}
     tech-support: ${TECH_SUPPORT_SERVICE:http://tech-support}
     storage: ${STORAGE_SERVICE:http://storage-service:8686}
 
