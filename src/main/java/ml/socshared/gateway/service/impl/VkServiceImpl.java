@@ -2,6 +2,7 @@ package ml.socshared.gateway.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import ml.socshared.gateway.client.VkServiceClient;
+import ml.socshared.gateway.domain.response.UserResponse;
 import ml.socshared.gateway.domain.vk.GroupResponse;
 import ml.socshared.gateway.domain.vk.PageAdapter;
 import ml.socshared.gateway.security.model.TokenObject;
@@ -34,6 +35,11 @@ public class VkServiceImpl implements VkService {
                 pageable.getPageSize(), vkAuthToken());
         Page<GroupResponse> pageOfGroup = new PageImpl<>(res.getObject());
         return pageOfGroup;
+    }
+
+    @Override
+    public UserResponse getUserDataFacebookAccount(UUID systemUserId) {
+        return vkClient.getUserDataFacebookAccount(systemUserId, vkAuthToken());
     }
 
     private String vkAuthToken() {
