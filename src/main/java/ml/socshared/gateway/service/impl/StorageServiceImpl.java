@@ -1,5 +1,6 @@
 package ml.socshared.gateway.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import ml.socshared.gateway.client.StorageServiceClient;
 import ml.socshared.gateway.domain.storage.response.GroupResponse;
 import ml.socshared.gateway.domain.storage.response.PublicationResponse;
@@ -14,32 +15,26 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class StorageServiceImpl implements StorageService {
 
 
     @Value("#{tokenGetter.tokenStorageService}")
     TokenObject tokenStorage;
-
-    StorageServiceClient client;
-
-    @Autowired
-    StorageServiceImpl(StorageServiceClient client) {
-        this.client = client;
-    }
+    private final StorageServiceClient client;
 
     @Override
     public Page<GroupResponse> getGroupsList(UUID systemUserId, Pageable pageable) {
-
-        return client.getGroupsByUserId(systemUserId, pageable.getPageNumber(), pageable.getPageSize(), serviceAuthToken());
+        return client.getGroupsByUserId(systemUserId, pageable.getPageNumber(), pageable.getPageSize(), storageAuthToken());
     }
 
     @Override
     public Page<PublicationResponse> getPostList(UUID systemUserId, UUID groupId, Pageable pageable) {
-        //TODO проверка на точ то данному пользователю принадлежит данная группа
-        return client.getPublicationsByGroupId(groupId, pageable.getPageNumber(), pageable.getPageSize());
+        return client.getPublicationsByGroupId(groupId, pageable.getPageNumber(), pageable.getPageSize(),
+                                                storageAuthToken());
     }
 
-    private String serviceAuthToken() {
+    private String storageAuthToken() {
         return "Bearer " + tokenStorage.getToken();
     }
 }

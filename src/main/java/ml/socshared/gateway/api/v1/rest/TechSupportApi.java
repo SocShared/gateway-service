@@ -9,19 +9,21 @@ import ml.socshared.gateway.domain.tech_support.response.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Api(value = "Controller for tech-support api")
 public interface TechSupportApi {
     @ApiOperation(value = "create question", httpMethod = "POST")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Question created")
     })
-    Integer addQuestion(Question question, String authToken);
+    Integer addQuestion(Question question, HttpServletRequest request);
 
     @ApiOperation(value = "Returns a short list of questions")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message ="successful")
     })
-    Page<ShortQuestion> getQuestionsList(Pageable pageable, String authToken);
+    Page<ShortQuestion> getQuestionsList(Pageable pageable);
 
     @ApiOperation(value = "get question and list comments", response = FullQuestion.class,
             httpMethod = "GET")
@@ -29,26 +31,26 @@ public interface TechSupportApi {
             @ApiResponse(code = 200, message = "return question and list comments"),
             @ApiResponse(code = 404, message = "question not found")
     })
-    FullQuestionResponse getFullQuestion(Integer questionId, Pageable pageable, String authToken);
+    FullQuestionResponse getFullQuestion(Integer questionId, Pageable pageable);
 
     @ApiOperation(value = "create comment of question", httpMethod = "POST")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "comment created"),
             @ApiResponse(code = 404, message = "question not found")
     })
-    Integer addCommentToQuestion(Integer questionId, Comment comment, String authToken);
+    Integer addCommentToQuestion(Integer questionId, Comment comment, HttpServletRequest request);
 
     @ApiOperation(value = "removing question and all comments of question", httpMethod = "DELETE")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "question deleted"),
             @ApiResponse(code = 404, message = "question not found")
     })
-    void removeQuestion(Integer questionId, String authToken);
+    void removeQuestion(Integer questionId);
 
     @ApiOperation(value = "removing comment of question", httpMethod = "DELETE")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Comment deleted"),
             @ApiResponse(code = 404, message = "Question or comment not found")
     })
-    void removeComment(Integer questionId, Integer commentId, String authToken);
+    void removeComment(Integer questionId, Integer commentId);
 }

@@ -22,6 +22,7 @@ public class SocialController {
     private final SocialService socialService;
     private final JwtTokenProvider jwtTokenProvider;
 
+    @PreAuthorize("hasRole('CONTENT_MANAGER')")
     @GetMapping(value = "/protected/social/accounts", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UserResponse> getAccounts(HttpServletRequest request) {
         return socialService.getAccountsSocialNetwork(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)));

@@ -12,9 +12,10 @@ import java.util.UUID;
 @RestController
 @Slf4j
 @RequestMapping("api/v1")
+@PreAuthorize("isAuthenticated()")
 public class BstatController {
 
-    @GetMapping("groups/{groupId}/stat")
+    @GetMapping("/protected/groups/{groupId}/stat")
     void getStatisticOfGroup(@PathVariable UUID groupId) {
 
     }
