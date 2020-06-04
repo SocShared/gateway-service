@@ -16,8 +16,8 @@ spring:
 feign:
   url:
     auth: ${AUTH_SERVICE:https://auth.socshared.ml}
-    fb: ${FB_SERVICE:localhost:8081}
-    vk-adapter: localhost:8082
-    tech-support: localhost:8885
+    fb: ${FB_SERVICE:https://fb.socshared.ml}
+    vk: ${VK_SERVICE:http://vk-adapter}
+    tech-support: ${TECH_SUPPORT_SERVICE:http://tech-support}
     storage: ${STORAGE_SERVICE:localhost:8686}
 
