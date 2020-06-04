@@ -32,6 +32,9 @@ public interface FacebookClient {
                                                   @RequestParam(name = "size") Integer size,
                                                   @RequestHeader("Authorization") String token);
 
+    @GetMapping(value = "/api/v1/private/users/{systemUserId}/groups/{pageId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    FacebookGroupResponse getGroup(@PathVariable UUID systemUserId, @PathVariable String pageId, @RequestHeader("Authorization") String token);
+
     @DeleteMapping(value = "/api/v1/private/users/{systemUserId}/facebook")
     void deleteFacebookAccount(@PathVariable UUID systemUserId, @RequestHeader("Authorization") String token);
 }
