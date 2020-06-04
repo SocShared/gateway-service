@@ -19,3 +19,11 @@ facebook:
     uri: https://socshared.ml/connect/fb
   adapter:
     id: fb-adapter-prod
+
+feign:
+  url:
+    auth: ${AUTH_SERVICE:localhost:9999}
+    fb: ${FB_SERVICE:localhost:8081}
+    vk-adapter: http://vk-adapter
+    tech-support: localhost:8885
+    storage: ${STORAGE_SERVICE:localhost:8686}
