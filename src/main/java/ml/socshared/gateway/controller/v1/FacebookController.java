@@ -3,6 +3,7 @@ package ml.socshared.gateway.controller.v1;
 import lombok.RequiredArgsConstructor;
 import ml.socshared.gateway.domain.SuccessResponse;
 import ml.socshared.gateway.domain.facebook.response.AccessUrlResponse;
+import ml.socshared.gateway.domain.response.UserResponse;
 import ml.socshared.gateway.security.jwt.JwtTokenProvider;
 import ml.socshared.gateway.service.FacebookService;
 import org.springframework.http.MediaType;
@@ -36,6 +37,12 @@ public class FacebookController implements FacebookApi {
     @GetMapping(value = "/protected/facebook/connect/{authorizationCode}", produces = MediaType.APPLICATION_JSON_VALUE)
     public SuccessResponse saveAccountFacebook(@PathVariable String authorizationCode, HttpServletRequest request) {
         return facebookService.saveAccountFacebook(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), authorizationCode);
+    }
+
+    @PreAuthorize("hasRole('CONTENT_MANAGER')")
+    @GetMapping(value = "/protected/facebook/account", produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserResponse getUserDataFacebookAccount(HttpServletRequest request) {
+        return facebookService.getUserDataFacebookAccount(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)));
     }
 
 }

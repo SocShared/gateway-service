@@ -1,6 +1,6 @@
 package ml.socshared.gateway.api.v1.rest;
 
-import ml.socshared.gateway.domain.response.vk_adapter.GroupResponse;
+import ml.socshared.gateway.domain.vk.GroupResponse;
 import ml.socshared.gateway.domain.SuccessResponse;
 import org.springframework.data.domain.Page;
 
