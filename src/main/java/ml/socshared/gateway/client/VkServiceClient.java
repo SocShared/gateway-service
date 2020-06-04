@@ -24,7 +24,7 @@ public interface VkServiceClient {
                                                   @PathVariable Integer size,
                                                   @RequestHeader("Authorization") String authToken);
 
-    @GetMapping("api/v1/private/users/{systemUserId}/groups/{groupId}")
+    @GetMapping("api/v1/private/users/{systemUserId}/groups/{socGroupId}")
     VkAdapterGroupResponse getGroupInfoById(@PathVariable UUID systemUserId,
                                             @PathVariable String socGroupId,
                                             @RequestHeader("Authorization") String authToken);

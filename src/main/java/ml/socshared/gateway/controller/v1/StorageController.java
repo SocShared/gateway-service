@@ -26,7 +26,7 @@ public class StorageController {
     StorageService service;
 
 
-    @GetMapping("/groups")
+    @GetMapping("/groups/vk")
     Page<GroupResponse> getGroupsList(Pageable pageable,
                                       @RequestHeader(value = "Authorization", required = false) String authToken) {
         log.info("Request get groups list");

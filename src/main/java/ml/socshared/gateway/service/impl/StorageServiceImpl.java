@@ -33,8 +33,9 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public Page<GroupResponse> getGroupsList(UUID systemUserId, Pageable pageable) {
-
-        return storageClient.getGroupsByUserId(systemUserId, pageable.getPageNumber(), pageable.getPageSize(), storageToken());
+        //TODO делать выборку только по группам для вк а не по всем!
+        Page<GroupResponse> res =  storageClient.getGroupsByUserId(systemUserId, pageable.getPageNumber(), pageable.getPageSize(), storageToken());
+        return  res;
     }
 
     @Override
@@ -46,6 +47,7 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public void addVkGroupToStorage(UUID systemUserId, String socGroupId) {
         GroupRequest group = new GroupRequest();
+        group.setUserId(systemUserId);
         group.setSocialNetwork(SocialNetwork.VK);
         group.setVkId(socGroupId);
         group.setFbId("");
