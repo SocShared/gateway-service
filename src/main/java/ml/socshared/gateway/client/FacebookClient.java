@@ -1,14 +1,14 @@
 package ml.socshared.gateway.client;
 
 import ml.socshared.gateway.domain.SuccessResponse;
+import ml.socshared.gateway.domain.facebook.FacebookPage;
 import ml.socshared.gateway.domain.facebook.response.AccessUrlResponse;
+import ml.socshared.gateway.domain.facebook.response.FacebookGroupResponse;
 import ml.socshared.gateway.domain.response.UserResponse;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -25,6 +25,12 @@ public interface FacebookClient {
 
     @GetMapping(value = "/api/v1/private/users/{systemUserId}/facebook/data", produces = MediaType.APPLICATION_JSON_VALUE)
     UserResponse getUserDataFacebookAccount(@PathVariable UUID systemUserId, @RequestHeader("Authorization") String token);
+
+    @GetMapping(value = "/private/users/{systemUserId}/groups", produces = MediaType.APPLICATION_JSON_VALUE)
+    FacebookPage<FacebookGroupResponse> getGroups(@PathVariable UUID systemUserId,
+                                                  @RequestParam(name = "page") Integer page,
+                                                  @RequestParam(name = "size") Integer size,
+                                                  @RequestHeader("Authorization") String token);
 
     @DeleteMapping(value = "/api/v1/private/users/{systemUserId}/facebook")
     void deleteFacebookAccount(@PathVariable UUID systemUserId, @RequestHeader("Authorization") String token);

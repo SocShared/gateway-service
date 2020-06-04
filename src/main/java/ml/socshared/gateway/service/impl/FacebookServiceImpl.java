@@ -3,7 +3,9 @@ package ml.socshared.gateway.service.impl;
 import lombok.RequiredArgsConstructor;
 import ml.socshared.gateway.client.FacebookClient;
 import ml.socshared.gateway.domain.SuccessResponse;
+import ml.socshared.gateway.domain.facebook.FacebookPage;
 import ml.socshared.gateway.domain.facebook.response.AccessUrlResponse;
+import ml.socshared.gateway.domain.facebook.response.FacebookGroupResponse;
 import ml.socshared.gateway.domain.response.UserResponse;
 import ml.socshared.gateway.security.model.TokenObject;
 import ml.socshared.gateway.service.FacebookService;
@@ -34,6 +36,10 @@ public class FacebookServiceImpl implements FacebookService {
     @Override
     public UserResponse getUserDataFacebookAccount(UUID systemUserId) {
         return client.getUserDataFacebookAccount(systemUserId, "Bearer " + tokenFB.getToken());
+    }
+
+    public FacebookPage<FacebookGroupResponse> getGroups(UUID systemUserId, Integer page, Integer size) {
+        return client.getGroups(systemUserId, page, size, "Bearer " + tokenFB.getToken());
     }
 
     @Override

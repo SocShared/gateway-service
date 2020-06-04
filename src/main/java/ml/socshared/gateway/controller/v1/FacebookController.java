@@ -2,23 +2,30 @@ package ml.socshared.gateway.controller.v1;
 
 import lombok.RequiredArgsConstructor;
 import ml.socshared.gateway.domain.SuccessResponse;
+import ml.socshared.gateway.domain.facebook.FacebookPage;
 import ml.socshared.gateway.domain.facebook.response.AccessUrlResponse;
+import ml.socshared.gateway.domain.facebook.response.FacebookGroupResponse;
 import ml.socshared.gateway.domain.response.UserResponse;
 import ml.socshared.gateway.security.jwt.JwtTokenProvider;
 import ml.socshared.gateway.service.FacebookService;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ml.socshared.gateway.api.v1.rest.FacebookApi;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/v1")
 @RequiredArgsConstructor
 @PreAuthorize("isAuthenticated()")
+@Validated
 public class FacebookController implements FacebookApi {
 
     private final FacebookService facebookService;
@@ -40,6 +47,14 @@ public class FacebookController implements FacebookApi {
     @GetMapping(value = "/protected/facebook/account", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserResponse getUserDataFacebookAccount(HttpServletRequest request) {
         return facebookService.getUserDataFacebookAccount(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)));
+    }
+
+    @PreAuthorize("hasRole('CONTENT_MANAGER')")
+    @GetMapping(value = "/protected/facebook/groups", produces = MediaType.APPLICATION_JSON_VALUE)
+    public FacebookPage<FacebookGroupResponse> getGroups(@Min(0) @NotNull @RequestParam(name = "page", required = false) Integer page,
+                                                         @Min(0) @Max(100) @NotNull @RequestParam(name = "size", required = false) Integer size,
+                                                         HttpServletRequest request) {
+        return facebookService.getGroups(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), page, size);
     }
 
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
