@@ -60,7 +60,7 @@ public class TokenGetter {
 
         return tokenFB;
     }
-
+    @Before("execution(* ml.socshared.gateway.service.impl.VkServiceImpl.*(..))")
     public TokenObject getTokenVK() {
         if (tokenVK != null && jwtTokenProvider.validateServiceToken(tokenVK.getToken())) {
             return tokenVK;

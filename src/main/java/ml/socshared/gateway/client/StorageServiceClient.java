@@ -75,5 +75,6 @@ public interface StorageServiceClient {
     @GetMapping(value = "/private/groups/{systemGroupId}/publications/status/not_publishing")
     public RestResponsePage<PublicationResponse> getPublicationsByGroupId(@PathVariable UUID systemGroupId,
                                                 @NotNull @RequestParam(name = "page", required = false) Integer page,
-                                                @NotNull @RequestParam(name = "size", required = false) Integer size);
+                                                @NotNull @RequestParam(name = "size", required = false) Integer size,
+                                                                          @RequestHeader("Authorization") String token);
 }

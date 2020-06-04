@@ -12,5 +12,5 @@ import java.util.UUID;
 public interface StorageService {
     Page<GroupResponse> getGroupsList(UUID systemUserId, Pageable pageable);
     Page<PublicationResponse> getPostList(UUID systemUserId, UUID groupId,Pageable pageable);
-    void addVkGroupToStorage(UUID systemUserId, String socGroupId);
+    //void addVkGroupToStorage(UUID systemUserId, String socGroupId);
 }

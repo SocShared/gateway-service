@@ -23,45 +23,41 @@ public class StorageServiceImpl implements StorageService {
 
 
     @Value("#{tokenGetter.tokenStorageService}")
-    TokenObject tokenStorageService;
+    TokenObject tokenStorage;
 
-    @Value("#{tokenGetter.tokenVK}")
-    TokenObject tokenVkAdapter;
+//    @Value("#{tokenGetter.tokenVK}")
+//    TokenObject tokenVk;
 
-    final StorageServiceClient storageClient;
-    final VkServiceClient vkClient;
+    private final StorageServiceClient client;
 
     @Override
     public Page<GroupResponse> getGroupsList(UUID systemUserId, Pageable pageable) {
-        //TODO делать выборку только по группам для вк а не по всем!
-        Page<GroupResponse> res =  storageClient.getGroupsByUserId(systemUserId, pageable.getPageNumber(), pageable.getPageSize(), storageToken());
-        return  res;
+        return client.getGroupsByUserId(systemUserId, pageable.getPageNumber(), pageable.getPageSize(), storageAuthToken());
+
     }
 
-    @Override
+
+
+//    @Override
+//    public void addVkGroupToStorage(UUID systemUserId, String socGroupId) {
+//        GroupRequest group = new GroupRequest();
+//        group.setUserId(systemUserId);
+//        group.setSocialNetwork(SocialNetwork.VK);
+//        group.setVkId(socGroupId);
+//        group.setFbId("");
+//        VkAdapterGroupResponse vkGroup =  vkClient.getGroupInfoById(systemUserId, socGroupId, vkToken());
+//        group.setName(vkGroup.getName());
+//        client.addGroup(group, storageAuthToken());
+//    }
+
+
+        @Override
     public Page<PublicationResponse> getPostList(UUID systemUserId, UUID groupId, Pageable pageable) {
-        //TODO проверка на точ то данному пользователю принадлежит данная группа
-        return storageClient.getPublicationsByGroupId(groupId, pageable.getPageNumber(), pageable.getPageSize());
+        return client.getPublicationsByGroupId(groupId, pageable.getPageNumber(), pageable.getPageSize(),
+                                                storageAuthToken());
     }
 
-    @Override
-    public void addVkGroupToStorage(UUID systemUserId, String socGroupId) {
-        GroupRequest group = new GroupRequest();
-        group.setUserId(systemUserId);
-        group.setSocialNetwork(SocialNetwork.VK);
-        group.setVkId(socGroupId);
-        group.setFbId("");
-        VkAdapterGroupResponse vkGroup =  vkClient.getGroupInfoById(systemUserId, socGroupId, vkToken());
-        group.setName(vkGroup.getName());
-        storageClient.addGroup(group, storageToken());
-    }
-
-    private String storageToken() {
-        return "Bearer " + tokenStorageService.getToken();
-    }
-
-    private String vkToken()
-    {
-        return "Bearer " + tokenVkAdapter.getToken();
+    private String storageAuthToken() {
+        return "Bearer " + tokenStorage.getToken();
     }
 }
