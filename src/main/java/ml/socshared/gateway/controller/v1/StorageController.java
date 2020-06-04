@@ -1,6 +1,9 @@
 package ml.socshared.gateway.controller.v1;
 
 import lombok.extern.slf4j.Slf4j;
+import ml.socshared.gateway.domain.storage.SocialNetwork;
+import ml.socshared.gateway.domain.storage.request.GroupRequest;
+import ml.socshared.gateway.domain.storage.response.Group;
 import ml.socshared.gateway.domain.storage.response.GroupResponse;
 import ml.socshared.gateway.domain.storage.response.PublicationResponse;
 import ml.socshared.gateway.service.StorageService;
@@ -17,7 +20,7 @@ import java.util.UUID;
 @RequestMapping("/api/v1")
 public class StorageController {
     //TODO получение systemUserId из токена
-    UUID systemUserId = UUID.fromString("c8870cd6-e489-4c92-83a3-8075349e161b");
+    UUID systemUserId = UUID.fromString("75853635-c91a-492b-9276-2b7d3511e0de");
 
     @Autowired
     StorageService service;
@@ -38,6 +41,13 @@ public class StorageController {
         log.info("request get post list of group id " + systemUserId);
         Page<PublicationResponse>  res = service.getPostList(systemUserId, systemGroupId, pageable);
         return res;
+    }
+
+    @PostMapping("/groups/vk/{socGroupId}")
+    void addGroupToStorage(@PathVariable String socGroupId,
+                           @RequestHeader(value = "Authorization", required = false) String authToken) {
+        log.info("Request to add group to storage");
+        service.addVkGroupToStorage(systemUserId, socGroupId);
     }
 
     //TODO add post

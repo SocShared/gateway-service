@@ -3,6 +3,8 @@ package ml.socshared.gateway.domain.storage.response;
 import lombok.*;
 import ml.socshared.gateway.domain.storage.SocialNetwork;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @ToString
@@ -16,6 +18,6 @@ public class GroupResponse {
     private String name;
     private String vkId;
     private String fbId;
-    private String userId;
+    private UUID userId;
 
 }

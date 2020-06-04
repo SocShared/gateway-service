@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class GroupRequest {
 
-    @NotEmpty
     private String userId;
     private String vkId;
     private String fbId;

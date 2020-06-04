@@ -1,4 +1,4 @@
-package ml.socshared.gateway.domain.response.vk_adapter;
+package ml.socshared.gateway.domain.vk_adapter.response;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Data
-public class GroupResponse {
+public class VkAdapterGroupResponse {
     UUID systemUserId;
     String groupId;
     String name;

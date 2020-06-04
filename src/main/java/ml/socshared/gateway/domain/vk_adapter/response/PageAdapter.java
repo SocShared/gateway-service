@@ -1,4 +1,4 @@
-package ml.socshared.gateway.domain.response.vk_adapter;
+package ml.socshared.gateway.domain.vk_adapter.response;
 
 import lombok.Data;
 
