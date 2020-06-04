@@ -26,7 +26,7 @@ public interface FacebookClient {
     @GetMapping(value = "/api/v1/private/users/{systemUserId}/facebook/data", produces = MediaType.APPLICATION_JSON_VALUE)
     UserResponse getUserDataFacebookAccount(@PathVariable UUID systemUserId, @RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/private/users/{systemUserId}/groups", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/api/v1/private/users/{systemUserId}/groups", produces = MediaType.APPLICATION_JSON_VALUE)
     FacebookPage<FacebookGroupResponse> getGroups(@PathVariable UUID systemUserId,
                                                   @RequestParam(name = "page") Integer page,
                                                   @RequestParam(name = "size") Integer size,

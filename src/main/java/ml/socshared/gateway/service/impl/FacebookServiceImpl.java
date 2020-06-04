@@ -39,6 +39,7 @@ public class FacebookServiceImpl implements FacebookService {
     }
 
     public FacebookPage<FacebookGroupResponse> getGroups(UUID systemUserId, Integer page, Integer size) {
+        // TODO: сделать агрегацию (просеивание) между Storage и FB группами
         return client.getGroups(systemUserId, page, size, "Bearer " + tokenFB.getToken());
     }
 
