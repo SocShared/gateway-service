@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-@FeignClient(name = "VkServiceClient", url = "${feign.url.vk-adapter}")
+@FeignClient(name = "VkServiceClient", url = "${feign.url.vk}")
 public interface VkServiceClient {
 
     @PostMapping(value = "/api/v1/private/users/{systemUserId}/app/",
