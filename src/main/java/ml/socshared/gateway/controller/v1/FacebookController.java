@@ -8,10 +8,7 @@ import ml.socshared.gateway.security.jwt.JwtTokenProvider;
 import ml.socshared.gateway.service.FacebookService;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ml.socshared.gateway.api.v1.rest.FacebookApi;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +40,12 @@ public class FacebookController implements FacebookApi {
     @GetMapping(value = "/protected/facebook/account", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserResponse getUserDataFacebookAccount(HttpServletRequest request) {
         return facebookService.getUserDataFacebookAccount(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)));
+    }
+
+    @PreAuthorize("hasRole('CONTENT_MANAGER')")
+    @DeleteMapping(value = "/protected/facebook/account")
+    public void deleteFacebookAccount(HttpServletRequest request) {
+        facebookService.deleteFacebookAccount(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)));
     }
 
 }

@@ -35,4 +35,9 @@ public class FacebookServiceImpl implements FacebookService {
     public UserResponse getUserDataFacebookAccount(UUID systemUserId) {
         return client.getUserDataFacebookAccount(systemUserId, "Bearer " + tokenFB.getToken());
     }
+
+    @Override
+    public void deleteFacebookAccount(UUID systemUserId) {
+        client.deleteFacebookAccount(systemUserId, "Bearer " + tokenFB.getToken());
+    }
 }

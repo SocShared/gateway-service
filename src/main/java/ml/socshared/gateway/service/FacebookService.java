@@ -11,5 +11,6 @@ public interface FacebookService {
     AccessUrlResponse getURLForAccess();
     SuccessResponse saveAccountFacebook(UUID systemUserId, String authorization);
     UserResponse getUserDataFacebookAccount(UUID systemUserId);
+    void deleteFacebookAccount(UUID systemUserId);
 
 }
