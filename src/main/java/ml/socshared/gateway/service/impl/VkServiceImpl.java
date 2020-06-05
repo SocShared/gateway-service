@@ -36,6 +36,10 @@ public class VkServiceImpl implements VkService {
         vkClient.appRegister(systemUserId, accessToken, vkAuthToken());
     }
 
+    @Override
+    public void unsetAccessTokenApp(UUID systemUserId) {
+        vkClient.appReset(systemUserId);
+    }
 
 
     @Override

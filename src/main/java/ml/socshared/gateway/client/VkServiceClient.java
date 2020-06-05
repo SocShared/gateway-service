@@ -19,6 +19,10 @@ public interface VkServiceClient {
                      @RequestBody String accessToken,
                      @RequestHeader("Authorization") String authToken);
 
+    @DeleteMapping(value = "/api/v1/private/users/{systemUserId}/app/",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    void appReset(@PathVariable UUID systemUserId);
+
     @GetMapping(value = "api/v1/private/users/{systemUserId}/groups",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     PageAdapter<VkGroupResponse> getGroups(@PathVariable UUID systemUserId,

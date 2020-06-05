@@ -40,6 +40,15 @@ public class VkController implements VkApi {
         return new SuccessResponse(true);
     }
 
+    @DeleteMapping("/protected/social/vk/app")
+    @PreAuthorize("hasRole('CONTENT_MANAGER')")
+    public SuccessResponse removeVkToken(HttpServletRequest request) {
+        log.info("Request remove vk app token");
+        UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
+        vkService.unsetAccessTokenApp(systemUserId);
+        return new SuccessResponse(true);
+    }
+
     @Override
     @GetMapping("/protected/social/vk/groups")
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
