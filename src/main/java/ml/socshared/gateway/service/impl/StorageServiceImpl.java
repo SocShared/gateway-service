@@ -9,13 +9,17 @@ import ml.socshared.gateway.domain.RestResponsePage;
 import ml.socshared.gateway.domain.SuccessResponse;
 import ml.socshared.gateway.domain.facebook.FacebookPage;
 import ml.socshared.gateway.domain.facebook.response.FacebookGroupResponse;
+import ml.socshared.gateway.domain.request.PostRequest;
+import ml.socshared.gateway.domain.storage.PostType;
 import ml.socshared.gateway.domain.storage.SocialNetwork;
 import ml.socshared.gateway.domain.storage.request.GroupRequest;
+import ml.socshared.gateway.domain.storage.request.PublicationRequest;
 import ml.socshared.gateway.domain.storage.response.GroupResponse;
 import ml.socshared.gateway.domain.storage.response.PublicationResponse;
 import ml.socshared.gateway.domain.vk.PageAdapter;
 import ml.socshared.gateway.domain.vk.response.VkGroupResponse;
 import ml.socshared.gateway.domain.vk_adapter.response.VkAdapterGroupResponse;
+import ml.socshared.gateway.exception.impl.HttpBadRequestException;
 import ml.socshared.gateway.security.model.TokenObject;
 import ml.socshared.gateway.service.StorageService;
 import org.springframework.beans.factory.annotation.Value;
@@ -69,6 +73,24 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
+    public PublicationResponse savePost(UUID systemUserId, PostRequest request) {
+        PublicationRequest req = new PublicationRequest();
+        req.setGroupIds(request.getGroupIds());
+        StringBuilder builder = new StringBuilder(request.getText() + "\n\n");
+        for (String str : request.getHashTags())
+            builder.append('#').append(str.replaceAll("\\s", "_")).append(" ");
+        req.setText(builder.toString());
+        if (request.getType() == PostType.DEFERRED && request.getPublicationDateTime() != null)
+            req.setPublicationDateTime(request.getPublicationDateTime());
+        else if (request.getType() == PostType.DEFERRED && request.getPublicationDateTime() == null)
+            throw new HttpBadRequestException("publication date time for deferred is null");
+        req.setType(request.getType());
+        req.setUserId(systemUserId.toString());
+
+        return storageClient.savePost(req, storageAuthToken());
+    }
+
+    @Override
     public FacebookPage<FacebookGroupResponse> getGroupsFacebookWithSelected(UUID systemUserId, Pageable pageable) {
         FacebookPage<FacebookGroupResponse> facebookGroupPage = facebookClient.getGroups(systemUserId, pageable.getPageNumber(), pageable.getPageSize(), fbToken());
         RestResponsePage<GroupResponse> groupResponsesPage = storageClient.getGroupsByUserAndSocial(systemUserId, SocialNetwork.FACEBOOK, pageable.getPageNumber(), pageable.getPageSize(), storageAuthToken());
@@ -81,6 +103,8 @@ public class StorageServiceImpl implements StorageService {
             facebookGroup.setSelected(false);
             for (GroupResponse group : groupResponses) {
                 if (group.getFacebookId().equals(facebookGroup.getGroupId())) {
+                    facebookGroup.setSystemUserId(group.getUserId().toString());
+                    facebookGroup.setSystemGroupId(group.getGroupId());
                     facebookGroup.setSelected(true);
                     break;
                 }
@@ -103,6 +127,8 @@ public class StorageServiceImpl implements StorageService {
             vkg.setSelected(false);
             for(GroupResponse gr : storageResponse.getContent()) {
                 if(vkg.getGroupId().equals(gr.getVkId())) {
+                    vkg.setSystemUserId(gr.getUserId().toString());
+                    vkg.setSystemGroupId(gr.getGroupId());
                     vkg.setSelected(true);
                     break;
                 }

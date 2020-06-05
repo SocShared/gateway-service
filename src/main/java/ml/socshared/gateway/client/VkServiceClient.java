@@ -1,7 +1,5 @@
 package ml.socshared.gateway.client;
 
-
-
 import ml.socshared.gateway.domain.response.UserResponse;
 import ml.socshared.gateway.domain.vk.VkAdapterGroupResponse;
 import ml.socshared.gateway.domain.vk.PageAdapter;

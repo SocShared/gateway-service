@@ -1,6 +1,5 @@
 package ml.socshared.gateway.client;
 
-
 import ml.socshared.gateway.domain.tech_support.response.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;

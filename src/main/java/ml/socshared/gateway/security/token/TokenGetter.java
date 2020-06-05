@@ -154,6 +154,7 @@ public class TokenGetter {
         return tokenStorageService;
     }
 
+    @Before("execution(* ml.socshared.gateway.service.impl.TextAnalyzerServiceImpl.*(..))")
     public TokenObject getTokenTextService() {
         if (tokenTextService != null && jwtTokenProvider.validateServiceToken(tokenTextService.getToken())) {
             return tokenTextService;

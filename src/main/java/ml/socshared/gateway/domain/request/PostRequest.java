@@ -1,8 +1,7 @@
-package ml.socshared.gateway.domain.storage.request;
+package ml.socshared.gateway.domain.request;
 
 import lombok.Getter;
 import lombok.Setter;
-import ml.socshared.gateway.domain.storage.GroupPostStatus;
 import ml.socshared.gateway.domain.storage.PostType;
 
 import javax.validation.constraints.NotEmpty;
@@ -11,16 +10,15 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class PublicationRequest {
+public class PostRequest {
 
     private Date publicationDateTime;
-    @NotEmpty
-    private String userId;
     @NotEmpty
     private String[] groupIds;
     @NotNull
     private PostType type;
     @NotNull
     private String text;
+    private String[] hashTags;
 
 }
