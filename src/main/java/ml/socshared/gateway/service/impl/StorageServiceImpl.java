@@ -82,6 +82,7 @@ public class StorageServiceImpl implements StorageService {
             for (GroupResponse group : groupResponses) {
                 if (group.getFacebookId().equals(facebookGroup.getGroupId())) {
                     facebookGroup.setSelected(true);
+                    break;
                 }
             }
         }
@@ -116,13 +117,12 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public GroupResponse addVkGroupToStorage(UUID systemUserId, String vkGroupId) {
         GroupRequest group = new GroupRequest();
-           group.setUserId(systemUserId);
-           group.setSocialNetwork(SocialNetwork.VK);
-           group.setVkId(vkGroupId);
-           group.setFbId("");
-           VkGroupResponse vkGroup =  vkClient.getGroupInfoById(systemUserId, vkGroupId, vkToken());
-           group.setName(vkGroup.getName());
-
+        group.setUserId(systemUserId);
+        group.setSocialNetwork(SocialNetwork.VK);
+        group.setVkId(vkGroupId);
+        group.setFbId("");
+        VkGroupResponse vkGroup =  vkClient.getGroupInfoById(systemUserId, vkGroupId, vkToken());
+        group.setName(vkGroup.getName());
 
         GroupResponse res = storageClient.addGroup(group, storageAuthToken());
         return res;
