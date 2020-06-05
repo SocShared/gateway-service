@@ -1,5 +1,6 @@
 package ml.socshared.gateway.domain.storage.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import ml.socshared.gateway.domain.storage.SocialNetwork;
 
@@ -11,6 +12,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class GroupResponse {
 
     private String groupId;
