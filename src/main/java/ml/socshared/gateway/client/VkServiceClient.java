@@ -1,9 +1,9 @@
 package ml.socshared.gateway.client;
 
 import ml.socshared.gateway.domain.response.UserResponse;
-import ml.socshared.gateway.domain.vk.GroupResponse;
+import ml.socshared.gateway.domain.vk.VkAdapterGroupResponse;
 import ml.socshared.gateway.domain.vk.PageAdapter;
-import ml.socshared.gateway.domain.vk_adapter.response.VkAdapterGroupResponse;
+import ml.socshared.gateway.domain.vk.response.VkGroupResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +21,10 @@ public interface VkServiceClient {
 
     @GetMapping(value = "api/v1/private/users/{systemUserId}/groups",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    PageAdapter<GroupResponse> getGroups(@PathVariable UUID systemUserId,
-                                         @RequestParam Integer page,
-                                         @RequestParam Integer size,
-                                         @RequestHeader("Authorization") String authToken);
+    PageAdapter<VkGroupResponse> getGroups(@PathVariable UUID systemUserId,
+                                           @RequestParam Integer page,
+                                           @RequestParam Integer size,
+                                           @RequestHeader("Authorization") String authToken);
 
     @GetMapping(value = "/api/v1/private/users/{systemUserId}/vk/data",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -32,7 +32,7 @@ public interface VkServiceClient {
 
     @GetMapping(value = "api/v1/private/users/{systemUserId}/groups/{socGroupId}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    VkAdapterGroupResponse  getGroupInfoById(@PathVariable UUID systemUserId,
-                                             @PathVariable String socGroupId,
-                                             @RequestHeader("Authorization") String token);
+    VkGroupResponse getGroupInfoById(@PathVariable UUID systemUserId,
+                                     @PathVariable String socGroupId,
+                                     @RequestHeader("Authorization") String token);
 }

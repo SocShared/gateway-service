@@ -2,3 +2,4 @@ build
 .idea
 *.log
 .gradle
+src/main/resource/application-home.yml
