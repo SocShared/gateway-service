@@ -2,8 +2,10 @@ package ml.socshared.gateway.controller.v1;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ml.socshared.gateway.domain.request.PostRequest;
 import ml.socshared.gateway.domain.storage.SocialNetwork;
 import ml.socshared.gateway.domain.storage.request.GroupRequest;
+import ml.socshared.gateway.domain.storage.request.PublicationRequest;
 import ml.socshared.gateway.domain.storage.response.Group;
 import ml.socshared.gateway.domain.storage.response.GroupResponse;
 import ml.socshared.gateway.domain.storage.response.PublicationResponse;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -52,6 +55,14 @@ public class StorageController {
         log.info("request get post list of group id");
         UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
         return service.getPosts(systemUserId, systemGroupId, PageRequest.of(page, size));
+    }
+
+    @PreAuthorize("hasRole('CONTENT_MANAGER')")
+    @PostMapping("/protected/posts")
+    public PublicationResponse savePublication(@Valid @NotNull @RequestBody PostRequest postRequest, HttpServletRequest request) {
+        log.info("request get post list of group id");
+        UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
+        return service.savePost(systemUserId, postRequest);
     }
 
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
