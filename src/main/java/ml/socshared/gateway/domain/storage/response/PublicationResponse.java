@@ -24,6 +24,6 @@ public class PublicationResponse {
     private Date publicationDateTime;
     private LocalDateTime createdAt;
     private PostType type;
-    private Set<GroupPostStatus> postStatus;
+   // private Set<GroupPostStatus> postStatus;
 
 }
