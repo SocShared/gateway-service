@@ -63,9 +63,20 @@ public class StorageController {
     }
 
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
-    @GetMapping("/protected/groups/{fbGroupId}")
-    public GroupResponse groupResponse(@PathVariable String fbGroupId, HttpServletRequest request) {
+    @PostMapping("/protected/fb/groups/{fbGroupId}")
+    public GroupResponse addFbGroupToStorage(@PathVariable String fbGroupId, HttpServletRequest request) {
         return service.addFBGroupToStorage(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), fbGroupId);
+    }
 
+    @PreAuthorize("hasRole('CONTENT_MANAGER')")
+    @DeleteMapping("/protected/fb/groups/{fbGroupId}")
+    public void deleteFbGroup(@PathVariable String fbGroupId, HttpServletRequest request) {
+        service.deleteGroupByFbId(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), fbGroupId);
+    }
+
+    @PreAuthorize("hasRole('CONTENT_MANAGER')")
+    @DeleteMapping("/protected/vk/groups/{vkGroupId}")
+    public void deleteVKGroup(@PathVariable String vkGroupId, HttpServletRequest request) {
+        service.deleteGroupByVKId(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), vkGroupId);
     }
 }

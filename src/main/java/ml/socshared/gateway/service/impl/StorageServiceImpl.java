@@ -48,6 +48,11 @@ public class StorageServiceImpl implements StorageService {
         return "Bearer " + tokenFB.getToken();
     }
 
+    private String vkToken() {
+        return "Bearer " + tokenVK.getToken();
+    }
+
+    // TODO: Логика вывода странная, делаешь запрос на получения всех групп, зачем все, если у нас разедльны ВК и FB
     @Override
     public Page<GroupResponse> getGroups(UUID systemUserId, Pageable pageable) {
         return storageClient.getGroupsByUserId(systemUserId, pageable.getPageNumber(), pageable.getPageSize(), storageAuthToken());
@@ -68,10 +73,10 @@ public class StorageServiceImpl implements StorageService {
 
 
         for (FacebookGroupResponse facebookGroup : facebookGroups) {
+            facebookGroup.setSelected(false);
             for (GroupResponse group : groupResponses) {
                 if (group.getFacebookId().equals(facebookGroup.getGroupId())) {
                     facebookGroup.setSelected(true);
-                    break;
                 }
             }
         }
@@ -86,10 +91,10 @@ public class StorageServiceImpl implements StorageService {
         group.setSocialNetwork(SocialNetwork.VK);
         group.setVkId(vkGroupId);
         group.setFbId("");
-        VkAdapterGroupResponse vkGroup =  vkClient.getGroupInfoById(systemUserId, socGroupId, vkToken());
+        VkAdapterGroupResponse vkGroup =  vkClient.getGroupInfoById(systemUserId, vkGroupId, vkToken());
         group.setName(vkGroup.getName());
-        client.addGroup(group, storageAuthToken());
-        return null;
+        GroupResponse res = storageClient.addGroup(group, storageAuthToken());
+        return res;
     }
 
     @Override
@@ -102,5 +107,15 @@ public class StorageServiceImpl implements StorageService {
         group.setName(response.getName());
 
         return storageClient.addGroup(group, storageAuthToken());
+    }
+
+    @Override
+    public void deleteGroupByFbId(UUID systemUserId, String fbGroupId) {
+        storageClient.deleteByFBId(systemUserId, fbGroupId, fbToken());
+    }
+
+    @Override
+    public void deleteGroupByVKId(UUID systemUserId, String vkGroupId) {
+        storageClient.deleteByVkId(systemUserId, vkGroupId, vkToken());
     }
 }

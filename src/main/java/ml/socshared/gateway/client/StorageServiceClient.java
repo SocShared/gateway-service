@@ -9,6 +9,7 @@ import ml.socshared.gateway.domain.storage.SocialNetwork;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -41,8 +42,8 @@ public interface StorageServiceClient {
                                               @RequestHeader("Authorization") String token);
 
     @GetMapping(value = "/private/users/{userId}/groups/vk/{vkId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    GroupResponse getUserVkGroupsByVkId(@PathVariable UUID userId, @PathVariable String vkId,
-                                               @RequestHeader("Authorization") String token);
+    GroupResponse getUserVkGroupByVkId(@PathVariable UUID userId, @PathVariable String vkId,
+                                       @RequestHeader("Authorization") String token);
 
     @PostMapping(value = "/private/groups", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     GroupResponse addGroup(@RequestBody GroupRequest request,
@@ -52,6 +53,11 @@ public interface StorageServiceClient {
     void deleteGroup(@PathVariable UUID groupId,
                             @RequestHeader("Authorization") String token);
 
+    @DeleteMapping(value = "/private/users/{userId}/groups/facebook/{fbId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    void deleteByFBId(@PathVariable UUID userId, @PathVariable String fbId, @RequestHeader("Authorization") String token);
+
+    @DeleteMapping(value = "/private/users/{userId}/groups/vk/{vkId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    void deleteByVkId(@PathVariable UUID userId, @PathVariable String vkId, @RequestHeader("Authorization") String token);
 
     @PostMapping(value = "/private/publications", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

@@ -16,21 +16,25 @@ import java.util.UUID;
 public interface VkServiceClient {
 
     @PostMapping(value = "/api/v1/private/users/{systemUserId}/app/",
-    consumes = MediaType.APPLICATION_JSON_VALUE)
+    consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     void appRegister(@PathVariable UUID systemUserId,
                      @RequestBody String accessToken,
                      @RequestHeader("Authorization") String authToken);
 
-    @GetMapping("api/v1/private/users/{systemUserId}/groups?page={page}&size={size}")
-
+    @GetMapping(value = "api/v1/private/users/{systemUserId}/groups}",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     PageAdapter<GroupResponse> getGroups(@PathVariable UUID systemUserId,
-                                         @PathVariable Integer page,
-                                         @PathVariable Integer size,
+                                         @RequestParam Integer page,
+                                         @RequestParam Integer size,
                                          @RequestHeader("Authorization") String authToken);
 
-    @GetMapping(value = "/api/v1/private/users/{systemUserId}/vk/data", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/api/v1/private/users/{systemUserId}/vk/data",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     UserResponse getUserDataVkAccount(@PathVariable UUID systemUserId, @RequestHeader("Authorization") String token);
 
-    @PostMapping("api/v1/private/groups")
-    VkAdapterGroupResponse  getGroupInfoById(UUID systemUserId, String socGroupId, String token);
+    @PostMapping(value = "api/v1/private/users/{systemUserId}/groups/{groupId}",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    VkAdapterGroupResponse  getGroupInfoById(@PathVariable UUID systemUserId,
+                                             @PathVariable String socGroupId,
+                                             @PathVariable String token);
 }

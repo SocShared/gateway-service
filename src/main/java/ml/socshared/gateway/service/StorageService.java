@@ -18,4 +18,6 @@ public interface StorageService {
     FacebookPage<FacebookGroupResponse> getGroupsFacebookWithSelected(UUID systemUserId, Pageable pageable);
     GroupResponse addVkGroupToStorage(UUID systemUserId, String vkGroupId);
     GroupResponse addFBGroupToStorage(UUID systemUserId, String fbGroupId);
+    void deleteGroupByFbId(UUID systemUserId, String fbGroupId);
+    void deleteGroupByVKId(UUID systemUserId, String vkGroupId);
 }

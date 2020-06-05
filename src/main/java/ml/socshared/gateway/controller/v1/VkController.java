@@ -43,6 +43,7 @@ public class VkController implements VkApi {
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
     public Page<GroupResponse> getGroupUserList(Pageable pageable,
                                                 HttpServletRequest request) {
+        log.info("Request get groups from vk social");
         UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
         return vkService.getGroupsOfUser(systemUserId, pageable);
     }
