@@ -40,7 +40,7 @@ public class VkServiceImpl implements VkService {
 
     @Override
     public UserResponse getUserDataFacebookAccount(UUID systemUserId) {
-        return vkClient.getUserDataFacebookAccount(systemUserId, vkAuthToken());
+        return vkClient.getUserDataVkAccount(systemUserId, vkAuthToken());
     }
 
     private String vkAuthToken() {

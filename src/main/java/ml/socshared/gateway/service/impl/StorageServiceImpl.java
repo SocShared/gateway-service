@@ -81,14 +81,14 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public GroupResponse addVkGroupToStorage(UUID systemUserId, String vkGroupId) {
-//        GroupRequest group = new GroupRequest();
-//        group.setUserId(systemUserId);
-//        group.setSocialNetwork(SocialNetwork.VK);
-//        group.setVkId(vkGroupId);
-//        group.setFbId("");
-//        VkAdapterGroupResponse vkGroup =  vkClient.getGroupInfoById(systemUserId, socGroupId, vkToken());
-//        group.setName(vkGroup.getName());
-//        client.addGroup(group, storageAuthToken());
+        GroupRequest group = new GroupRequest();
+        group.setUserId(systemUserId);
+        group.setSocialNetwork(SocialNetwork.VK);
+        group.setVkId(vkGroupId);
+        group.setFbId("");
+        VkAdapterGroupResponse vkGroup =  vkClient.getGroupInfoById(systemUserId, socGroupId, vkToken());
+        group.setName(vkGroup.getName());
+        client.addGroup(group, storageAuthToken());
         return null;
     }
 

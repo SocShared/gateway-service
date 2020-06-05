@@ -5,6 +5,7 @@ package ml.socshared.gateway.client;
 import ml.socshared.gateway.domain.response.UserResponse;
 import ml.socshared.gateway.domain.vk.GroupResponse;
 import ml.socshared.gateway.domain.vk.PageAdapter;
+import ml.socshared.gateway.domain.vk_adapter.response.VkAdapterGroupResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,8 @@ public interface VkServiceClient {
                                          @RequestHeader("Authorization") String authToken);
 
     @GetMapping(value = "/api/v1/private/users/{systemUserId}/vk/data", produces = MediaType.APPLICATION_JSON_VALUE)
-    UserResponse getUserDataFacebookAccount(@PathVariable UUID systemUserId, @RequestHeader("Authorization") String token);
+    UserResponse getUserDataVkAccount(@PathVariable UUID systemUserId, @RequestHeader("Authorization") String token);
 
+    @PostMapping("api/v1/private/groups")
+    VkAdapterGroupResponse  getGroupInfoById(UUID systemUserId, String socGroupId, String token);
 }
