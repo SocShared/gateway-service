@@ -54,12 +54,11 @@ public class StorageController {
         return service.getPosts(systemUserId, systemGroupId, PageRequest.of(page, size));
     }
 
-    @PreAuthorize("hasRole('CONTENT_MANAGER')")
     @PostMapping("/protected/groups/vk/{socGroupId}")
-    public void addVkGroupToStorage(@PathVariable String socGroupId, HttpServletRequest request) {
+    public void addVkGroupToStorage(@PathVariable String vkGroupId, HttpServletRequest request) {
         log.info("Request to add group to storage");
         UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
-        service.addVkGroupToStorage(systemUserId, socGroupId);
+        service.addVkGroupToStorage(systemUserId, vkGroupId);
     }
 
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
