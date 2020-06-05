@@ -19,7 +19,7 @@ public class GroupResponse {
     private SocialNetwork socialNetwork;
     private String name;
     private String vkId;
-    private String fbId;
+    private String facebookId;
     private UUID userId;
 
 }

@@ -68,6 +68,8 @@ public class StorageServiceImpl implements StorageService {
 
         for (FacebookGroupResponse facebookGroup : facebookGroups) {
             GroupResponse groupResponse = new GroupResponse();
+
+
             groupResponse.setFbId(facebookGroup.getGroupId());
             groupResponse.setName(facebookGroup.getName());
             groupResponse.setSocialNetwork(SocialNetwork.FACEBOOK);
