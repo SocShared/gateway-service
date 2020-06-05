@@ -9,5 +9,6 @@ import java.util.UUID;
 
 public interface VkService {
     void setAccessTokenApp(UUID systemUserId, String accessToken);
+    void unsetAccessTokenApp(UUID systemUserId);
     UserResponse getUserDataVkAccount(UUID systemUserId);
 }
