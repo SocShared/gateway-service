@@ -13,7 +13,6 @@ public interface FacebookService {
     AccessUrlResponse getURLForAccess();
     SuccessResponse saveAccountFacebook(UUID systemUserId, String authorization);
     UserResponse getUserDataFacebookAccount(UUID systemUserId);
-    FacebookPage<FacebookGroupResponse> getGroups(UUID systemUserId, Integer page, Integer size);
     void deleteFacebookAccount(UUID systemUserId);
 
 }

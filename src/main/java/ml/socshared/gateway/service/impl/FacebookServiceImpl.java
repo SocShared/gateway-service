@@ -38,11 +38,6 @@ public class FacebookServiceImpl implements FacebookService {
         return client.getUserDataFacebookAccount(systemUserId, "Bearer " + tokenFB.getToken());
     }
 
-    public FacebookPage<FacebookGroupResponse> getGroups(UUID systemUserId, Integer page, Integer size) {
-        // TODO: сделать агрегацию (просеивание) между Storage и FB группами
-        return client.getGroups(systemUserId, page, size, "Bearer " + tokenFB.getToken());
-    }
-
     @Override
     public void deleteFacebookAccount(UUID systemUserId) {
         client.deleteFacebookAccount(systemUserId, "Bearer " + tokenFB.getToken());
