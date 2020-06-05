@@ -1,5 +1,8 @@
 package ml.socshared.gateway.service;
 
+import ml.socshared.gateway.domain.SuccessResponse;
+import ml.socshared.gateway.domain.facebook.FacebookPage;
+import ml.socshared.gateway.domain.facebook.response.FacebookGroupResponse;
 import ml.socshared.gateway.domain.storage.SocialNetwork;
 import ml.socshared.gateway.domain.storage.request.GroupRequest;
 import ml.socshared.gateway.domain.storage.response.GroupResponse;
@@ -10,7 +13,9 @@ import org.springframework.data.domain.Pageable;
 import java.util.UUID;
 
 public interface StorageService {
-    Page<GroupResponse> getGroupsList(UUID systemUserId, Pageable pageable);
-    Page<PublicationResponse> getPostList(UUID systemUserId, UUID groupId,Pageable pageable);
-    //void addVkGroupToStorage(UUID systemUserId, String socGroupId);
+    Page<GroupResponse> getGroups(UUID systemUserId, Pageable pageable);
+    Page<PublicationResponse> getPosts(UUID systemUserId, UUID groupId, Pageable pageable);
+    FacebookPage<FacebookGroupResponse> getGroupsFacebookWithSelected(UUID systemUserId, Pageable pageable);
+    GroupResponse addVkGroupToStorage(UUID systemUserId, String vkGroupId);
+    GroupResponse addFBGroupToStorage(UUID systemUserId, String fbGroupId);
 }

@@ -8,6 +8,8 @@ import ml.socshared.gateway.domain.facebook.response.FacebookGroupResponse;
 import ml.socshared.gateway.domain.response.UserResponse;
 import ml.socshared.gateway.security.jwt.JwtTokenProvider;
 import ml.socshared.gateway.service.FacebookService;
+import ml.socshared.gateway.service.StorageService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -29,6 +31,7 @@ import java.util.UUID;
 public class FacebookController implements FacebookApi {
 
     private final FacebookService facebookService;
+    private final StorageService storageService;
     private final JwtTokenProvider jwtTokenProvider;
 
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
@@ -54,7 +57,7 @@ public class FacebookController implements FacebookApi {
     public FacebookPage<FacebookGroupResponse> getGroups(@Min(0) @NotNull @RequestParam(name = "page", required = false) Integer page,
                                                          @Min(0) @Max(100) @NotNull @RequestParam(name = "size", required = false) Integer size,
                                                          HttpServletRequest request) {
-        return facebookService.getGroups(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), page, size);
+        return storageService.getGroupsFacebookWithSelected(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), PageRequest.of(page, size));
     }
 
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
