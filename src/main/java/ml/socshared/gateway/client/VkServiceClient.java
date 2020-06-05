@@ -21,7 +21,8 @@ public interface VkServiceClient {
 
     @DeleteMapping(value = "/api/v1/private/users/{systemUserId}/app/",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    void appReset(@PathVariable UUID systemUserId);
+    void appReset(@PathVariable UUID systemUserId,
+                  @RequestHeader("Authorization") String authToken);
 
     @GetMapping(value = "api/v1/private/users/{systemUserId}/groups",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
