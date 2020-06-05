@@ -13,11 +13,14 @@ import ml.socshared.gateway.domain.storage.SocialNetwork;
 import ml.socshared.gateway.domain.storage.request.GroupRequest;
 import ml.socshared.gateway.domain.storage.response.GroupResponse;
 import ml.socshared.gateway.domain.storage.response.PublicationResponse;
+import ml.socshared.gateway.domain.vk.PageAdapter;
+import ml.socshared.gateway.domain.vk.response.VkGroupResponse;
 import ml.socshared.gateway.domain.vk_adapter.response.VkAdapterGroupResponse;
 import ml.socshared.gateway.security.model.TokenObject;
 import ml.socshared.gateway.service.StorageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -87,6 +90,30 @@ public class StorageServiceImpl implements StorageService {
         return facebookGroupPage;
     }
 
+
+    @Override
+    public Page<VkGroupResponse> getGroupsVkWithSelected(UUID systemUserId, Pageable pageable) {
+        PageAdapter<VkGroupResponse> vkResponse = vkClient.getGroups(systemUserId, pageable.getPageNumber(),
+                pageable.getPageSize(), vkToken());
+
+        RestResponsePage<GroupResponse> storageResponse = storageClient.getGroupsByUserAndSocial(systemUserId, SocialNetwork.VK,
+                pageable.getPageNumber(), pageable.getPageSize(), storageAuthToken());
+
+        for(VkGroupResponse vkg : vkResponse.getObject()) {
+            for(GroupResponse gr : storageResponse.getContent()) {
+                vkg.setSelected(false);
+                if(vkg.getGroupId().equals(gr.getVkId())) {
+                    vkg.setSelected(true);
+                    break;
+                }
+            }
+        }
+
+        Page<VkGroupResponse> pageOfGroup = new PageImpl<>(vkResponse.getObject());
+        return pageOfGroup;
+    }
+
+
     @Override
     public GroupResponse addVkGroupToStorage(UUID systemUserId, String vkGroupId) {
         GroupRequest group = new GroupRequest();
@@ -94,7 +121,7 @@ public class StorageServiceImpl implements StorageService {
         group.setSocialNetwork(SocialNetwork.VK);
         group.setVkId(vkGroupId);
         group.setFbId("");
-        VkAdapterGroupResponse vkGroup = vkClient.getGroupInfoById(systemUserId, vkGroupId, vkToken());
+        VkGroupResponse vkGroup =  vkClient.getGroupInfoById(systemUserId, vkGroupId, vkToken());
         group.setName(vkGroup.getName());
 
         GroupResponse res = storageClient.addGroup(group, storageAuthToken());
