@@ -3,6 +3,7 @@ package ml.socshared.gateway.client.decoder;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import lombok.extern.slf4j.Slf4j;
+import ml.socshared.gateway.exception.impl.HttpBadRequestException;
 import ml.socshared.gateway.exception.impl.HttpForbiddenException;
 import ml.socshared.gateway.exception.impl.HttpNotFoundException;
 import ml.socshared.gateway.exception.impl.HttpUnauthorizedException;
@@ -31,7 +32,7 @@ public class FeignErrorDecoder implements ErrorDecoder {
             }
 
             log.warn(msg);
-            return new HttpNotFoundException(msg);
+            return new HttpBadRequestException(msg);
         }
 
         String msg = "Unexpected error. ";
