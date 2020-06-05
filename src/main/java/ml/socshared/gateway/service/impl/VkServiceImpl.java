@@ -34,6 +34,7 @@ public class VkServiceImpl implements VkService {
         PageAdapter<GroupResponse> res = vkClient.getGroups(systemUserId, pageable.getPageNumber(),
                 pageable.getPageSize(), vkAuthToken());
         Page<GroupResponse> pageOfGroup = new PageImpl<>(res.getObject());
+
         return pageOfGroup;
     }
 

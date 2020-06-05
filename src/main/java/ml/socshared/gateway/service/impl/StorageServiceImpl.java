@@ -37,7 +37,7 @@ public class StorageServiceImpl implements StorageService {
     }
 
 
-
+//
 //    @Override
 //    public void addVkGroupToStorage(UUID systemUserId, String socGroupId) {
 //        GroupRequest group = new GroupRequest();
