@@ -82,7 +82,7 @@ public class StorageServiceImpl implements StorageService {
         req.setText(builder.toString());
         if (request.getType() == PostType.DEFERRED && request.getPublicationDateTime() != null)
             req.setPublicationDateTime(request.getPublicationDateTime());
-        else
+        else if (request.getType() == PostType.DEFERRED && request.getPublicationDateTime() == null)
             throw new HttpBadRequestException("publication date time for deferred is null");
         req.setUserId(systemUserId.toString());
 
