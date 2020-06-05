@@ -52,6 +52,7 @@ public class StorageServiceImpl implements StorageService {
         return "Bearer " + tokenVK.getToken();
     }
 
+    // TODO: Логика вывода странная, делаешь запрос на получения всех групп, зачем все, если у нас разедльны ВК и FB
     @Override
     public Page<GroupResponse> getGroups(UUID systemUserId, Pageable pageable) {
         return storageClient.getGroupsByUserId(systemUserId, pageable.getPageNumber(), pageable.getPageSize(), storageAuthToken());
@@ -71,10 +72,10 @@ public class StorageServiceImpl implements StorageService {
         List<GroupResponse> groupResponses = groupResponsesPage.getContent();
 
         for (FacebookGroupResponse facebookGroup : facebookGroups) {
+            facebookGroup.setSelected(false);
             for (GroupResponse group : groupResponses) {
                 if (group.getFacebookId().equals(facebookGroup.getGroupId())) {
                     facebookGroup.setSelected(true);
-                    break;
                 }
             }
         }
