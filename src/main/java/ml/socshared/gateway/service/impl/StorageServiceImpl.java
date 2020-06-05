@@ -48,6 +48,10 @@ public class StorageServiceImpl implements StorageService {
         return "Bearer " + tokenFB.getToken();
     }
 
+    private String vkToken() {
+        return "Bearer " + tokenVK.getToken();
+    }
+
     @Override
     public Page<GroupResponse> getGroups(UUID systemUserId, Pageable pageable) {
         return storageClient.getGroupsByUserId(systemUserId, pageable.getPageNumber(), pageable.getPageSize(), storageAuthToken());
@@ -101,5 +105,15 @@ public class StorageServiceImpl implements StorageService {
         group.setName(response.getName());
 
         return storageClient.addGroup(group, storageAuthToken());
+    }
+
+    @Override
+    public void deleteGroupByFbId(UUID systemUserId, String fbGroupId) {
+        storageClient.deleteByFBId(systemUserId, fbGroupId, fbToken());
+    }
+
+    @Override
+    public void deleteGroupByVKId(UUID systemUserId, String vkGroupId) {
+        storageClient.deleteByVkId(systemUserId, vkGroupId, vkToken());
     }
 }
