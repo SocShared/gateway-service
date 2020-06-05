@@ -17,7 +17,7 @@ public interface StorageService {
     Page<GroupResponse> getGroups(UUID systemUserId, Pageable pageable);
     Page<PublicationResponse> getPosts(UUID systemUserId, UUID groupId, Pageable pageable);
     FacebookPage<FacebookGroupResponse> getGroupsFacebookWithSelected(UUID systemUserId, Pageable pageable);
-    public Page<VkGroupResponse> getGroupsVkWithSelected(UUID systemUserId, Pageable pageable);
+     Page<VkGroupResponse> getGroupsVkWithSelected(UUID systemUserId, Pageable pageable);
     GroupResponse addVkGroupToStorage(UUID systemUserId, String vkGroupId);
     GroupResponse addFBGroupToStorage(UUID systemUserId, String fbGroupId);
     void deleteGroupByFbId(UUID systemUserId, String fbGroupId);
