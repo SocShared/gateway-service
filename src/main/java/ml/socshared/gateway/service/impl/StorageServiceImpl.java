@@ -124,8 +124,8 @@ public class StorageServiceImpl implements StorageService {
                 pageable.getPageNumber(), pageable.getPageSize(), storageAuthToken());
 
         for(VkGroupResponse vkg : vkResponse.getObject()) {
+            vkg.setSelected(false);
             for(GroupResponse gr : storageResponse.getContent()) {
-                vkg.setSelected(false);
                 if(vkg.getGroupId().equals(gr.getVkId())) {
                     vkg.setSystemUserId(gr.getUserId().toString());
                     vkg.setSystemGroupId(gr.getGroupId());
