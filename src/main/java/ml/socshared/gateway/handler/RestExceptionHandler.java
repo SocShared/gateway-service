@@ -24,6 +24,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildErrorResponse(exc, exc.getHttpStatus(), webRequest);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(javax.validation.ConstraintViolationException.class)
+    public ResponseEntity<RestApiError> handlePrintException(ServletWebRequest webRequest, javax.validation.ConstraintViolationException exc) {
+        log.error(exc.getMessage());
+        return buildErrorResponse(exc, HttpStatus.BAD_REQUEST, webRequest);
+    }
+
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<RestApiError> handlePrintException(ServletWebRequest webRequest, Throwable exc) {
