@@ -63,9 +63,8 @@ public class StorageController {
     }
 
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
-    @GetMapping("/protected/groups/{fbGroupId}")
+    @PostMapping("/protected/fb/groups/{fbGroupId}")
     public GroupResponse groupResponse(@PathVariable String fbGroupId, HttpServletRequest request) {
         return service.addFBGroupToStorage(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), fbGroupId);
-
     }
 }
