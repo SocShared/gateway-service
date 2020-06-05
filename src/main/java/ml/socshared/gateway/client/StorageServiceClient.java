@@ -49,6 +49,7 @@ public interface StorageServiceClient {
     GroupResponse addGroup(@RequestBody GroupRequest request,
                                   @RequestHeader("Authorization") String token);
 
+    @PostMapping(value = "/private/publications", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     PublicationResponse savePost(@RequestBody PublicationRequest request, @RequestHeader("Authorization") String token);
     
     @DeleteMapping(value = "/private/groups/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
