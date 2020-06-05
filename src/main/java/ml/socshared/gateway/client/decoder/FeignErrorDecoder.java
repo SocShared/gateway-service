@@ -23,12 +23,21 @@ public class FeignErrorDecoder implements ErrorDecoder {
         } else if (response.status() == 403) {
             return new HttpForbiddenException("forbidden");
         } else if (response.status() == 400) {
-            String msg = methodKey + " return error: " + response.body().toString();
+            String msg;
+            if(response.body() != null) {
+                msg = methodKey + " return error: " + response.body().toString();
+            } else {
+                msg =  methodKey + " return http status code: 400";
+            }
+
             log.warn(msg);
             return new HttpNotFoundException(msg);
         }
 
-        String msg = "Unexpected error: " + response.body().toString();
+        String msg = "Unexpected error. ";
+        if(response.body() != null) {
+            msg = msg + response.body().toString();
+        }
         return new Exception(msg);
     }
 

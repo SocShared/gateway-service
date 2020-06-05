@@ -1,6 +1,7 @@
 package ml.socshared.gateway.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ml.socshared.gateway.client.FacebookClient;
 import ml.socshared.gateway.client.StorageServiceClient;
 import ml.socshared.gateway.client.VkServiceClient;
@@ -25,6 +26,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class StorageServiceImpl implements StorageService {
 
     private final StorageServiceClient storageClient;
@@ -87,12 +89,14 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public GroupResponse addVkGroupToStorage(UUID systemUserId, String vkGroupId) {
         GroupRequest group = new GroupRequest();
-        group.setUserId(systemUserId);
-        group.setSocialNetwork(SocialNetwork.VK);
-        group.setVkId(vkGroupId);
-        group.setFbId("");
-        VkAdapterGroupResponse vkGroup =  vkClient.getGroupInfoById(systemUserId, vkGroupId, vkToken());
-        group.setName(vkGroup.getName());
+           group.setUserId(systemUserId);
+           group.setSocialNetwork(SocialNetwork.VK);
+           group.setVkId(vkGroupId);
+           group.setFbId("");
+           VkAdapterGroupResponse vkGroup =  vkClient.getGroupInfoById(systemUserId, vkGroupId, vkToken());
+           group.setName(vkGroup.getName());
+
+
         GroupResponse res = storageClient.addGroup(group, storageAuthToken());
         return res;
     }

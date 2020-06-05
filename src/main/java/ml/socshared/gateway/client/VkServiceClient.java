@@ -21,7 +21,7 @@ public interface VkServiceClient {
                      @RequestBody String accessToken,
                      @RequestHeader("Authorization") String authToken);
 
-    @GetMapping(value = "api/v1/private/users/{systemUserId}/groups}",
+    @GetMapping(value = "api/v1/private/users/{systemUserId}/groups",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     PageAdapter<GroupResponse> getGroups(@PathVariable UUID systemUserId,
                                          @RequestParam Integer page,
@@ -32,9 +32,9 @@ public interface VkServiceClient {
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     UserResponse getUserDataVkAccount(@PathVariable UUID systemUserId, @RequestHeader("Authorization") String token);
 
-    @PostMapping(value = "api/v1/private/users/{systemUserId}/groups/{groupId}",
+    @GetMapping(value = "api/v1/private/users/{systemUserId}/groups/{socGroupId}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     VkAdapterGroupResponse  getGroupInfoById(@PathVariable UUID systemUserId,
                                              @PathVariable String socGroupId,
-                                             @PathVariable String token);
+                                             @RequestHeader("Authorization") String token);
 }
