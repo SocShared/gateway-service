@@ -27,7 +27,7 @@ public class SocialServiceImpl implements SocialService {
             accounts.add(facebookAccount);
         }
 
-        UserResponse vkAccount = vkService.getUserDataFacebookAccount(systemUserId);
+        UserResponse vkAccount = vkService.getUserDataVkAccount(systemUserId);
         if(vkAccount != null) {
             accounts.add(vkAccount);
         }

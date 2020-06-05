@@ -20,7 +20,7 @@ import static ml.socshared.gateway.config.Constants.LOCAL_PROFILE;
 
 @Configuration
 @EnableWebSecurity
-@Profile({Constants.DEV_PROFILE, Constants.PROD_PROFILE, LOCAL_PROFILE})
+@Profile({Constants.DEV_PROFILE, Constants.PROD_PROFILE, LOCAL_PROFILE, "home"})
 @Slf4j
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
