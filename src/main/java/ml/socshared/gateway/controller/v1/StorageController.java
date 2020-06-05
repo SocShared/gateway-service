@@ -55,7 +55,7 @@ public class StorageController {
     }
 
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
-    @PostMapping("/groups/vk/{socGroupId}")
+    @PostMapping("/protected/groups/vk/{socGroupId}")
     public void addVkGroupToStorage(@PathVariable String socGroupId, HttpServletRequest request) {
         log.info("Request to add group to storage");
         UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));

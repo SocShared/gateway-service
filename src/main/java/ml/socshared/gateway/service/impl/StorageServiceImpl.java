@@ -76,6 +76,7 @@ public class StorageServiceImpl implements StorageService {
             for (GroupResponse group : groupResponses) {
                 if (group.getFacebookId().equals(facebookGroup.getGroupId())) {
                     facebookGroup.setSelected(true);
+                    break;
                 }
             }
         }
