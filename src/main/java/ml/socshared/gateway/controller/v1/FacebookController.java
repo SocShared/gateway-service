@@ -1,7 +1,7 @@
 package ml.socshared.gateway.controller.v1;
 
 import lombok.RequiredArgsConstructor;
-import ml.socshared.gateway.domain.SuccessResponse;
+import ml.socshared.gateway.domain.response.SuccessResponse;
 import ml.socshared.gateway.domain.facebook.FacebookPage;
 import ml.socshared.gateway.domain.facebook.response.AccessUrlResponse;
 import ml.socshared.gateway.domain.facebook.response.FacebookGroupResponse;
@@ -17,11 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import ml.socshared.gateway.api.v1.rest.FacebookApi;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/v1")

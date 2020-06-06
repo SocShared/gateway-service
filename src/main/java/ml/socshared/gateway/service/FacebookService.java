@@ -1,9 +1,7 @@
 package ml.socshared.gateway.service;
 
-import ml.socshared.gateway.domain.SuccessResponse;
-import ml.socshared.gateway.domain.facebook.FacebookPage;
+import ml.socshared.gateway.domain.response.SuccessResponse;
 import ml.socshared.gateway.domain.facebook.response.AccessUrlResponse;
-import ml.socshared.gateway.domain.facebook.response.FacebookGroupResponse;
 import ml.socshared.gateway.domain.response.UserResponse;
 
 import java.util.UUID;

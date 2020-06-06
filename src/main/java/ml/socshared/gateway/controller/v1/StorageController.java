@@ -6,7 +6,6 @@ import ml.socshared.gateway.domain.request.PostRequest;
 import ml.socshared.gateway.domain.storage.SocialNetwork;
 import ml.socshared.gateway.domain.storage.request.GroupRequest;
 import ml.socshared.gateway.domain.storage.request.PublicationRequest;
-import ml.socshared.gateway.domain.storage.response.Group;
 import ml.socshared.gateway.domain.storage.response.GroupResponse;
 import ml.socshared.gateway.domain.storage.response.PublicationResponse;
 import ml.socshared.gateway.security.jwt.JwtTokenProvider;

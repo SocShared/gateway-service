@@ -4,7 +4,7 @@ package ml.socshared.gateway.controller.v1;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ml.socshared.gateway.api.v1.rest.VkApi;
-import ml.socshared.gateway.domain.SuccessResponse;
+import ml.socshared.gateway.domain.response.SuccessResponse;
 import ml.socshared.gateway.domain.vk.response.VkGroupResponse;
 import ml.socshared.gateway.security.jwt.JwtTokenProvider;
 import ml.socshared.gateway.service.StorageService;
