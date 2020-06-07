@@ -1,11 +1,8 @@
 package ml.socshared.gateway.service;
 
-import ml.socshared.gateway.domain.SuccessResponse;
 import ml.socshared.gateway.domain.facebook.FacebookPage;
 import ml.socshared.gateway.domain.facebook.response.FacebookGroupResponse;
 import ml.socshared.gateway.domain.request.PostRequest;
-import ml.socshared.gateway.domain.storage.SocialNetwork;
-import ml.socshared.gateway.domain.storage.request.GroupRequest;
 import ml.socshared.gateway.domain.storage.response.GroupResponse;
 import ml.socshared.gateway.domain.storage.response.PublicationResponse;
 import ml.socshared.gateway.domain.vk.response.VkGroupResponse;

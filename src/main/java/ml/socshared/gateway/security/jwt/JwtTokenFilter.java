@@ -25,9 +25,9 @@ public class JwtTokenFilter extends GenericFilterBean {
             HttpServletRequest httpServletRequest = (HttpServletRequest) request;
             String token = jwtTokenProvider.resolveToken(httpServletRequest);
             if (token != null) {
-                if (jwtTokenProvider.validateServiceToken(token)) {
-                    UserDetails serviceDetails = jwtTokenProvider.getUserDetails(token);
-                    Authentication auth = new UsernamePasswordAuthenticationToken(serviceDetails, "", serviceDetails.getAuthorities());
+                if (jwtTokenProvider.validateAccessToken(token)) {
+                    UserDetails userDetails = jwtTokenProvider.getUserDetails(token);
+                    Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 }
             }

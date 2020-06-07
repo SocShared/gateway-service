@@ -1,6 +1,6 @@
 package ml.socshared.gateway.security.client;
 
-import ml.socshared.gateway.domain.SuccessResponse;
+import ml.socshared.gateway.domain.response.SuccessResponse;
 import ml.socshared.gateway.security.request.CheckTokenRequest;
 import ml.socshared.gateway.security.request.ServiceTokenRequest;
 import ml.socshared.gateway.security.response.ServiceTokenResponse;
