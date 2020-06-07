@@ -1,6 +1,7 @@
 package ml.socshared.gateway.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ml.socshared.gateway.domain.response.UserResponse;
 import ml.socshared.gateway.service.FacebookService;
 import ml.socshared.gateway.service.SocialService;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class SocialServiceImpl implements SocialService {
 
@@ -27,10 +29,15 @@ public class SocialServiceImpl implements SocialService {
             accounts.add(facebookAccount);
         }
 
-        UserResponse vkAccount = vkService.getUserDataVkAccount(systemUserId);
-        if(vkAccount != null) {
-            accounts.add(vkAccount);
+        try {
+            UserResponse vkAccount = vkService.getUserDataVkAccount(systemUserId);
+            if(vkAccount != null) {
+                accounts.add(vkAccount);
+            }
+        } catch (Exception exp) {
+            log.warn("Vk returned error -> {}", exp.getMessage());
         }
+
 
         return accounts;
     }

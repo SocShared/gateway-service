@@ -21,3 +21,4 @@ feign:
     tech-support: ${TECH_SUPPORT_SERVICE:https://support.socshared.ml}
     storage: ${STORAGE_SERVICE:https://storage.socshared.ml}
 
+

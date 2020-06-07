@@ -23,7 +23,7 @@ public class PublicationResponse {
     private String text;
     private Date publicationDateTime;
     private LocalDateTime createdAt;
-    private PostType type;
+    private PostType postType;
     private Set<GroupPostStatus> postStatus;
 
 }
