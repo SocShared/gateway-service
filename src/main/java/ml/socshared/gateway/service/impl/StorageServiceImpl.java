@@ -15,11 +15,13 @@ import ml.socshared.gateway.domain.storage.request.GroupRequest;
 import ml.socshared.gateway.domain.storage.request.PublicationRequest;
 import ml.socshared.gateway.domain.storage.response.GroupResponse;
 import ml.socshared.gateway.domain.storage.response.PublicationResponse;
+import ml.socshared.gateway.domain.text_analyzer.response.KeyWordResponse;
 import ml.socshared.gateway.domain.vk.PageAdapter;
 import ml.socshared.gateway.domain.vk.response.VkGroupResponse;
 import ml.socshared.gateway.exception.impl.HttpBadRequestException;
 import ml.socshared.gateway.security.model.TokenObject;
 import ml.socshared.gateway.service.StorageService;
+import ml.socshared.gateway.service.TextAnalyzerService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -37,6 +39,7 @@ public class StorageServiceImpl implements StorageService {
     private final StorageServiceClient storageClient;
     private final VkServiceClient vkClient;
     private final FacebookClient facebookClient;
+    private final TextAnalyzerService textAnalyzerService;
 
     @Value("#{tokenGetter.tokenStorageService}")
     private TokenObject tokenStorage;
@@ -46,6 +49,9 @@ public class StorageServiceImpl implements StorageService {
 
     @Value("#{tokenGetter.tokenFB}")
     private TokenObject tokenFB;
+
+    @Value("#{tokenGetter.tokenTextService}")
+    private TokenObject tokenText;
 
     private String storageAuthToken() {
         return "Bearer " + tokenStorage.getToken();
@@ -75,8 +81,23 @@ public class StorageServiceImpl implements StorageService {
         PublicationRequest req = new PublicationRequest();
         req.setGroupIds(request.getGroupIds());
         StringBuilder builder = new StringBuilder(request.getText() + "\n\n");
-        for (String str : request.getHashTags())
-            builder.append('#').append(str.replaceAll("\\s", "_")).append(" ");
+
+        if (request.getHashTags() != null) {
+            for (String str : request.getHashTags())
+                builder.append('#').append(str.replaceAll("\\s", "_")).append(" ");
+        }
+
+        List<KeyWordResponse> keyWords = textAnalyzerService.getKeyWords(request.getText(), null, null);
+
+        int i = 0;
+        for (KeyWordResponse keyWord : keyWords) {
+            if (i <= 5)
+                builder.append('#').append(keyWord.getKeyWord().replaceAll("\\s", "_")).append(" ");
+            else
+                break;
+            i++;
+        }
+
         req.setText(builder.toString());
         if (request.getType() == PostType.DEFERRED && request.getPublicationDateTime() != null)
             req.setPublicationDateTime(request.getPublicationDateTime());
@@ -96,7 +117,6 @@ public class StorageServiceImpl implements StorageService {
         List<FacebookGroupResponse> facebookGroups = facebookGroupPage.getObjects();
         List<GroupResponse> groupResponses = groupResponsesPage.getContent();
 
-
         for (FacebookGroupResponse facebookGroup : facebookGroups) {
             facebookGroup.setSelected(false);
             for (GroupResponse group : groupResponses) {
@@ -111,7 +131,6 @@ public class StorageServiceImpl implements StorageService {
 
         return facebookGroupPage;
     }
-
 
     @Override
     public Page<VkGroupResponse> getGroupsVkWithSelected(UUID systemUserId, Pageable pageable) {
