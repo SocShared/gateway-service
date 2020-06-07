@@ -87,7 +87,7 @@ public class StorageServiceImpl implements StorageService {
                 builder.append('#').append(str.replaceAll("\\s", "_")).append(" ");
         }
 
-        List<KeyWordResponse> keyWords = textAnalyzerService.getKeyWords(request.getText(), null, null);
+        List<KeyWordResponse> keyWords = textAnalyzerService.getKeyWords(request.getText(), 2, 4);
 
         int i = 0;
         for (KeyWordResponse keyWord : keyWords) {
