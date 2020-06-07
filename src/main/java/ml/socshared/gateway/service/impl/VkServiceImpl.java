@@ -38,7 +38,7 @@ public class VkServiceImpl implements VkService {
 
     @Override
     public void unsetAccessTokenApp(UUID systemUserId) {
-        vkClient.appReset(systemUserId);
+        vkClient.appReset(systemUserId, vkAuthToken());
     }
 
 
