@@ -47,6 +47,16 @@ public class VkServiceImpl implements VkService {
         return vkClient.getUserDataVkAccount(systemUserId, vkAuthToken());
     }
 
+    @Override
+    public PageAdapter<VkGroupResponse> getGroups(UUID systemUserId, int pageNumber, int pageSize) {
+        return vkClient.getGroups(systemUserId, pageNumber, pageSize, tokenVk.getToken());
+    }
+
+    @Override
+    public VkGroupResponse getGroupInfoById(UUID systemUserId, String vkGroupId) {
+        return vkClient.getGroupInfoById(systemUserId, vkGroupId, tokenVk.getToken());
+    }
+
     private String vkAuthToken() {
         return "Bearer " + tokenVk.getToken();
     }

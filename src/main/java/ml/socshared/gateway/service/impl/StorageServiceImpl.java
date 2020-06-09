@@ -2,9 +2,7 @@ package ml.socshared.gateway.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ml.socshared.gateway.client.FacebookClient;
 import ml.socshared.gateway.client.StorageServiceClient;
-import ml.socshared.gateway.client.VkServiceClient;
 import ml.socshared.gateway.domain.RestResponsePage;
 import ml.socshared.gateway.domain.facebook.FacebookPage;
 import ml.socshared.gateway.domain.facebook.response.FacebookGroupResponse;
@@ -20,8 +18,10 @@ import ml.socshared.gateway.domain.vk.PageAdapter;
 import ml.socshared.gateway.domain.vk.response.VkGroupResponse;
 import ml.socshared.gateway.exception.impl.HttpBadRequestException;
 import ml.socshared.gateway.security.model.TokenObject;
+import ml.socshared.gateway.service.FacebookService;
 import ml.socshared.gateway.service.StorageService;
 import ml.socshared.gateway.service.TextAnalyzerService;
+import ml.socshared.gateway.service.VkService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -37,35 +37,17 @@ import java.util.UUID;
 public class StorageServiceImpl implements StorageService {
 
     private final StorageServiceClient storageClient;
-    private final VkServiceClient vkClient;
-    private final FacebookClient facebookClient;
+    private final VkService vkService;
+    private final FacebookService facebookService;
     private final TextAnalyzerService textAnalyzerService;
 
     @Value("#{tokenGetter.tokenStorageService}")
     private TokenObject tokenStorage;
 
-    @Value("#{tokenGetter.tokenVK}")
-    private TokenObject tokenVK;
-
-    @Value("#{tokenGetter.tokenFB}")
-    private TokenObject tokenFB;
-
-    @Value("#{tokenGetter.tokenTextService}")
-    private TokenObject tokenText;
-
     private String storageAuthToken() {
         return "Bearer " + tokenStorage.getToken();
     }
 
-    private String fbToken() {
-        return "Bearer " + tokenFB.getToken();
-    }
-
-    private String vkToken() {
-        return "Bearer " + tokenVK.getToken();
-    }
-
-    // TODO: Логика вывода странная, делаешь запрос на получения всех групп, зачем все, если у нас разедльны ВК и FB
     @Override
     public Page<GroupResponse> getGroups(UUID systemUserId, Pageable pageable) {
         return storageClient.getGroupsByUserId(systemUserId, pageable.getPageNumber(), pageable.getPageSize(), storageAuthToken());
@@ -111,7 +93,7 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public FacebookPage<FacebookGroupResponse> getGroupsFacebookWithSelected(UUID systemUserId, Pageable pageable) {
-        FacebookPage<FacebookGroupResponse> facebookGroupPage = facebookClient.getGroups(systemUserId, pageable.getPageNumber(), pageable.getPageSize(), fbToken());
+        FacebookPage<FacebookGroupResponse> facebookGroupPage = facebookService.getGroups(systemUserId, pageable.getPageNumber(), pageable.getPageSize());
         RestResponsePage<GroupResponse> groupResponsesPage = storageClient.getGroupsByUserAndSocial(systemUserId, SocialNetwork.FACEBOOK, pageable.getPageNumber(), pageable.getPageSize(), storageAuthToken());
 
         List<FacebookGroupResponse> facebookGroups = facebookGroupPage.getObjects();
@@ -134,8 +116,8 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public Page<VkGroupResponse> getGroupsVkWithSelected(UUID systemUserId, Pageable pageable) {
-        PageAdapter<VkGroupResponse> vkResponse = vkClient.getGroups(systemUserId, pageable.getPageNumber(),
-                pageable.getPageSize(), vkToken());
+        PageAdapter<VkGroupResponse> vkResponse = vkService.getGroups(systemUserId, pageable.getPageNumber(),
+                pageable.getPageSize());
 
         RestResponsePage<GroupResponse> storageResponse = storageClient.getGroupsByUserAndSocial(systemUserId, SocialNetwork.VK,
                 pageable.getPageNumber(), pageable.getPageSize(), storageAuthToken());
@@ -152,8 +134,7 @@ public class StorageServiceImpl implements StorageService {
             }
         }
 
-        Page<VkGroupResponse> pageOfGroup = new PageImpl<>(vkResponse.getObject());
-        return pageOfGroup;
+        return new PageImpl<>(vkResponse.getObject());
     }
 
 
@@ -164,11 +145,10 @@ public class StorageServiceImpl implements StorageService {
         group.setSocialNetwork(SocialNetwork.VK);
         group.setVkId(vkGroupId);
         group.setFbId("");
-        VkGroupResponse vkGroup =  vkClient.getGroupInfoById(systemUserId, vkGroupId, vkToken());
+        VkGroupResponse vkGroup =  vkService.getGroupInfoById(systemUserId, vkGroupId);
         group.setName(vkGroup.getName());
 
-        GroupResponse res = storageClient.addGroup(group, storageAuthToken());
-        return res;
+        return storageClient.addGroup(group, storageAuthToken());
     }
 
     @Override
@@ -177,7 +157,7 @@ public class StorageServiceImpl implements StorageService {
         group.setUserId(systemUserId);
         group.setSocialNetwork(SocialNetwork.FACEBOOK);
         group.setFbId(fbGroupId);
-        FacebookGroupResponse response = facebookClient.getGroup(systemUserId, fbGroupId, fbToken());
+        FacebookGroupResponse response = facebookService.getGroup(systemUserId, fbGroupId);
         group.setName(response.getName());
 
         return storageClient.addGroup(group, storageAuthToken());
@@ -185,11 +165,21 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public void deleteGroupByFbId(UUID systemUserId, String fbGroupId) {
-        storageClient.deleteByFBId(systemUserId, fbGroupId, fbToken());
+        storageClient.deleteByFBId(systemUserId, fbGroupId, storageAuthToken());
     }
 
     @Override
     public void deleteGroupByVKId(UUID systemUserId, String vkGroupId) {
-        storageClient.deleteByVkId(systemUserId, vkGroupId, vkToken());
+        storageClient.deleteByVkId(systemUserId, vkGroupId, storageAuthToken());
+    }
+
+    @Override
+    public void deleteFacebookGroupsByUserId(UUID systemUserId) {
+        storageClient.deleteFacebookGroupsByUserId(systemUserId, storageAuthToken());
+    }
+
+    @Override
+    public void deleteVkGroupsByUserId(UUID systemUserId) {
+        storageClient.deleteVkGroupsByUserId(systemUserId, storageAuthToken());
     }
 }

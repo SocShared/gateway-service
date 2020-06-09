@@ -45,6 +45,7 @@ public class VkController implements VkApi {
     public SuccessResponse removeVkToken(HttpServletRequest request) {
         log.info("Request remove vk app token");
         UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
+        storageService.deleteVkGroupsByUserId(systemUserId);
         vkService.unsetAccessTokenApp(systemUserId);
         return new SuccessResponse(true);
     }
