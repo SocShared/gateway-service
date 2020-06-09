@@ -41,7 +41,7 @@ public class VkServiceImpl implements VkService {
 
     @Override
     public void unsetAccessTokenApp(UUID systemUserId) {
-        storageClient.deleteVkGroupsByUserId(systemUserId, tokenStorageService.getToken());
+        storageClient.deleteVkGroupsByUserId(systemUserId, storageToken());
         vkClient.appReset(systemUserId, vkAuthToken());
     }
 
@@ -52,12 +52,16 @@ public class VkServiceImpl implements VkService {
 
     @Override
     public PageAdapter<VkGroupResponse> getGroups(UUID systemUserId, int pageNumber, int pageSize) {
-        return vkClient.getGroups(systemUserId, pageNumber, pageSize, tokenVk.getToken());
+        return vkClient.getGroups(systemUserId, pageNumber, pageSize, vkAuthToken());
     }
 
     @Override
     public VkGroupResponse getGroupInfoById(UUID systemUserId, String vkGroupId) {
-        return vkClient.getGroupInfoById(systemUserId, vkGroupId, tokenVk.getToken());
+        return vkClient.getGroupInfoById(systemUserId, vkGroupId, vkAuthToken());
+    }
+
+    private String storageToken() {
+        return "Bearer " + tokenStorageService.getToken();
     }
 
     private String vkAuthToken() {

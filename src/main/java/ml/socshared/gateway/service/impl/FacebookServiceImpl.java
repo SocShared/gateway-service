@@ -56,7 +56,7 @@ public class FacebookServiceImpl implements FacebookService {
 
     @Override
     public void deleteFacebookAccount(UUID systemUserId) {
-        storageClient.deleteFacebookGroupsByUserId(systemUserId, tokenStorage.getToken());
+        storageClient.deleteFacebookGroupsByUserId(systemUserId, tokenStorage());
         facebookClient.deleteFacebookAccount(systemUserId, tokenFB());
     }
 
