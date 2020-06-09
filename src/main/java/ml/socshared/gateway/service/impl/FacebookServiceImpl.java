@@ -23,13 +23,20 @@ import java.util.UUID;
 public class FacebookServiceImpl implements FacebookService {
 
     private final FacebookClient facebookClient;
-    private final StorageService storageService;
+    private final StorageServiceClient storageClient;
 
     @Value("#{tokenGetter.tokenFB}")
     private TokenObject tokenFB;
 
+    @Value("#{tokenGetter.tokenStorageService}")
+    private TokenObject tokenStorage;
+
     private String tokenFB() {
         return "Bearer " + tokenFB.getToken();
+    }
+
+    private String tokenStorage() {
+        return "Bearer " + tokenStorage.getToken();
     }
 
     @Override
@@ -49,7 +56,7 @@ public class FacebookServiceImpl implements FacebookService {
 
     @Override
     public void deleteFacebookAccount(UUID systemUserId) {
-        storageService.deleteFacebookGroupsByUserId(systemUserId);
+        storageClient.deleteFacebookGroupsByUserId(systemUserId, tokenStorage.getToken());
         facebookClient.deleteFacebookAccount(systemUserId, tokenFB());
     }
 

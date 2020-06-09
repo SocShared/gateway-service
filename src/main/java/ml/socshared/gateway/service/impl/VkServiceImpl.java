@@ -31,6 +31,9 @@ public class VkServiceImpl implements VkService {
     @Value("#{tokenGetter.tokenVK}")
     private TokenObject tokenVk;
 
+    @Value("#{tokenGetter.tokenStorageService}")
+    private TokenObject tokenStorageService;
+
     @Override
     public void setAccessTokenApp(UUID systemUserId, String accessToken) {
         vkClient.appRegister(systemUserId, accessToken, vkAuthToken());
@@ -38,9 +41,9 @@ public class VkServiceImpl implements VkService {
 
     @Override
     public void unsetAccessTokenApp(UUID systemUserId) {
+        storageClient.deleteVkGroupsByUserId(systemUserId, tokenStorageService.getToken());
         vkClient.appReset(systemUserId, vkAuthToken());
     }
-
 
     @Override
     public UserResponse getUserDataVkAccount(UUID systemUserId) {

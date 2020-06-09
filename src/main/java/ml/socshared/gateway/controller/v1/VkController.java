@@ -28,7 +28,6 @@ public class VkController implements VkApi {
     private final StorageService storageService;
     private final JwtTokenProvider jwtTokenProvider;
 
-
     @Override
     @PostMapping("/protected/social/vk/app")
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
@@ -45,7 +44,6 @@ public class VkController implements VkApi {
     public SuccessResponse removeVkToken(HttpServletRequest request) {
         log.info("Request remove vk app token");
         UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
-        storageService.deleteVkGroupsByUserId(systemUserId);
         vkService.unsetAccessTokenApp(systemUserId);
         return new SuccessResponse(true);
     }
