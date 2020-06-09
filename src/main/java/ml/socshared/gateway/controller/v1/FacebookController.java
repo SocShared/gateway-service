@@ -41,7 +41,7 @@ public class FacebookController implements FacebookApi {
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
     @GetMapping(value = "/protected/facebook/connect/{authorizationCode}", produces = MediaType.APPLICATION_JSON_VALUE)
     public SuccessResponse saveAccountFacebook(@PathVariable String authorizationCode, HttpServletRequest request) {
-        return facebookService.saveAccountFacebook(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), authorizationCode);
+        return facebookService.saveFacebookAccount(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), authorizationCode);
     }
 
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
