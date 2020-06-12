@@ -102,7 +102,7 @@ public class StorageServiceImpl implements StorageService {
         for (FacebookGroupResponse facebookGroup : facebookGroups) {
             facebookGroup.setSelected(false);
             for (GroupResponse group : groupResponses) {
-                if (group.getFacebookId().equals(facebookGroup.getGroupId())) {
+                if (group.getGroupFacebookId().equals(facebookGroup.getGroupId())) {
                     facebookGroup.setSystemUserId(group.getUserId().toString());
                     facebookGroup.setSystemGroupId(group.getGroupId());
                     facebookGroup.setSelected(true);
@@ -125,7 +125,7 @@ public class StorageServiceImpl implements StorageService {
         for(VkGroupResponse vkg : vkResponse.getObject()) {
             vkg.setSelected(false);
             for(GroupResponse gr : storageResponse.getContent()) {
-                if(vkg.getGroupId().equals(gr.getVkId())) {
+                if(vkg.getGroupId().equals(gr.getGroupVkId())) {
                     vkg.setSystemUserId(gr.getUserId().toString());
                     vkg.setSystemGroupId(gr.getGroupId());
                     vkg.setSelected(true);
