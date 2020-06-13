@@ -2,6 +2,7 @@ package ml.socshared.gateway.domain.storage.request;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import ml.socshared.gateway.domain.storage.GroupPostStatus;
 import ml.socshared.gateway.domain.storage.PostType;
 
@@ -11,6 +12,7 @@ import java.util.Date;
 
 @Getter
 @Setter
+@ToString
 public class PublicationRequest {
 
     private Date publicationDateTime;

@@ -88,6 +88,8 @@ public class StorageServiceImpl implements StorageService {
         req.setType(request.getType());
         req.setUserId(systemUserId.toString());
 
+        log.info("sending publication -> " + req);
+
         return storageClient.savePost(req, storageAuthToken());
     }
 
