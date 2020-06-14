@@ -48,6 +48,7 @@ public class TokenGetter {
     @Before("execution(* ml.socshared.gateway.service.impl.FacebookServiceImpl.*(..))")
     public TokenObject initTokenFB() {
         if (tokenFB.getToken() != null && jwtTokenProvider.validateServiceToken(tokenFB.getToken())) {
+            log.debug(tokenFB.getToken());
             return tokenFB;
         }
 
@@ -57,7 +58,7 @@ public class TokenGetter {
         request.setToSecretService(UUID.fromString("427d82bb-b367-40b4-bee8-b18e32480899"));
 
         this.tokenFB.setToken(jwtTokenProvider.buildServiceToken(request).getToken());
-
+        log.debug(tokenFB.getToken());
         return tokenFB;
     }
 
