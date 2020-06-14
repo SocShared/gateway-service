@@ -18,8 +18,8 @@ public interface BStatClient {
     @GetMapping("api/v1/private/users/{systemUserId}/social/{soc}/groups/{systemGroupId}/info")
     GroupInfoResponse getGroupInfo(@PathVariable UUID systemUserId,
                                    @PathVariable UUID systemGroupId, @PathVariable SocialNetwork soc,
-                                   @RequestParam(value = "begin") Long begin,
-                                   @RequestParam(value = "end") Long end,
+                                   @RequestParam(name = "begin") Long begin,
+                                   @RequestParam(name = "end") Long end,
                                    @RequestHeader("Authorization") String token);
 
     @GetMapping("api/v1/private/users/{systemUserId}/social/{soc}/groups/{systemGroupId}/posts/{systemPostId}/time_series")
