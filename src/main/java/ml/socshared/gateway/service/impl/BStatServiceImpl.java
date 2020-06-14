@@ -24,7 +24,6 @@ public class BStatServiceImpl implements BStatService {
     TokenObject bStatToken;
 
     private String authBStatToken() {
-        log.info("Token: " + bStatToken.getToken());
         return "Bearer " + bStatToken.getToken();
     }
 
