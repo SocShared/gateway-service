@@ -3,10 +3,12 @@ package ml.socshared.gateway.client.decoder;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import lombok.extern.slf4j.Slf4j;
+import ml.socshared.gateway.exception.AbstractRestHandleableException;
 import ml.socshared.gateway.exception.impl.HttpBadRequestException;
 import ml.socshared.gateway.exception.impl.HttpForbiddenException;
 import ml.socshared.gateway.exception.impl.HttpNotFoundException;
 import ml.socshared.gateway.exception.impl.HttpUnauthorizedException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,11 +18,13 @@ public class FeignErrorDecoder implements ErrorDecoder {
     @Override
     public Exception decode(String methodKey, Response response) {
 
+        String msg = "error: ";
+        if (response.body() != null)
+            msg += response.body().toString();
+        else
+            msg += response.status() + " undefined";
+
         if (response.status() == 404) {
-            String msg = "Error 404: ";
-            if(response.body() != null) {
-                msg = msg + response.body().toString();
-            }
             log.warn(msg);
             return new HttpNotFoundException(msg);
         } else if (response.status() == 401) {
@@ -28,20 +32,16 @@ public class FeignErrorDecoder implements ErrorDecoder {
         } else if (response.status() == 403) {
             return new HttpForbiddenException("forbidden");
         } else if (response.status() == 400) {
-            String msg = "{}";
-            if(response.body() != null) {
-                msg = methodKey + response.body().toString();
-            }
-
             log.warn(msg);
             return new HttpBadRequestException(msg);
         }
 
-        String msg = "{}";
-        if(response.body() != null) {
-            msg = response.body().toString();
-        }
-        return new Exception(msg);
+        return new AbstractRestHandleableException(msg, HttpStatus.valueOf(response.status())) {
+            @Override
+            public HttpStatus getHttpStatus() {
+                return super.getHttpStatus();
+            }
+        };
     }
 
 
