@@ -15,10 +15,12 @@ spring:
 
 feign:
   url:
-    auth: ${AUTH_SERVICE:https://auth.socshared.ml}
-    fb: ${FB_SERVICE:https://fb.socshared.ml}
-    vk: ${VK_SERVICE:https://vk.socshared.ml}
-    tech-support: ${TECH_SUPPORT_SERVICE:https://support.socshared.ml}
-    storage: ${STORAGE_SERVICE:https://storage.socshared.ml}
+    auth: ${AUTH_SERVICE:localhost:19999}
+    fb: ${FB_SERVICE:localhost:8081}
+    vk: ${VK_SERVICE:localhost:8082}
+    tech-support: ${TECH_SUPPORT_SERVICE:localhost:8885}
+    text: ${TEXT_SERVICE:http://text-analyzer:8886}
+    storage: ${STORAGE_SERVICE:localhost:8686}
+    bstat: ${BSTAT_SERVICE:localhost:8884}
 
 

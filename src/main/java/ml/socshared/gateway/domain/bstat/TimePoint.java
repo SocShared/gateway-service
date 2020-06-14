@@ -1,4 +1,8 @@
-package ml.socshared.gateway.domain.bstat.response;
+package ml.socshared.gateway.domain.bstat;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor

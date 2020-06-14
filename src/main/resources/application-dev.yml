@@ -11,7 +11,7 @@ feign:
     auth: ${AUTH_SERVICE:http://auth-service:9999}
     fb: ${FB_SERVICE:http://fb-adapter:8081}
     vk: ${VK_SERVICE:http://vk-adapter:8082}
-    tech-support: ${TECH_SUPPORT_SERVICE:http://tech-support}
+    tech-support: ${TECH_SUPPORT_SERVICE:http://tech-support:8885}
     text: ${TEXT_SERVICE:http://text-analyzer:8886}
     storage: ${STORAGE_SERVICE:http://storage-service:8686}
 

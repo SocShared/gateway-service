@@ -7,13 +7,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import static ml.socshared.gateway.config.Constants.LOCAL_PROFILE;
+import static ml.socshared.gateway.config.Constants.HOME_PROFILE;
 import static ml.socshared.gateway.config.Constants.TEST_PROFILE;
 
 
 @Configuration
 @EnableWebSecurity
-@Profile({TEST_PROFILE})
+@Profile({TEST_PROFILE, HOME_PROFILE})
 @Slf4j
 public class SecurityConfigLocal extends WebSecurityConfigurerAdapter {
 

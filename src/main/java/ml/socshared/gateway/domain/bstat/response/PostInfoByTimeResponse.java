@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
-public class PostInfoByTime {
+public class PostInfoByTimeResponse {
     UUID systemGroupId;
     UUID systemPostId;
     LocalDateTime begin;
