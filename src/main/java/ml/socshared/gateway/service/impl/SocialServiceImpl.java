@@ -22,7 +22,7 @@ public class SocialServiceImpl implements SocialService {
 
     @Override
     public List<UserResponse> getAccountsSocialNetwork(UUID systemUserId) {
-        
+
         List<UserResponse> accounts = new ArrayList<>();
         try {
             UserResponse facebookAccount = facebookService.getUserDataFacebookAccount(systemUserId);
