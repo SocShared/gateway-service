@@ -1,6 +1,7 @@
 package ml.socshared.gateway.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ml.socshared.gateway.client.BStatClient;
 import ml.socshared.gateway.domain.bstat.response.GroupInfoResponse;
 import ml.socshared.gateway.domain.bstat.response.PostInfoByTimeResponse;
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class BStatServiceImpl implements BStatService {
 
     private final BStatClient bStatClient;
@@ -22,6 +24,7 @@ public class BStatServiceImpl implements BStatService {
     TokenObject bStatToken;
 
     private String authBStatToken() {
+        log.debug(bStatToken.getToken());
         return "Bearer " + bStatToken.getToken();
     }
 
