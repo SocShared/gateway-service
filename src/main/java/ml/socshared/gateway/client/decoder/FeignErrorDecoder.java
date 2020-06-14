@@ -15,8 +15,12 @@ public class FeignErrorDecoder implements ErrorDecoder {
 
     @Override
     public Exception decode(String methodKey, Response response) {
+
         if (response.status() == 404) {
-            String msg = response.body().toString();
+            String msg = "Error 404: ";
+            if(response.body() != null) {
+                msg = msg + response.body().toString();
+            }
             log.warn(msg);
             return new HttpNotFoundException(msg);
         } else if (response.status() == 401) {
