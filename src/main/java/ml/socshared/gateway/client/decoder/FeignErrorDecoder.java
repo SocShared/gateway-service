@@ -11,7 +11,7 @@ import ml.socshared.gateway.exception.impl.HttpUnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 @Slf4j
 public class FeignErrorDecoder implements ErrorDecoder {
 
