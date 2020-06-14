@@ -32,7 +32,7 @@ public class TechSupportController  implements TechSupportApi {
 
 
     @Override
-    @PostMapping("protected/support/questions")
+    @PostMapping("/protected/support/questions")
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
     public Integer addQuestion(@RequestBody Question question,
                                HttpServletRequest request) {
@@ -43,7 +43,7 @@ public class TechSupportController  implements TechSupportApi {
     }
 
     @Override
-    @GetMapping("protected/support")
+    @GetMapping("/protected/support")
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
     public Page<ShortQuestion> getQuestionsList(Pageable pageable) {
         log.info("Request of get support page " + pageable.toString());
@@ -52,7 +52,7 @@ public class TechSupportController  implements TechSupportApi {
 
     @Override
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
-    @GetMapping("protected/support/questions/{questionId}")
+    @GetMapping("/protected/support/questions/{questionId}")
     public FullQuestionResponse getFullQuestion(@PathVariable Integer questionId, Pageable pageable) {
         log.info("Request get of page with question " + String.valueOf(questionId));
         return service.getFullQuestion(questionId, pageable);
@@ -60,7 +60,7 @@ public class TechSupportController  implements TechSupportApi {
 
     @Override
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
-    @PostMapping("protected/support/questions/{questionId}/comments")
+    @PostMapping("/protected/support/questions/{questionId}/comments")
     public Integer addCommentToQuestion(@PathVariable Integer questionId, @RequestBody Comment comment,
                                         HttpServletRequest request) {
         UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
@@ -71,7 +71,7 @@ public class TechSupportController  implements TechSupportApi {
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("protected/support/questions/{questionId}")
+    @DeleteMapping("/protected/support/questions/{questionId}")
     public void removeQuestion(@PathVariable Integer questionId) {
         log.info("Request remove question " + String.valueOf(questionId));
         service.removeQuestion(questionId);
@@ -79,7 +79,7 @@ public class TechSupportController  implements TechSupportApi {
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("protected/support/questions/{questionId}/comments/{commentId}")
+    @DeleteMapping("/protected/support/questions/{questionId}/comments/{commentId}")
     public void removeComment(@PathVariable Integer questionId,@PathVariable Integer commentId) {
         log.info("Request delete comment " + String.valueOf(commentId) + " of question " + String.valueOf(questionId));
         service.removeComment(questionId, commentId);

@@ -77,6 +77,7 @@ public class TokenGetter {
         return tokenVK;
     }
 
+    @Before("execution(* ml.socshared.gateway.service.impl.BStatServiceImpl.*(..))")
     public TokenObject initTokenBSTAT() {
         if (tokenBSTAT != null && jwtTokenProvider.validateServiceToken(tokenBSTAT.getToken())) {
             return tokenBSTAT;

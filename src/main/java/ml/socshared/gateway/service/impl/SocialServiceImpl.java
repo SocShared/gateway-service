@@ -33,6 +33,7 @@ public class SocialServiceImpl implements SocialService {
             log.warn("FB returned error -> {}", exc.getMessage());
         }
 
+
         try {
             UserResponse vkAccount = vkService.getUserDataVkAccount(systemUserId);
             if(vkAccount != null) {
