@@ -3,10 +3,12 @@ package ml.socshared.gateway.client.decoder;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import lombok.extern.slf4j.Slf4j;
+import ml.socshared.gateway.exception.AbstractRestHandleableException;
 import ml.socshared.gateway.exception.impl.HttpBadRequestException;
 import ml.socshared.gateway.exception.impl.HttpForbiddenException;
 import ml.socshared.gateway.exception.impl.HttpNotFoundException;
 import ml.socshared.gateway.exception.impl.HttpUnauthorizedException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,9 +19,9 @@ public class FeignErrorDecoder implements ErrorDecoder {
     public Exception decode(String methodKey, Response response) {
         String msg = "error: ";
         if (response.body() != null)
-            msg += "" + response.body().toString();
+            msg += response.body().toString();
         else
-            msg += "undefined";
+            msg += response.status() + " undefined";
 
         if (response.status() == 404) {
             log.warn(msg);
@@ -33,7 +35,12 @@ public class FeignErrorDecoder implements ErrorDecoder {
             return new HttpBadRequestException(msg);
         }
 
-        return new Exception(msg);
+        return new AbstractRestHandleableException(msg, HttpStatus.valueOf(response.status())) {
+            @Override
+            public HttpStatus getHttpStatus() {
+                return super.getHttpStatus();
+            }
+        };
     }
 
 
