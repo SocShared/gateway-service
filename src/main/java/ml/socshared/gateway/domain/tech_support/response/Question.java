@@ -18,6 +18,5 @@ public class Question {
     @JsonProperty(required = true)
     String title;
     @JsonProperty(required = true)
-    @JsonIgnore
     String text;
 }
