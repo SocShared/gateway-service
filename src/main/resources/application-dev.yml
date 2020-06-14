@@ -14,5 +14,5 @@ feign:
     tech-support: ${TECH_SUPPORT_SERVICE:http://tech-support:8885}
     text: ${TEXT_SERVICE:http://text-analyzer:8886}
     storage: ${STORAGE_SERVICE:http://storage-service:8686}
-    bstat: ${STORAGE_SERVICE:http://bstat:8884}
+    bstat: ${BSTAT_SERVICE:http://bstat:8884}
 
