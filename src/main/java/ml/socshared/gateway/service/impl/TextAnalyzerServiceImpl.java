@@ -2,6 +2,7 @@ package ml.socshared.gateway.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import ml.socshared.gateway.client.TextAnalyzerClient;
+import ml.socshared.gateway.domain.text_analyzer.request.TextRequest;
 import ml.socshared.gateway.domain.text_analyzer.response.KeyWordResponse;
 import ml.socshared.gateway.security.model.TokenObject;
 import ml.socshared.gateway.service.TextAnalyzerService;
@@ -21,6 +22,6 @@ public class TextAnalyzerServiceImpl implements TextAnalyzerService {
 
     @Override
     public List<KeyWordResponse> getKeyWords(String text, Integer minLength, Integer maxLength) {
-        return client.extractKeyWords(text, minLength, maxLength, "Bearer " + textAnalyzerToken.getToken());
+        return client.extractKeyWords(new TextRequest(text), minLength, maxLength, "Bearer " + textAnalyzerToken.getToken());
     }
 }

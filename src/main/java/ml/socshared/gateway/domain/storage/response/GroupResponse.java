@@ -18,8 +18,8 @@ public class GroupResponse {
     private String groupId;
     private SocialNetwork socialNetwork;
     private String name;
-    private String vkId;
-    private String facebookId;
+    private String groupVkId;
+    private String groupFacebookId;
     private UUID userId;
 
 }

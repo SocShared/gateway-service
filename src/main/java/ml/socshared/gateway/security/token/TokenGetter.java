@@ -46,7 +46,7 @@ public class TokenGetter {
     }
 
     @Before("execution(* ml.socshared.gateway.service.impl.FacebookServiceImpl.*(..))")
-    public TokenObject getTokenFB() {
+    public TokenObject initTokenFB() {
         if (tokenFB.getToken() != null && jwtTokenProvider.validateServiceToken(tokenFB.getToken())) {
             return tokenFB;
         }
@@ -60,8 +60,9 @@ public class TokenGetter {
 
         return tokenFB;
     }
+
     @Before("execution(* ml.socshared.gateway.service.impl.VkServiceImpl.*(..))")
-    public TokenObject getTokenVK() {
+    public TokenObject initTokenVK() {
         if (tokenVK != null && jwtTokenProvider.validateServiceToken(tokenVK.getToken())) {
             return tokenVK;
         }
@@ -76,7 +77,7 @@ public class TokenGetter {
         return tokenVK;
     }
 
-    public TokenObject getTokenBSTAT() {
+    public TokenObject initTokenBSTAT() {
         if (tokenBSTAT != null && jwtTokenProvider.validateServiceToken(tokenBSTAT.getToken())) {
             return tokenBSTAT;
         }
@@ -91,7 +92,7 @@ public class TokenGetter {
         return tokenBSTAT;
     }
 
-    public TokenObject getTokenServiceWorker() {
+    public TokenObject initTokenServiceWorker() {
         if (tokenServiceWorker != null && jwtTokenProvider.validateServiceToken(tokenServiceWorker.getToken())) {
             return tokenServiceWorker;
         }
@@ -107,7 +108,7 @@ public class TokenGetter {
     }
 
 
-    public TokenObject getTokenSystemStatistic() {
+    public TokenObject initTokenSystemStatistic() {
         if (tokenSystemStatistic != null && jwtTokenProvider.validateServiceToken(tokenSystemStatistic.getToken())) {
             return tokenSystemStatistic;
         }
@@ -123,7 +124,7 @@ public class TokenGetter {
     }
 
     @Before("execution(* ml.socshared.gateway.service.impl.TechSupportServiceImpl.*(..))")
-    public TokenObject getTokenTechSupport() {
+    public TokenObject initTokenTechSupport() {
         if (tokenTechSupport != null && jwtTokenProvider.validateServiceToken(tokenTechSupport.getToken())) {
             return tokenTechSupport;
         }
@@ -139,7 +140,7 @@ public class TokenGetter {
     }
 
     @Before("execution(* ml.socshared.gateway.service.impl.StorageServiceImpl.*(..))")
-    public TokenObject getTokenStorageService() {
+    public TokenObject initTokenStorageService() {
         if (tokenStorageService != null && jwtTokenProvider.validateServiceToken(tokenStorageService.getToken())) {
             return tokenStorageService;
         }
@@ -155,7 +156,7 @@ public class TokenGetter {
     }
 
     @Before("execution(* ml.socshared.gateway.service.impl.TextAnalyzerServiceImpl.*(..))")
-    public TokenObject getTokenTextService() {
+    public TokenObject initTokenTextService() {
         if (tokenTextService != null && jwtTokenProvider.validateServiceToken(tokenTextService.getToken())) {
             return tokenTextService;
         }
@@ -170,7 +171,7 @@ public class TokenGetter {
         return tokenTextService;
     }
 
-    public TokenObject getTokenMailSender() {
+    public TokenObject initTokenMailSender() {
         if (tokenMailSender != null && jwtTokenProvider.validateServiceToken(tokenMailSender.getToken())) {
             return tokenMailSender;
         }
@@ -185,4 +186,39 @@ public class TokenGetter {
         return tokenMailSender;
     }
 
+    public TokenObject getTokenFB() {
+        return tokenFB;
+    }
+
+    public TokenObject getTokenVK() {
+        return tokenVK;
+    }
+
+    public TokenObject getTokenBSTAT() {
+        return tokenBSTAT;
+    }
+
+    public TokenObject getTokenServiceWorker() {
+        return tokenServiceWorker;
+    }
+
+    public TokenObject getTokenSystemStatistic() {
+        return tokenSystemStatistic;
+    }
+
+    public TokenObject getTokenTechSupport() {
+        return tokenTechSupport;
+    }
+
+    public TokenObject getTokenStorageService() {
+        return tokenStorageService;
+    }
+
+    public TokenObject getTokenTextService() {
+        return tokenTextService;
+    }
+
+    public TokenObject getTokenMailSender() {
+        return tokenMailSender;
+    }
 }

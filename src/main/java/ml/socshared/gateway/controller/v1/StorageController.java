@@ -59,7 +59,7 @@ public class StorageController {
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
     @PostMapping("/protected/posts")
     public PublicationResponse savePublication(@Valid @NotNull @RequestBody PostRequest postRequest, HttpServletRequest request) {
-        log.info("request get post list of group id");
+        log.info("saving post");
         UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
         return service.savePost(systemUserId, postRequest);
     }

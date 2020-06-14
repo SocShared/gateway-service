@@ -62,6 +62,12 @@ public interface StorageServiceClient {
     @DeleteMapping(value = "/private/users/{userId}/groups/vk/{vkId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     void deleteByVkId(@PathVariable UUID userId, @PathVariable String vkId, @RequestHeader("Authorization") String token);
 
+    @DeleteMapping(value = "/private/users/{userId}/groups/vk", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    void deleteVkGroupsByUserId(@PathVariable UUID userId, @RequestHeader("Authorization") String token);
+
+    @DeleteMapping(value = "/private/users/{userId}/groups/facebook", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    void deleteFacebookGroupsByUserId(@PathVariable UUID userId, @RequestHeader("Authorization") String token);
+
     @PostMapping(value = "/private/publications", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     PublicationResponse addNewPublication(@RequestBody PublicationRequest request,

@@ -22,18 +22,16 @@ public class SocialServiceImpl implements SocialService {
 
     @Override
     public List<UserResponse> getAccountsSocialNetwork(UUID systemUserId) {
+        
         List<UserResponse> accounts = new ArrayList<>();
         try {
-           UserResponse facebookAccount = facebookService.getUserDataFacebookAccount(systemUserId);
-
-           if (facebookAccount != null) {
-               accounts.add(facebookAccount);
-           }
-       } catch (Exception exp) {
-           log.warn("FB returned error -> {}", exp);
-       }
-
-
+            UserResponse facebookAccount = facebookService.getUserDataFacebookAccount(systemUserId);
+            if (facebookAccount != null) {
+                accounts.add(facebookAccount);
+            }
+        } catch (Exception exc) {
+            log.warn("FB returned error -> {}", exc.getMessage());
+        }
 
 
         try {

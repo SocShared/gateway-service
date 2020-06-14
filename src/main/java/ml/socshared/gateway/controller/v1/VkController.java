@@ -28,7 +28,6 @@ public class VkController implements VkApi {
     private final StorageService storageService;
     private final JwtTokenProvider jwtTokenProvider;
 
-
     @Override
     @PostMapping("/protected/social/vk/app")
     @PreAuthorize("hasRole('CONTENT_MANAGER')")

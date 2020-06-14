@@ -12,6 +12,10 @@ public class GroupPostStatus {
 
     private UUID groupId;
     private PostStatus postStatus;
+    private String statusText;
+    private SocialNetwork socialNetwork;
+    private String postFacebookId;
+    private String postVkId;
 
     public enum PostStatus {
         @JsonProperty("published")

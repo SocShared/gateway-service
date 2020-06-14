@@ -21,4 +21,6 @@ public interface StorageService {
     GroupResponse addFBGroupToStorage(UUID systemUserId, String fbGroupId);
     void deleteGroupByFbId(UUID systemUserId, String fbGroupId);
     void deleteGroupByVKId(UUID systemUserId, String vkGroupId);
+    void deleteFacebookGroupsByUserId(UUID systemUserId);
+    void deleteVkGroupsByUserId(UUID systemUserId);
 }
