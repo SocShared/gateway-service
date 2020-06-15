@@ -6,7 +6,6 @@ import ml.socshared.gateway.config.Constants;
 import ml.socshared.gateway.security.jwt.JwtAuthenticationEntryPoint;
 import ml.socshared.gateway.security.jwt.JwtConfigurer;
 import ml.socshared.gateway.security.jwt.JwtTokenProvider;
-import ml.socshared.gateway.security.online.OnlineUsersStore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -56,8 +55,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(new JwtAuthenticationEntryPoint());
     }
 
-    @Bean
-    public OnlineUsersStore onlineUsersStore() {
-        return new OnlineUsersStore();
-    }
 }
