@@ -1,6 +1,7 @@
 package ml.socshared.gateway.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ml.socshared.gateway.client.FacebookClient;
 import ml.socshared.gateway.client.StorageServiceClient;
 import ml.socshared.gateway.domain.facebook.FacebookPage;
@@ -20,6 +21,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class FacebookServiceImpl implements FacebookService {
 
     private final FacebookClient facebookClient;
@@ -41,11 +43,13 @@ public class FacebookServiceImpl implements FacebookService {
 
     @Override
     public AccessUrlResponse getURLForAccess() {
+        log.info(tokenFB());
         return facebookClient.getAccessUrl(tokenFB());
     }
 
     @Override
     public SuccessResponse saveFacebookAccount(UUID systemUserId, String authorizationCode) {
+        log.info(tokenFB());
         return facebookClient.saveFacebookAccount(systemUserId, authorizationCode, tokenFB());
     }
 
