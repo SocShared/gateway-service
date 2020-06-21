@@ -10,6 +10,8 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import ml.socshared.gateway.exception.AbstractRestHandleableException;
 
+import javax.validation.ConstraintViolationException;
+
 @ControllerAdvice
 @Slf4j
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -25,8 +27,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(javax.validation.ConstraintViolationException.class)
-    public ResponseEntity<RestApiError> handlePrintException(ServletWebRequest webRequest, javax.validation.ConstraintViolationException exc) {
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<RestApiError> handlePrintException(ServletWebRequest webRequest, ConstraintViolationException exc) {
         log.error(exc.getMessage());
         return buildErrorResponse(exc, HttpStatus.BAD_REQUEST, webRequest);
     }
