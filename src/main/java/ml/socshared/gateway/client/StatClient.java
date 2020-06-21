@@ -16,28 +16,28 @@ public interface StatClient {
     @GetMapping(value = "/api/v1/private/stat/social")
     UsingSocialNetworkResponse getUsingSocialNetworkStat(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/api/v1/private/stat/users/online")
+    @GetMapping(value = "/api/v1/private/stat/users/online/count")
     UsersStatResponse getOnlineUsersStat(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/api/v1/private/stat/users/online/timeline")
+    @GetMapping(value = "/api/v1/private/stat/users/online/count/timeline")
     List<UsersStatResponse> getOnlineUsersStatTimeline(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/api/v1/private/stat/users/active")
+    @GetMapping(value = "/api/v1/private/stat/users/active/count")
     UsersStatResponse getActiveUsersStat(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/api/v1/private/stat/users/active/timeline")
+    @GetMapping(value = "/api/v1/private/stat/users/active/count/timeline")
     List<UsersStatResponse> getActiveUsersStatTimeline(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/api/v1/private/stat/users/new")
+    @GetMapping(value = "/api/v1/private/stat/users/new/count")
     UsersStatResponse getNewUsersStat(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/api/v1/private/stat/users/new/timeline")
+    @GetMapping(value = "/api/v1/private/stat/users/new/count/timeline")
     List<UsersStatResponse> getNewUsersStatTimeline(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/api/v1/private/stat/users/all")
+    @GetMapping(value = "/api/v1/private/stat/users/all/count")
     UsersStatResponse getAllUsersStat(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/api/v1/private/stat/users/all/timeline")
+    @GetMapping(value = "/api/v1/private/stat/users/all/count/timeline")
     List<UsersStatResponse> getAllUsersStatTimeline(@RequestHeader("Authorization") String token);
 
     @GetMapping(value = "/api/v1/private/stat/errors")

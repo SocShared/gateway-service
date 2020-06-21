@@ -1,5 +1,6 @@
 package ml.socshared.gateway.security.token;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ml.socshared.gateway.security.jwt.JwtTokenProvider;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Service
 @Slf4j
 @Aspect
+@Getter
 public class TokenGetter {
 
     private final JwtTokenProvider jwtTokenProvider;
@@ -189,39 +191,4 @@ public class TokenGetter {
         return tokenMailSender;
     }
 
-    public TokenObject getTokenFB() {
-        return tokenFB;
-    }
-
-    public TokenObject getTokenVK() {
-        return tokenVK;
-    }
-
-    public TokenObject getTokenBSTAT() {
-        return tokenBSTAT;
-    }
-
-    public TokenObject getTokenServiceWorker() {
-        return tokenServiceWorker;
-    }
-
-    public TokenObject getTokenSystemStatistic() {
-        return tokenSystemStatistic;
-    }
-
-    public TokenObject getTokenTechSupport() {
-        return tokenTechSupport;
-    }
-
-    public TokenObject getTokenStorageService() {
-        return tokenStorageService;
-    }
-
-    public TokenObject getTokenTextService() {
-        return tokenTextService;
-    }
-
-    public TokenObject getTokenMailSender() {
-        return tokenMailSender;
-    }
 }

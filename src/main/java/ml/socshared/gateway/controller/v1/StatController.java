@@ -30,49 +30,49 @@ public class StatController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(value = "/protected/stat/users/online")
+    @GetMapping(value = "/protected/stat/users/online/count")
     public UsersStatResponse getOnlineUsersStat() {
         return statService.getOnlineUsersStat();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(value = "/protected/stat/users/online/timeline")
+    @GetMapping(value = "/protected/stat/users/online/count/timeline")
     public List<UsersStatResponse> getOnlineUsersStatTimeline() {
         return statService.getOnlineUsersStatTimeline();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(value = "/protected/stat/users/active")
+    @GetMapping(value = "/protected/stat/users/active/count")
     public UsersStatResponse getActiveUsersStat() {
         return statService.getActiveUsersStat();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(value = "/protected/stat/users/active/timeline")
+    @GetMapping(value = "/protected/stat/users/active/count/timeline")
     public List<UsersStatResponse> getActiveUsersStatTimeline() {
         return statService.getActiveUsersStatTimeline();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(value = "/protected/stat/users/new")
+    @GetMapping(value = "/protected/stat/users/new/count")
     public UsersStatResponse getNewUsersStat() {
         return statService.getNewUsersStat();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(value = "/protected/stat/users/new/timeline")
+    @GetMapping(value = "/protected/stat/users/new/count/timeline")
     public List<UsersStatResponse> getNewUsersStatTimeline() {
         return statService.getNewUsersStatTimeline();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(value = "/protected/stat/users/all")
+    @GetMapping(value = "/protected/stat/users/all/count")
     public UsersStatResponse getAllUsersStat() {
         return statService.getAllUsersStat();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(value = "/protected/stat/users/all/timeline")
+    @GetMapping(value = "/protected/stat/users/all/count/timeline")
     public List<UsersStatResponse> getAllUsersStatTimeline() {
         return statService.getAllUsersStatTimeline();
     }
