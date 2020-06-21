@@ -11,5 +11,5 @@ import org.springframework.data.domain.Page;
 public class FullQuestionResponse extends QuestionResponse {
     Page<Comment> comments;
     Boolean canCreateComment;
-    Boolean canDeleteAnswer;
+    Boolean canDeleteQuestion;
 }
