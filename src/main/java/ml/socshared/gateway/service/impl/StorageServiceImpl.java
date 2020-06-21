@@ -66,7 +66,9 @@ public class StorageServiceImpl implements StorageService {
 
         if (request.getHashTags() != null) {
             for (String str : request.getHashTags()) {
-                builder.append('#').append(str.trim().replaceAll("\\s", "_")).append(" ");
+                String result = str.trim();
+                if (!result.isEmpty())
+                    builder.append('#').append(result.replaceAll("\\s", "_")).append(" ");
             }
         } else {
             List<KeyWordResponse> keyWords = textAnalyzerService.getKeyWords(request.getText(), 2, 4);
