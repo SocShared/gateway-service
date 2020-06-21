@@ -30,7 +30,6 @@ public class TechSupportController  implements TechSupportApi {
     private final TechSupportService service;
     private final JwtTokenProvider jwtTokenProvider;
 
-
     @Override
     @PostMapping("/protected/support/questions")
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
@@ -54,7 +53,7 @@ public class TechSupportController  implements TechSupportApi {
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
     @GetMapping("/protected/support/questions/{questionId}")
     public FullQuestionResponse getFullQuestion(@PathVariable Integer questionId, Pageable pageable) {
-        log.info("Request get of page with question " + String.valueOf(questionId));
+        log.info("Request get of page with question " + questionId);
         return service.getFullQuestion(questionId, pageable);
     }
 
@@ -65,7 +64,7 @@ public class TechSupportController  implements TechSupportApi {
                                         HttpServletRequest request) {
         UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
         comment.setAuthorId(systemUserId);
-        log.info("Request create of comment to question " + String.valueOf(questionId));
+        log.info("Request create of comment to question " + questionId);
         return service.addCommentToQuestion(questionId, comment);
     }
 
@@ -73,7 +72,7 @@ public class TechSupportController  implements TechSupportApi {
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/protected/support/questions/{questionId}")
     public void removeQuestion(@PathVariable Integer questionId) {
-        log.info("Request remove question " + String.valueOf(questionId));
+        log.info("Request remove question " + questionId);
         service.removeQuestion(questionId);
     }
 
@@ -81,7 +80,7 @@ public class TechSupportController  implements TechSupportApi {
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/protected/support/questions/{questionId}/comments/{commentId}")
     public void removeComment(@PathVariable Integer questionId,@PathVariable Integer commentId) {
-        log.info("Request delete comment " + String.valueOf(commentId) + " of question " + String.valueOf(questionId));
+        log.info("Request delete comment " + commentId + " of question " + questionId);
         service.removeComment(questionId, commentId);
     }
 }

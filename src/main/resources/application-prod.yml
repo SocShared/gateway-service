@@ -27,3 +27,4 @@ feign:
     vk: ${VK_SERVICE:http://vk-adapter}
     tech-support: ${TECH_SUPPORT_SERVICE:http://tech-support}
     storage: ${STORAGE_SERVICE:localhost:8686}
+    stat: ${STAT_SERVICE:http://stat-service:8888}

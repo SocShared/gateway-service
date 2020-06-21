@@ -22,8 +22,7 @@ public class TextAnalyzerController {
     private final TextAnalyzerService textAnalyzerService;
 
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
-    @GetMapping(value = "/protected/text/keywords", produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/protected/text/keywords")
     public List<KeyWordResponse> getKeyWords(@NotNull @RequestBody String text,
                                              @RequestParam(value = "min_len", defaultValue = "2") Integer minLength,
                                              @RequestParam(value = "max_len", defaultValue  = "4") Integer maxLength) {

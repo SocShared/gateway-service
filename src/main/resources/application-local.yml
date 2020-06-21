@@ -22,4 +22,4 @@ feign:
     text: ${TEXT_SERVICE:https://text.socshared.ml}
     storage: ${STORAGE_SERVICE:https://storage.socshared.ml}
     bstat: ${BSTAT_SERVICE:http://bstat.socshared.ml}
-
+    stat: ${STAT_SERVICE:http://stat-service:8888}

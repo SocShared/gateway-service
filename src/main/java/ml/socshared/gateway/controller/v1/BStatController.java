@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 @Slf4j
-@RequestMapping("api/v1")
+@RequestMapping(value = "api/v1")
 @PreAuthorize("isAuthenticated()")
 @RequiredArgsConstructor
 public class BStatController {

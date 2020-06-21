@@ -15,4 +15,5 @@ feign:
     text: ${TEXT_SERVICE:http://text-analyzer:8886}
     storage: ${STORAGE_SERVICE:http://storage-service:8686}
     bstat: ${BSTAT_SERVICE:http://bstat:8884}
+    stat: ${STAT_SERVICE:http://stat-service:8888}
 

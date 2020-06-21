@@ -110,6 +110,7 @@ public class TokenGetter {
     }
 
 
+    @Before("execution(* ml.socshared.gateway.service.impl.StatServiceImpl.*(..))")
     public TokenObject initTokenSystemStatistic() {
         if (tokenSystemStatistic != null && jwtTokenProvider.validateServiceToken(tokenSystemStatistic.getToken())) {
             return tokenSystemStatistic;
