@@ -1,6 +1,7 @@
 package ml.socshared.gateway.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ml.socshared.gateway.client.StatClient;
 import ml.socshared.gateway.domain.stat.errorstat.ErrorsStatResponse;
 import ml.socshared.gateway.domain.stat.userstat.UsersStatResponse;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class StatServiceImpl implements StatService {
 
     private final StatClient statClient;
