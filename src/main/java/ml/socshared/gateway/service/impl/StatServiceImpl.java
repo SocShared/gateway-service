@@ -3,9 +3,11 @@ package ml.socshared.gateway.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ml.socshared.gateway.client.StatClient;
+import ml.socshared.gateway.domain.RestResponsePage;
 import ml.socshared.gateway.domain.stat.errorstat.ErrorsStatResponse;
 import ml.socshared.gateway.domain.stat.userstat.UsersStatResponse;
 import ml.socshared.gateway.domain.stat.usingsocial.UsingSocialNetworkResponse;
+import ml.socshared.gateway.domain.user.UserResponse;
 import ml.socshared.gateway.security.model.TokenObject;
 import ml.socshared.gateway.service.StatService;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,8 +35,8 @@ public class StatServiceImpl implements StatService {
     }
 
     @Override
-    public UsersStatResponse getOnlineUsersStat() {
-        return statClient.getOnlineUsersStat(tokenSystemStat());
+    public UsersStatResponse getOnlineUsersCount() {
+        return statClient.getOnlineUsersCount(tokenSystemStat());
     }
 
     @Override
@@ -43,8 +45,8 @@ public class StatServiceImpl implements StatService {
     }
 
     @Override
-    public UsersStatResponse getActiveUsersStat() {
-        return statClient.getActiveUsersStat(tokenSystemStat());
+    public UsersStatResponse getActiveUsersCount() {
+        return statClient.getActiveUsersCount(tokenSystemStat());
     }
 
     @Override
@@ -53,8 +55,8 @@ public class StatServiceImpl implements StatService {
     }
 
     @Override
-    public UsersStatResponse getNewUsersStat() {
-        return statClient.getNewUsersStat(tokenSystemStat());
+    public UsersStatResponse getNewUsersCount() {
+        return statClient.getNewUsersCount(tokenSystemStat());
     }
 
     @Override
@@ -63,13 +65,33 @@ public class StatServiceImpl implements StatService {
     }
 
     @Override
-    public UsersStatResponse getAllUsersStat() {
-        return statClient.getAllUsersStat(tokenSystemStat());
+    public UsersStatResponse getAllUsersCount() {
+        return statClient.getAllUsersCount(tokenSystemStat());
     }
 
     @Override
     public List<UsersStatResponse> getAllUsersStatTimeline() {
         return statClient.getAllUsersStatTimeline(tokenSystemStat());
+    }
+
+    @Override
+    public RestResponsePage<UserResponse> getOnlineUsers(Integer page, Integer size) {
+        return statClient.getOnlineUsers(page, size, tokenSystemStat());
+    }
+
+    @Override
+    public RestResponsePage<UserResponse> getActiveUsers(Integer page, Integer size) {
+        return statClient.getActiveUsers(page, size, tokenSystemStat());
+    }
+
+    @Override
+    public RestResponsePage<UserResponse> getNewUsers(Integer page, Integer size) {
+        return statClient.getNewUsers(page, size, tokenSystemStat());
+    }
+
+    @Override
+    public RestResponsePage<UserResponse> getAllUsers(Integer page, Integer size) {
+        return statClient.getAllUsers(page, size, tokenSystemStat());
     }
 
     @Override

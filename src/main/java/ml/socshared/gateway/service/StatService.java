@@ -1,24 +1,28 @@
 package ml.socshared.gateway.service;
 
+import ml.socshared.gateway.domain.RestResponsePage;
 import ml.socshared.gateway.domain.stat.errorstat.ErrorsStatResponse;
 import ml.socshared.gateway.domain.stat.userstat.UsersStatResponse;
 import ml.socshared.gateway.domain.stat.usingsocial.UsingSocialNetworkResponse;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
+import ml.socshared.gateway.domain.user.UserResponse;
 
 import java.util.List;
 
 public interface StatService {
 
     UsingSocialNetworkResponse getUsingSocialNetworkStat();
-    UsersStatResponse getOnlineUsersStat();
+    UsersStatResponse getOnlineUsersCount();
     List<UsersStatResponse> getOnlineUsersStatTimeline();
-    UsersStatResponse getActiveUsersStat();
+    RestResponsePage<UserResponse> getOnlineUsers(Integer page, Integer size);
+    UsersStatResponse getActiveUsersCount();
     List<UsersStatResponse> getActiveUsersStatTimeline();
-    UsersStatResponse getNewUsersStat();
+    RestResponsePage<UserResponse> getActiveUsers(Integer page, Integer size);
+    UsersStatResponse getNewUsersCount();
     List<UsersStatResponse> getNewUsersStatTimeline();
-    UsersStatResponse getAllUsersStat();
+    RestResponsePage<UserResponse> getNewUsers(Integer page, Integer size);
+    UsersStatResponse getAllUsersCount();
     List<UsersStatResponse> getAllUsersStatTimeline();
+    RestResponsePage<UserResponse> getAllUsers(Integer page, Integer size);
     ErrorsStatResponse getErrorsStat();
 
 }

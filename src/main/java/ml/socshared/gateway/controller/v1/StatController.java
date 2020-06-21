@@ -1,16 +1,15 @@
 package ml.socshared.gateway.controller.v1;
 
 import lombok.RequiredArgsConstructor;
+import ml.socshared.gateway.domain.RestResponsePage;
 import ml.socshared.gateway.domain.stat.errorstat.ErrorsStatResponse;
 import ml.socshared.gateway.domain.stat.userstat.UsersStatResponse;
 import ml.socshared.gateway.domain.stat.usingsocial.UsingSocialNetworkResponse;
+import ml.socshared.gateway.domain.user.UserResponse;
 import ml.socshared.gateway.service.StatService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,8 +30,8 @@ public class StatController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/protected/stat/users/online/count")
-    public UsersStatResponse getOnlineUsersStat() {
-        return statService.getOnlineUsersStat();
+    public UsersStatResponse getOnlineUsersCount() {
+        return statService.getOnlineUsersCount();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -42,9 +41,16 @@ public class StatController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = "/protected/stat/users/online")
+    public RestResponsePage<UserResponse> getOnlineUsers(@RequestParam(name = "page", defaultValue = "0") Integer page,
+                                                         @RequestParam(name = "size", defaultValue = "10") Integer size) {
+        return statService.getOnlineUsers(page, size);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/protected/stat/users/active/count")
-    public UsersStatResponse getActiveUsersStat() {
-        return statService.getActiveUsersStat();
+    public UsersStatResponse getActiveUsersCount() {
+        return statService.getActiveUsersCount();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -54,9 +60,16 @@ public class StatController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = "/protected/stat/users/active")
+    public RestResponsePage<UserResponse> getActiveUsersStat(@RequestParam(name = "page", defaultValue = "0") Integer page,
+                                                             @RequestParam(name = "size", defaultValue = "10") Integer size) {
+        return statService.getActiveUsers(page, size);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/protected/stat/users/new/count")
-    public UsersStatResponse getNewUsersStat() {
-        return statService.getNewUsersStat();
+    public UsersStatResponse getNewUsersCount() {
+        return statService.getNewUsersCount();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -66,15 +79,29 @@ public class StatController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = "/protected/stat/users/new")
+    public RestResponsePage<UserResponse> getNewUsers(@RequestParam(name = "page", defaultValue = "0") Integer page,
+                                                      @RequestParam(name = "size", defaultValue = "10") Integer size) {
+        return statService.getNewUsers(page, size);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/protected/stat/users/all/count")
-    public UsersStatResponse getAllUsersStat() {
-        return statService.getAllUsersStat();
+    public UsersStatResponse getAllUsersCount() {
+        return statService.getAllUsersCount();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/protected/stat/users/all/count/timeline")
     public List<UsersStatResponse> getAllUsersStatTimeline() {
         return statService.getAllUsersStatTimeline();
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = "/protected/stat/users/all")
+    public RestResponsePage<UserResponse> getAllUsers(@RequestParam(name = "page", defaultValue = "0") Integer page,
+                                                      @RequestParam(name = "size", defaultValue = "10") Integer size) {
+        return statService.getAllUsers(page, size);
     }
 
     @PreAuthorize("hasRole('ADMIN')")

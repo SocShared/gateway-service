@@ -1,12 +1,14 @@
 package ml.socshared.gateway.client;
 
+import ml.socshared.gateway.domain.RestResponsePage;
 import ml.socshared.gateway.domain.stat.errorstat.ErrorsStatResponse;
 import ml.socshared.gateway.domain.stat.userstat.UsersStatResponse;
 import ml.socshared.gateway.domain.stat.usingsocial.UsingSocialNetworkResponse;
+import ml.socshared.gateway.domain.user.UserResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -17,28 +19,48 @@ public interface StatClient {
     UsingSocialNetworkResponse getUsingSocialNetworkStat(@RequestHeader("Authorization") String token);
 
     @GetMapping(value = "/api/v1/private/stat/users/online/count")
-    UsersStatResponse getOnlineUsersStat(@RequestHeader("Authorization") String token);
+    UsersStatResponse getOnlineUsersCount(@RequestHeader("Authorization") String token);
 
     @GetMapping(value = "/api/v1/private/stat/users/online/count/timeline")
     List<UsersStatResponse> getOnlineUsersStatTimeline(@RequestHeader("Authorization") String token);
 
+    @GetMapping(value = "/api/v1/private/stat/users/online")
+    RestResponsePage<UserResponse> getOnlineUsers(@RequestParam(name = "page") Integer page,
+                                                  @RequestParam(name = "size") Integer size,
+                                                  @RequestHeader("Authorization") String token);
+
     @GetMapping(value = "/api/v1/private/stat/users/active/count")
-    UsersStatResponse getActiveUsersStat(@RequestHeader("Authorization") String token);
+    UsersStatResponse getActiveUsersCount(@RequestHeader("Authorization") String token);
 
     @GetMapping(value = "/api/v1/private/stat/users/active/count/timeline")
     List<UsersStatResponse> getActiveUsersStatTimeline(@RequestHeader("Authorization") String token);
 
+    @GetMapping(value = "/api/v1/private/stat/users/active")
+    RestResponsePage<UserResponse> getActiveUsers(@RequestParam(name = "page") Integer page,
+                                                  @RequestParam(name = "size") Integer size,
+                                                  @RequestHeader("Authorization") String token);
+
     @GetMapping(value = "/api/v1/private/stat/users/new/count")
-    UsersStatResponse getNewUsersStat(@RequestHeader("Authorization") String token);
+    UsersStatResponse getNewUsersCount(@RequestHeader("Authorization") String token);
 
     @GetMapping(value = "/api/v1/private/stat/users/new/count/timeline")
     List<UsersStatResponse> getNewUsersStatTimeline(@RequestHeader("Authorization") String token);
 
+    @GetMapping(value = "/api/v1/private/stat/users/new")
+    RestResponsePage<UserResponse> getNewUsers(@RequestParam(name = "page") Integer page,
+                                               @RequestParam(name = "size") Integer size,
+                                               @RequestHeader("Authorization") String token);
+
     @GetMapping(value = "/api/v1/private/stat/users/all/count")
-    UsersStatResponse getAllUsersStat(@RequestHeader("Authorization") String token);
+    UsersStatResponse getAllUsersCount(@RequestHeader("Authorization") String token);
 
     @GetMapping(value = "/api/v1/private/stat/users/all/count/timeline")
     List<UsersStatResponse> getAllUsersStatTimeline(@RequestHeader("Authorization") String token);
+
+    @GetMapping(value = "/api/v1/private/stat/users/all")
+    RestResponsePage<UserResponse> getAllUsers(@RequestParam(name = "page") Integer page,
+                                               @RequestParam(name = "size") Integer size,
+                                               @RequestHeader("Authorization") String token);
 
     @GetMapping(value = "/api/v1/private/stat/errors")
     ErrorsStatResponse getErrorsStat(@RequestHeader("Authorization") String token);
