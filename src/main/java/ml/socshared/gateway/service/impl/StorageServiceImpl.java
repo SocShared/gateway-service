@@ -65,19 +65,20 @@ public class StorageServiceImpl implements StorageService {
         StringBuilder builder = new StringBuilder(request.getText() + "\n\n");
 
         if (request.getHashTags() != null) {
-            for (String str : request.getHashTags())
-                builder.append('#').append(str.replaceAll("\\s", "_")).append(" ");
-        }
+            for (String str : request.getHashTags()) {
+                builder.append('#').append(str.trim().replaceAll("\\s", "_")).append(" ");
+            }
+        } else {
+            List<KeyWordResponse> keyWords = textAnalyzerService.getKeyWords(request.getText(), 2, 4);
 
-        List<KeyWordResponse> keyWords = textAnalyzerService.getKeyWords(request.getText(), 2, 4);
-
-        int i = 0;
-        for (KeyWordResponse keyWord : keyWords) {
-            if (i <= 5)
-                builder.append('#').append(keyWord.getKeyWord().replaceAll("\\s", "_")).append(" ");
-            else
-                break;
-            i++;
+            int i = 0;
+            for (KeyWordResponse keyWord : keyWords) {
+                if (i <= 5)
+                    builder.append('#').append(keyWord.getKeyWord().replaceAll("\\s", "_")).append(" ");
+                else
+                    break;
+                i++;
+            }
         }
 
         req.setText(builder.toString());
