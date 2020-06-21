@@ -10,4 +10,6 @@ import org.springframework.data.domain.Page;
 @AllArgsConstructor
 public class FullQuestionResponse extends QuestionResponse {
     Page<Comment> comments;
+    Boolean canCreateComment;
+    Boolean canDeleteAnswer;
 }

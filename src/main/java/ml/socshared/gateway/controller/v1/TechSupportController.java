@@ -3,10 +3,7 @@ package ml.socshared.gateway.controller.v1;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ml.socshared.gateway.api.v1.rest.TechSupportApi;
-import ml.socshared.gateway.domain.tech_support.response.Comment;
-import ml.socshared.gateway.domain.tech_support.response.FullQuestionResponse;
-import ml.socshared.gateway.domain.tech_support.response.Question;
-import ml.socshared.gateway.domain.tech_support.response.ShortQuestion;
+import ml.socshared.gateway.domain.tech_support.response.*;
 import ml.socshared.gateway.exception.impl.HttpBadRequestException;
 import ml.socshared.gateway.security.jwt.JwtTokenProvider;
 import ml.socshared.gateway.service.TechSupportService;
@@ -44,17 +41,20 @@ public class TechSupportController  implements TechSupportApi {
     @Override
     @GetMapping("/protected/support")
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
-    public Page<ShortQuestion> getQuestionsList(Pageable pageable) {
+    public QuestionsPage getQuestionsList(Pageable pageable, HttpServletRequest request) {
         log.info("Request of get support page " + pageable.toString());
-        return service.getQuestionList(pageable);
+        UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
+        return service.getQuestionList(pageable, systemUserId);
     }
 
     @Override
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
     @GetMapping("/protected/support/questions/{questionId}")
-    public FullQuestionResponse getFullQuestion(@PathVariable Integer questionId, Pageable pageable) {
+    public FullQuestionResponse getFullQuestion(@PathVariable Integer questionId, Pageable pageable,
+                                                HttpServletRequest request) {
         log.info("Request get of page with question " + questionId);
-        return service.getFullQuestion(questionId, pageable);
+        UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
+        return service.getFullQuestion(questionId, pageable, systemUserId);
     }
 
     @Override

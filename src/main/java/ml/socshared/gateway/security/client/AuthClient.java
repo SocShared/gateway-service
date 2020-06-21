@@ -6,8 +6,12 @@ import ml.socshared.gateway.security.request.ServiceTokenRequest;
 import ml.socshared.gateway.security.response.ServiceTokenResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.UUID;
 
 @FeignClient(name = "auth-client", url = "${feign.url.auth:}")
 public interface AuthClient {

@@ -23,7 +23,7 @@ public interface TechSupportApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message ="successful")
     })
-    Page<ShortQuestion> getQuestionsList(Pageable pageable);
+    QuestionsPage getQuestionsList(Pageable pageable,  HttpServletRequest request);
 
     @ApiOperation(value = "get question and list comments", response = FullQuestion.class,
             httpMethod = "GET")
@@ -31,7 +31,7 @@ public interface TechSupportApi {
             @ApiResponse(code = 200, message = "return question and list comments"),
             @ApiResponse(code = 404, message = "question not found")
     })
-    FullQuestionResponse getFullQuestion(Integer questionId, Pageable pageable);
+    FullQuestionResponse getFullQuestion(Integer questionId, Pageable pageable,  HttpServletRequest request);
 
     @ApiOperation(value = "create comment of question", httpMethod = "POST")
     @ApiResponses(value = {
