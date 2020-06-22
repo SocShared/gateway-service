@@ -37,6 +37,7 @@ public class AccountController {
         return authService.sendMailConfirmed(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)));
     }
 
+    @PreAuthorize("hasRole('CONTENT_MANAGER')")
     @PutMapping("/protected/users")
     public void updateUser(@Valid @RequestBody UpdateUserRequest updateUserRequest, HttpServletRequest request) {
        authService.updateUser(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), updateUserRequest);
