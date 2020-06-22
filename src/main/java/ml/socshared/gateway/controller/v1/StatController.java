@@ -5,7 +5,7 @@ import ml.socshared.gateway.domain.RestResponsePage;
 import ml.socshared.gateway.domain.stat.errorstat.ErrorsStatResponse;
 import ml.socshared.gateway.domain.stat.userstat.UsersStatResponse;
 import ml.socshared.gateway.domain.stat.usingsocial.UsingSocialNetworkResponse;
-import ml.socshared.gateway.domain.user.UserResponse;
+import ml.socshared.gateway.domain.user.AuthUserResponse;
 import ml.socshared.gateway.service.StatService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -42,8 +42,8 @@ public class StatController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/protected/stat/users/online")
-    public RestResponsePage<UserResponse> getOnlineUsers(@RequestParam(name = "page", defaultValue = "0") Integer page,
-                                                         @RequestParam(name = "size", defaultValue = "10") Integer size) {
+    public RestResponsePage<AuthUserResponse> getOnlineUsers(@RequestParam(name = "page", defaultValue = "0") Integer page,
+                                                             @RequestParam(name = "size", defaultValue = "10") Integer size) {
         return statService.getOnlineUsers(page, size);
     }
 
@@ -61,8 +61,8 @@ public class StatController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/protected/stat/users/active")
-    public RestResponsePage<UserResponse> getActiveUsersStat(@RequestParam(name = "page", defaultValue = "0") Integer page,
-                                                             @RequestParam(name = "size", defaultValue = "10") Integer size) {
+    public RestResponsePage<AuthUserResponse> getActiveUsersStat(@RequestParam(name = "page", defaultValue = "0") Integer page,
+                                                                 @RequestParam(name = "size", defaultValue = "10") Integer size) {
         return statService.getActiveUsers(page, size);
     }
 
@@ -80,8 +80,8 @@ public class StatController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/protected/stat/users/new")
-    public RestResponsePage<UserResponse> getNewUsers(@RequestParam(name = "page", defaultValue = "0") Integer page,
-                                                      @RequestParam(name = "size", defaultValue = "10") Integer size) {
+    public RestResponsePage<AuthUserResponse> getNewUsers(@RequestParam(name = "page", defaultValue = "0") Integer page,
+                                                          @RequestParam(name = "size", defaultValue = "10") Integer size) {
         return statService.getNewUsers(page, size);
     }
 
@@ -99,8 +99,8 @@ public class StatController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/protected/stat/users/all")
-    public RestResponsePage<UserResponse> getAllUsers(@RequestParam(name = "page", defaultValue = "0") Integer page,
-                                                      @RequestParam(name = "size", defaultValue = "10") Integer size) {
+    public RestResponsePage<AuthUserResponse> getAllUsers(@RequestParam(name = "page", defaultValue = "0") Integer page,
+                                                          @RequestParam(name = "size", defaultValue = "10") Integer size) {
         return statService.getAllUsers(page, size);
     }
 

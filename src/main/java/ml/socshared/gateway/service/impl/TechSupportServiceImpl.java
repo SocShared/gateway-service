@@ -6,10 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import ml.socshared.gateway.client.TechSupportServiceClient;
 import ml.socshared.gateway.domain.tech_support.response.*;
 import ml.socshared.gateway.domain.user.RoleResponse;
-import ml.socshared.gateway.domain.user.UserResponse;
+import ml.socshared.gateway.domain.user.AuthUserResponse;
 import ml.socshared.gateway.exception.impl.HttpForbiddenException;
 import ml.socshared.gateway.security.model.TokenObject;
-import ml.socshared.gateway.service.AuthInfoService;
+import ml.socshared.gateway.service.AuthService;
 import ml.socshared.gateway.service.TechSupportService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -28,7 +28,7 @@ public class TechSupportServiceImpl implements TechSupportService {
 
 
     private final TechSupportServiceClient client;
-    private final AuthInfoService authInfoService;
+    private final AuthService authInfoService;
 
     @Value("#{tokenGetter.tokenTechSupport}")
     TokenObject tokenTechSupport;
@@ -134,7 +134,7 @@ public class TechSupportServiceImpl implements TechSupportService {
 
     private Boolean userIsAdmin(UUID systemUserID) {
         try {
-            UserResponse user = authInfoService.getClientInfoById(systemUserID);
+            AuthUserResponse user = authInfoService.getUserInfoById(systemUserID);
             for(RoleResponse role : user.getRoles()) {
                 if(role.getName() != null && role.getName().equals("ADMIN")) {
                     return true;
@@ -149,12 +149,11 @@ public class TechSupportServiceImpl implements TechSupportService {
 
     private String getUserLogin(UUID systemUserId) {
         try {
-            UserResponse user = authInfoService.getClientInfoById(systemUserId);
+            AuthUserResponse user = authInfoService.getUserInfoById(systemUserId);
             return user.getUsername();
         } catch (Exception exp) {
             log.error("Error request get UserResponse from AuthService", exp);
             return "";
         }
-
     }
 }

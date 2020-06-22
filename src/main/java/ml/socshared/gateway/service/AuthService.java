@@ -3,6 +3,7 @@ package ml.socshared.gateway.service;
 import ml.socshared.gateway.domain.RestResponsePage;
 import ml.socshared.gateway.domain.client.request.NewClientRequest;
 import ml.socshared.gateway.domain.client.response.ClientResponse;
+import ml.socshared.gateway.domain.user.AuthUserResponse;
 import org.springframework.data.domain.Page;
 
 import java.util.UUID;
@@ -16,5 +17,6 @@ public interface AuthService {
     ClientResponse addClient(UUID userId, NewClientRequest request);
     ClientResponse updateClient(UUID userId, UUID clientId, NewClientRequest request);
     void deleteClient(UUID clientId);
+    AuthUserResponse getUserInfoById(UUID userId);
 
 }
