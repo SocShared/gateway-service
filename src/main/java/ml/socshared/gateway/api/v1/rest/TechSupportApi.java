@@ -45,12 +45,12 @@ public interface TechSupportApi {
             @ApiResponse(code = 200, message = "question deleted"),
             @ApiResponse(code = 404, message = "question not found")
     })
-    void removeQuestion(Integer questionId);
+    void removeQuestion(Integer questionId, HttpServletRequest request);
 
     @ApiOperation(value = "removing comment of question", httpMethod = "DELETE")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Comment deleted"),
             @ApiResponse(code = 404, message = "Question or comment not found")
     })
-    void removeComment(Integer questionId, Integer commentId);
+    void removeComment(Integer questionId, Integer commentId, HttpServletRequest request);
 }

@@ -12,7 +12,7 @@ import java.util.UUID;
 @FeignClient(name = "auth-client", url = "${feign.url.auth:}")
 public interface AuthInfoClient {
 
-    @GetMapping(value = "/private/users/{userId}")
+    @GetMapping(value = "api/v1/private/users/{userId}")
     UserResponse getUserById(@PathVariable UUID userId,
                              @RequestHeader("Authorization") String token);
 

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -71,16 +72,19 @@ public class TechSupportController  implements TechSupportApi {
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/protected/support/questions/{questionId}")
-    public void removeQuestion(@PathVariable Integer questionId) {
+    public void removeQuestion(@PathVariable Integer questionId, HttpServletRequest request) {
         log.info("Request remove question " + questionId);
-        service.removeQuestion(questionId);
+        UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
+        service.removeQuestion(questionId, systemUserId);
     }
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/protected/support/questions/{questionId}/comments/{commentId}")
-    public void removeComment(@PathVariable Integer questionId,@PathVariable Integer commentId) {
+    public void removeComment(@PathVariable Integer questionId,@PathVariable Integer commentId,
+                              HttpServletRequest request) {
         log.info("Request delete comment " + commentId + " of question " + questionId);
-        service.removeComment(questionId, commentId);
+        UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
+        service.removeComment(questionId, commentId, systemUserId);
     }
 }

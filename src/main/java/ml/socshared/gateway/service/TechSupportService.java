@@ -12,7 +12,7 @@ public interface TechSupportService {
     QuestionsPage getQuestionList(Pageable pageable, UUID systemUserID);
     FullQuestionResponse getFullQuestion(Integer questionId, Pageable pageable, UUID systemUserID);
     Integer addCommentToQuestion(Integer questionId, Comment comm);
-    void removeQuestion(Integer questionId);
-    void removeComment(Integer QestionId, Integer commentId);
+    void removeQuestion(Integer questionId, UUID systemUserId);
+    void removeComment(Integer QestionId, Integer commentId, UUID systemUserId);
 
 }
