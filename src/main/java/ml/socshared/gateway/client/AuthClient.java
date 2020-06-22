@@ -11,6 +11,7 @@ import ml.socshared.gateway.security.response.ServiceTokenResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -56,7 +57,10 @@ public interface AuthClient {
     @DeleteMapping(value = "/api/v1/private/clients/{clientId}")
     void deleteClient(@PathVariable UUID clientId, @RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "api/v1/private/users/{userId}")
+    @GetMapping(value = "/api/v1/private/users/{userId}")
     AuthUserResponse getUserById(@PathVariable UUID userId, @RequestHeader("Authorization") String token);
+
+    @PostMapping(value = "/api/v1/private/users/{userId}/mail/confirmed")
+    SuccessResponse sendMailConfirmed(@PathVariable UUID userId, @RequestHeader("Authorization") String token);
 
 }

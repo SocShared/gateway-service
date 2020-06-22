@@ -5,6 +5,7 @@ import ml.socshared.gateway.client.AuthClient;
 import ml.socshared.gateway.domain.RestResponsePage;
 import ml.socshared.gateway.domain.client.request.NewClientRequest;
 import ml.socshared.gateway.domain.client.response.ClientResponse;
+import ml.socshared.gateway.domain.response.SuccessResponse;
 import ml.socshared.gateway.domain.user.AuthUserResponse;
 import ml.socshared.gateway.security.model.TokenObject;
 import ml.socshared.gateway.service.AuthService;
@@ -66,4 +67,8 @@ public class AuthServiceImpl implements AuthService {
         return authClient.getUserById(userId,  tokenAuth());
     }
 
+    @Override
+    public SuccessResponse sendMailConfirmed(UUID userId) {
+        return authClient.sendMailConfirmed(userId, tokenAuth());
+    }
 }

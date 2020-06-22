@@ -1,6 +1,7 @@
 package ml.socshared.gateway.controller.v1;
 
 import lombok.RequiredArgsConstructor;
+import ml.socshared.gateway.domain.response.SuccessResponse;
 import ml.socshared.gateway.domain.response.UserResponse;
 import ml.socshared.gateway.domain.user.AuthUserResponse;
 import ml.socshared.gateway.security.jwt.JwtTokenProvider;
@@ -9,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +30,12 @@ public class AccountController {
     @GetMapping(value = "/protected/users/info")
     public AuthUserResponse getUserResponseInfo(HttpServletRequest request) {
         return authService.getUserInfoById(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)));
+    }
+
+    @PreAuthorize("hasRole('CONTENT_MANAGER')")
+    @PostMapping(value = "/protected/users/mail/confirmed")
+    public SuccessResponse sendMailConfirmed(HttpServletRequest request) {
+        return authService.sendMailConfirmed(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)));
     }
 
 }
