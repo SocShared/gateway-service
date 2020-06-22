@@ -66,6 +66,7 @@ public class StorageServiceImpl implements StorageService {
         StringBuilder builder = new StringBuilder(request.getText() + "\n\n");
 
         log.info("HashTags: " + Arrays.toString(request.getHashTags()));
+        log.info("Size HashTags: " + request.getHashTags().length);
 
         if (request.getHashTags() != null && request.getHashTags().length != 0) {
             for (String str : request.getHashTags()) {
