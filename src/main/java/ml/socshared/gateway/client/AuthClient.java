@@ -47,8 +47,8 @@ public interface AuthClient {
     ClientResponse addClient(@PathVariable UUID userId, @Valid @RequestBody NewClientRequest request,
                              @RequestHeader("Authorization") String token);
 
-    @PatchMapping(value = "/api/v1/private/users/{userId}/clients/{clientId}")
-    ClientResponse updateClient(@PathVariable UUID userId, @PathVariable UUID clientId,
+    @PutMapping(value = "/api/v1/private/users/{userId}/clients/{clientId}")
+    void updateClient(@PathVariable UUID userId, @PathVariable UUID clientId,
                                 @Valid @RequestBody NewClientRequest request,
                                 @RequestHeader("Authorization") String token);
 

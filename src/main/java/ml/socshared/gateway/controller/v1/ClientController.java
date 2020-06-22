@@ -61,10 +61,10 @@ public class ClientController {
     }
 
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
-    @PatchMapping(value = "/protected/users/clients/{clientId}")
-    public ClientResponse updateClient(@PathVariable UUID clientId, @Valid @RequestBody NewClientRequest newClientRequest,
+    @PutMapping(value = "/protected/users/clients/{clientId}")
+    public void updateClient(@PathVariable UUID clientId, @Valid @RequestBody NewClientRequest newClientRequest,
                                        HttpServletRequest request) {
-        return authService.updateClient(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), clientId, newClientRequest);
+        authService.updateClient(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), clientId, newClientRequest);
     }
 
 }

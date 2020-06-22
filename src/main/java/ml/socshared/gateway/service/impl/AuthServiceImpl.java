@@ -8,7 +8,6 @@ import ml.socshared.gateway.domain.client.response.ClientResponse;
 import ml.socshared.gateway.security.model.TokenObject;
 import ml.socshared.gateway.service.AuthService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -52,8 +51,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public ClientResponse updateClient(UUID userId, UUID clientId, NewClientRequest request) {
-        return authClient.updateClient(userId, clientId, request, tokenAuth());
+    public void updateClient(UUID userId, UUID clientId, NewClientRequest request) {
+        authClient.updateClient(userId, clientId, request, tokenAuth());
     }
 
     @Override
