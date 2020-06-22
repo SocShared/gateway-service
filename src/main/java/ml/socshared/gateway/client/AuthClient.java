@@ -1,5 +1,6 @@
 package ml.socshared.gateway.client;
 
+import ml.socshared.gateway.domain.RestResponsePage;
 import ml.socshared.gateway.domain.client.request.NewClientRequest;
 import ml.socshared.gateway.domain.client.response.ClientResponse;
 import ml.socshared.gateway.domain.response.SuccessResponse;
@@ -25,7 +26,7 @@ public interface AuthClient {
     ServiceTokenResponse getServiceToken(@RequestBody ServiceTokenRequest request);
 
     @GetMapping(value = "/api/v1/private/clients")
-    Page<ClientResponse> findAllClients(@RequestParam(name = "page", defaultValue = "0") Integer page,
+    RestResponsePage<ClientResponse> findAllClients(@RequestParam(name = "page", defaultValue = "0") Integer page,
                                         @RequestParam(name = "size", defaultValue = "10") Integer size,
                                         @RequestHeader("Authorization") String token);
 
@@ -37,10 +38,10 @@ public interface AuthClient {
                                            @RequestHeader("Authorization") String token);
 
     @GetMapping(value = "/api/v1/private/users/{userId}/clients")
-    Page<ClientResponse> findByUserId(@PathVariable UUID userId,
-                                      @RequestParam(name = "page", defaultValue = "0") Integer page,
-                                      @RequestParam(name = "size", defaultValue = "10") Integer size,
-                                      @RequestHeader("Authorization") String token);
+    RestResponsePage<ClientResponse> findByUserId(@PathVariable UUID userId,
+                                                  @RequestParam(name = "page", defaultValue = "0") Integer page,
+                                                  @RequestParam(name = "size", defaultValue = "10") Integer size,
+                                                  @RequestHeader("Authorization") String token);
 
     @PostMapping(value = "/api/v1/private/users/{userId}/clients")
     ClientResponse addClient(@PathVariable UUID userId, @Valid @RequestBody NewClientRequest request,
