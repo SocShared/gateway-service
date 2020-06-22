@@ -2,6 +2,7 @@ package ml.socshared.gateway.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import ml.socshared.gateway.client.AuthClient;
+import ml.socshared.gateway.domain.RestResponsePage;
 import ml.socshared.gateway.domain.client.request.NewClientRequest;
 import ml.socshared.gateway.domain.client.response.ClientResponse;
 import ml.socshared.gateway.security.model.TokenObject;
@@ -26,7 +27,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public Page<ClientResponse> findAllClients(Integer page, Integer size) {
+    public RestResponsePage<ClientResponse> findAllClients(Integer page, Integer size) {
         return authClient.findAllClients(page, size, tokenAuth());
     }
 
@@ -41,7 +42,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public Page<ClientResponse> findByUserId(UUID userId, Integer page, Integer size) {
+    public RestResponsePage<ClientResponse> findByUserId(UUID userId, Integer page, Integer size) {
         return authClient.findByUserId(userId, page, size, tokenAuth());
     }
 

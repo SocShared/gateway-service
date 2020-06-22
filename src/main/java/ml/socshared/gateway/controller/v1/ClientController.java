@@ -1,6 +1,7 @@
 package ml.socshared.gateway.controller.v1;
 
 import lombok.RequiredArgsConstructor;
+import ml.socshared.gateway.domain.RestResponsePage;
 import ml.socshared.gateway.domain.client.request.NewClientRequest;
 import ml.socshared.gateway.domain.client.response.ClientResponse;
 import ml.socshared.gateway.security.jwt.JwtTokenProvider;
@@ -27,8 +28,8 @@ public class ClientController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/protected/clients")
-    public Page<ClientResponse> findAllClients(@RequestParam(name = "page", defaultValue = "0") Integer page,
-                                               @RequestParam(name = "size", defaultValue = "10") Integer size) {
+    public RestResponsePage<ClientResponse> findAllClients(@RequestParam(name = "page", defaultValue = "0") Integer page,
+                                                           @RequestParam(name = "size", defaultValue = "10") Integer size) {
         return authService.findAllClients(page, size);
     }
 
@@ -46,7 +47,7 @@ public class ClientController {
 
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
     @GetMapping(value = "/protected/users/clients")
-    public Page<ClientResponse> findByUserId(@RequestParam(name = "page", defaultValue = "0") Integer page,
+    public RestResponsePage<ClientResponse> findByUserId(@RequestParam(name = "page", defaultValue = "0") Integer page,
                                              @RequestParam(name = "size", defaultValue = "10") Integer size,
                                              HttpServletRequest request) {
         return authService.findByUserId(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), page, size);
