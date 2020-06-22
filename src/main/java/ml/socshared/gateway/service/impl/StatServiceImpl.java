@@ -7,7 +7,7 @@ import ml.socshared.gateway.domain.RestResponsePage;
 import ml.socshared.gateway.domain.stat.errorstat.ErrorsStatResponse;
 import ml.socshared.gateway.domain.stat.userstat.UsersStatResponse;
 import ml.socshared.gateway.domain.stat.usingsocial.UsingSocialNetworkResponse;
-import ml.socshared.gateway.domain.user.UserResponse;
+import ml.socshared.gateway.domain.user.AuthUserResponse;
 import ml.socshared.gateway.security.model.TokenObject;
 import ml.socshared.gateway.service.StatService;
 import org.springframework.beans.factory.annotation.Value;
@@ -75,22 +75,22 @@ public class StatServiceImpl implements StatService {
     }
 
     @Override
-    public RestResponsePage<UserResponse> getOnlineUsers(Integer page, Integer size) {
+    public RestResponsePage<AuthUserResponse> getOnlineUsers(Integer page, Integer size) {
         return statClient.getOnlineUsers(page, size, tokenSystemStat());
     }
 
     @Override
-    public RestResponsePage<UserResponse> getActiveUsers(Integer page, Integer size) {
+    public RestResponsePage<AuthUserResponse> getActiveUsers(Integer page, Integer size) {
         return statClient.getActiveUsers(page, size, tokenSystemStat());
     }
 
     @Override
-    public RestResponsePage<UserResponse> getNewUsers(Integer page, Integer size) {
+    public RestResponsePage<AuthUserResponse> getNewUsers(Integer page, Integer size) {
         return statClient.getNewUsers(page, size, tokenSystemStat());
     }
 
     @Override
-    public RestResponsePage<UserResponse> getAllUsers(Integer page, Integer size) {
+    public RestResponsePage<AuthUserResponse> getAllUsers(Integer page, Integer size) {
         return statClient.getAllUsers(page, size, tokenSystemStat());
     }
 

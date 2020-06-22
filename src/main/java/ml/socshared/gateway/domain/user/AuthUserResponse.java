@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class UserResponse {
+public class AuthUserResponse {
 
     private UUID userId;
     private String username;

@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import ml.socshared.gateway.domain.user.RoleResponse;
-import ml.socshared.gateway.domain.user.UserResponse;
+import ml.socshared.gateway.domain.user.AuthUserResponse;
 
 import java.util.Set;
 import java.util.UUID;
@@ -23,7 +23,7 @@ public class ClientResponse {
     private AccessType accessType;
     private String validRedirectUri;
     private Set<RoleResponse> roles;
-    private UserResponse user;
+    private AuthUserResponse user;
 
     public enum AccessType {
         @JsonProperty("confidential")

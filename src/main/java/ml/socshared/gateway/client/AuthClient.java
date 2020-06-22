@@ -4,6 +4,7 @@ import ml.socshared.gateway.domain.RestResponsePage;
 import ml.socshared.gateway.domain.client.request.NewClientRequest;
 import ml.socshared.gateway.domain.client.response.ClientResponse;
 import ml.socshared.gateway.domain.response.SuccessResponse;
+import ml.socshared.gateway.domain.user.AuthUserResponse;
 import ml.socshared.gateway.security.request.CheckTokenRequest;
 import ml.socshared.gateway.security.request.ServiceTokenRequest;
 import ml.socshared.gateway.security.response.ServiceTokenResponse;
@@ -54,5 +55,8 @@ public interface AuthClient {
 
     @DeleteMapping(value = "/api/v1/private/clients/{clientId}")
     void deleteClient(@PathVariable UUID clientId, @RequestHeader("Authorization") String token);
+
+    @GetMapping(value = "api/v1/private/users/{userId}")
+    AuthUserResponse getUserById(@PathVariable UUID userId, @RequestHeader("Authorization") String token);
 
 }
