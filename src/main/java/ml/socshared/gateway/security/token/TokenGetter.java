@@ -34,7 +34,7 @@ public class TokenGetter {
     private TokenObject tokenStorageService;
     private TokenObject tokenTextService;
     private TokenObject tokenMailSender;
-    private TokenObject tokenAuthService;
+    private TokenObject tokenAuth;
 
     private void init() {
         tokenFB = new TokenObject();
@@ -46,7 +46,8 @@ public class TokenGetter {
         tokenStorageService = new TokenObject();
         tokenTextService = new TokenObject();
         tokenMailSender = new TokenObject();
-        tokenAuthService = new TokenObject();
+        tokenAuth = new TokenObject();
+
     }
 
     @Before("execution(* ml.socshared.gateway.service.impl.FacebookServiceImpl.*(..))")
@@ -192,10 +193,12 @@ public class TokenGetter {
 
         return tokenMailSender;
     }
-    @Before("execution(* ml.socshared.gateway.service.impl.AuthInfoServiceImpl.*(..))")
+
+
+    @Before("execution(* ml.socshared.gateway.service.impl.AuthServiceImpl.*(..))")
     public TokenObject initTokenAuth() {
-        if (tokenAuthService != null && jwtTokenProvider.validateServiceToken(tokenAuthService.getToken())) {
-            return tokenAuthService;
+        if (tokenAuth.getToken() != null && jwtTokenProvider.validateServiceToken(tokenAuth.getToken())) {
+            return tokenAuth;
         }
 
         ServiceTokenRequest request = new ServiceTokenRequest();
@@ -203,9 +206,9 @@ public class TokenGetter {
         request.setToServiceId(UUID.fromString("58c2b3d5-dfad-41af-9451-d0a26fdc9019"));
         request.setToSecretService(UUID.fromString("0cb9bb2e-ee6a-48b7-b36a-23fb07f3fa28"));
 
-        this.tokenAuthService.setToken(jwtTokenProvider.buildServiceToken(request).getToken());
-
-        return tokenAuthService;
+        this.tokenAuth.setToken(jwtTokenProvider.buildServiceToken(request).getToken());
+        log.debug(tokenAuth.getToken());
+        return tokenAuth;
     }
 
 }
