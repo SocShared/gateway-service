@@ -11,6 +11,7 @@ public class Comment {
     Integer id;
     @JsonProperty(required = true)
     UUID authorId;
+    String authorLogin;
     @JsonProperty(required = true)
     String text;
     ZonedDateTime time;

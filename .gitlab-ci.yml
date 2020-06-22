@@ -15,6 +15,7 @@ build:
   artifacts:
     paths:
       - build/libs/socshared-gateway-service-1.0.0-SNAPSHOT.jar
+    expire_in: 1 hrs
 
 docker-build:
   stage: docker-build
@@ -38,5 +39,6 @@ docker-deploy-swarm:
     - echo "STORAGE_SERVICE=http://storage-service:8686" >> .env_api
     - echo "BSTAT_SERVICE=http://bstat:8884" >> .env_api
     - echo "TEXT_SERVICE=http://text-analyzer:8886" >> .env_api
+    - echo "STAT_SERVICE=http://stat-service:8888" >> .env_api
     - echo "SECRET_JWT_KEY=$SECRET_JWT_KEY" >> .env_api
     - docker stack deploy -c docker-compose.yaml socshared

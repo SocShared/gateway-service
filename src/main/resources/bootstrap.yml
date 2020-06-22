@@ -5,7 +5,7 @@ server:
       enabled: false
 spring:
   application:
-    name: socshared-gateway-service
+    name: gateway
   profiles:
     active: ${SPRING_PROFILE:local}
 

@@ -21,5 +21,5 @@ feign:
     tech-support: ${TECH_SUPPORT_SERVICE:https://support.socshared.ml}
     text: ${TEXT_SERVICE:https://text.socshared.ml}
     storage: ${STORAGE_SERVICE:https://storage.socshared.ml}
-    bstat: ${STORAGE_SERVICE:http://bstat:8884}
-
+    bstat: ${BSTAT_SERVICE:https://bstat.socshared.ml}
+    stat: ${STAT_SERVICE:https://stat.socshared.ml}

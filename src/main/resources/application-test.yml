@@ -21,3 +21,4 @@ feign:
     tech-support: ${TECH_SUPPORT_SERVICE:http://tech-support}
     storage: ${STORAGE_SERVICE:localhost:8686}
     bstat: ${STORAGE_SERVICE:localhost:8884}
+    stat: ${STAT_SERVICE:http://stat-service:8888}

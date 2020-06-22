@@ -33,25 +33,25 @@ public class FacebookController implements FacebookApi {
     private final JwtTokenProvider jwtTokenProvider;
 
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
-    @GetMapping(value = "/protected/facebook/access", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/protected/facebook/access")
     public AccessUrlResponse getAccessUrl() {
         return facebookService.getURLForAccess();
     }
 
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
-    @GetMapping(value = "/protected/facebook/connect/{authorizationCode}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/protected/facebook/connect/{authorizationCode}")
     public SuccessResponse saveAccountFacebook(@PathVariable String authorizationCode, HttpServletRequest request) {
         return facebookService.saveFacebookAccount(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), authorizationCode);
     }
 
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
-    @GetMapping(value = "/protected/facebook/account", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/protected/facebook/account")
     public UserResponse getUserDataFacebookAccount(HttpServletRequest request) {
         return facebookService.getUserDataFacebookAccount(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)));
     }
 
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
-    @GetMapping(value = "/protected/facebook/groups", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/protected/facebook/groups")
     public FacebookPage<FacebookGroupResponse> getGroups(@Min(0) @NotNull @RequestParam(name = "page", required = false) Integer page,
                                                          @Min(0) @Max(100) @NotNull @RequestParam(name = "size", required = false) Integer size,
                                                          HttpServletRequest request) {
