@@ -16,7 +16,7 @@ public class AuthInfoServiceImpl implements AuthInfoService {
 
     private final AuthInfoClient authInfoClient;
 
-    @Value("#{tokenGetter.tokenAuthService}")
+    @Value("#{tokenGetter.tokenAuth}")
     TokenObject authToken;
 
     @Override
