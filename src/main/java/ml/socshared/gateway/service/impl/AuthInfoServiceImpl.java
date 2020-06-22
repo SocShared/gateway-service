@@ -16,8 +16,8 @@ public class AuthInfoServiceImpl implements AuthInfoService {
 
     private final AuthInfoClient authInfoClient;
 
-    @Value("#{tokenGetter.tokenAuthService}")
-    TokenObject authToken;
+    @Value("#{tokenGetter.tokenAuth}")
+    private TokenObject authToken;
 
     @Override
     public UserResponse getClientInfoById(UUID clientId) {
