@@ -64,7 +64,7 @@ public class StorageServiceImpl implements StorageService {
         req.setGroupIds(request.getGroupIds());
         StringBuilder builder = new StringBuilder(request.getText() + "\n\n");
 
-        if (request.getHashTags() != null) {
+        if (request.getHashTags() != null && request.getHashTags().length != 0) {
             for (String str : request.getHashTags()) {
                 String result = str.trim();
                 if (!result.isEmpty())
