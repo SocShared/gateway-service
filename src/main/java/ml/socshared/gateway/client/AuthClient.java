@@ -5,13 +5,12 @@ import ml.socshared.gateway.domain.client.request.NewClientRequest;
 import ml.socshared.gateway.domain.client.response.ClientResponse;
 import ml.socshared.gateway.domain.response.SuccessResponse;
 import ml.socshared.gateway.domain.user.AuthUserResponse;
+import ml.socshared.gateway.domain.user.UpdateUserRequest;
 import ml.socshared.gateway.security.request.CheckTokenRequest;
 import ml.socshared.gateway.security.request.ServiceTokenRequest;
 import ml.socshared.gateway.security.response.ServiceTokenResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -62,5 +61,9 @@ public interface AuthClient {
 
     @PostMapping(value = "/api/v1/private/users/{userId}/mail/confirmed")
     SuccessResponse sendMailConfirmed(@PathVariable UUID userId, @RequestHeader("Authorization") String token);
+
+    @PutMapping(value = "/api/v1/private/users/{userId}")
+    void updateUser(@PathVariable UUID userId, @RequestBody UpdateUserRequest request,
+                    @RequestHeader("Authorization") String token);
 
 }

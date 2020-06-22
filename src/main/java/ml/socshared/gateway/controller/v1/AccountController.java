@@ -4,17 +4,16 @@ import lombok.RequiredArgsConstructor;
 import ml.socshared.gateway.domain.response.SuccessResponse;
 import ml.socshared.gateway.domain.response.UserResponse;
 import ml.socshared.gateway.domain.user.AuthUserResponse;
+import ml.socshared.gateway.domain.user.UpdateUserRequest;
 import ml.socshared.gateway.security.jwt.JwtTokenProvider;
 import ml.socshared.gateway.service.AuthService;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/api/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -38,4 +37,8 @@ public class AccountController {
         return authService.sendMailConfirmed(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)));
     }
 
+    @PutMapping("/protected/users")
+    public void updateUser(@Valid @RequestBody UpdateUserRequest updateUserRequest, HttpServletRequest request) {
+       authService.updateUser(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), updateUserRequest);
+    }
 }

@@ -7,6 +7,7 @@ import ml.socshared.gateway.domain.client.request.NewClientRequest;
 import ml.socshared.gateway.domain.client.response.ClientResponse;
 import ml.socshared.gateway.domain.response.SuccessResponse;
 import ml.socshared.gateway.domain.user.AuthUserResponse;
+import ml.socshared.gateway.domain.user.UpdateUserRequest;
 import ml.socshared.gateway.security.model.TokenObject;
 import ml.socshared.gateway.service.AuthService;
 import org.springframework.beans.factory.annotation.Value;
@@ -70,5 +71,10 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public SuccessResponse sendMailConfirmed(UUID userId) {
         return authClient.sendMailConfirmed(userId, tokenAuth());
+    }
+
+    @Override
+    public void updateUser(UUID userId, UpdateUserRequest request) {
+        authClient.updateUser(userId, request, tokenAuth());
     }
 }

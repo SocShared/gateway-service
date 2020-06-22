@@ -6,6 +6,9 @@ import ml.socshared.gateway.domain.client.response.ClientResponse;
 
 import ml.socshared.gateway.domain.response.SuccessResponse;
 import ml.socshared.gateway.domain.user.AuthUserResponse;
+import ml.socshared.gateway.domain.user.UpdateUserRequest;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 import java.util.UUID;
@@ -21,5 +24,6 @@ public interface AuthService {
     void deleteClient(UUID clientId);
     AuthUserResponse getUserInfoById(UUID userId);
     SuccessResponse sendMailConfirmed(UUID userId);
+    void updateUser(UUID userId, UpdateUserRequest request);
 
 }
