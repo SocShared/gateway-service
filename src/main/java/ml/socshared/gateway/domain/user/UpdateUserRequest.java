@@ -12,6 +12,9 @@ import javax.validation.constraints.NotEmpty;
 @ToString
 public class UpdateUserRequest {
 
+    @NotEmpty
+    @Email
+    private String email;
     private String firstname;
     private String lastname;
 
