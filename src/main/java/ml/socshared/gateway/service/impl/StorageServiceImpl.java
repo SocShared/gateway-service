@@ -28,6 +28,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -63,6 +64,8 @@ public class StorageServiceImpl implements StorageService {
         PublicationRequest req = new PublicationRequest();
         req.setGroupIds(request.getGroupIds());
         StringBuilder builder = new StringBuilder(request.getText() + "\n\n");
+
+        log.info("HashTags: " + Arrays.toString(request.getHashTags()));
 
         if (request.getHashTags() != null && request.getHashTags().length != 0) {
             for (String str : request.getHashTags()) {
