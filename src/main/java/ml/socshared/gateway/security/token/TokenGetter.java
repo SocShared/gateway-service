@@ -47,6 +47,7 @@ public class TokenGetter {
         tokenTextService = new TokenObject();
         tokenMailSender = new TokenObject();
         tokenAuth = new TokenObject();
+
     }
 
     @Before("execution(* ml.socshared.gateway.service.impl.FacebookServiceImpl.*(..))")
@@ -192,6 +193,7 @@ public class TokenGetter {
 
         return tokenMailSender;
     }
+
 
     @Before("execution(* ml.socshared.gateway.service.impl.AuthServiceImpl.*(..))")
     public TokenObject initTokenAuth() {

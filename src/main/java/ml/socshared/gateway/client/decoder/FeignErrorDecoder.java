@@ -17,6 +17,7 @@ public class FeignErrorDecoder implements ErrorDecoder {
 
     @Override
     public Exception decode(String methodKey, Response response) {
+
         String msg = "error: ";
         if (response.body() != null)
             msg += response.body().toString();

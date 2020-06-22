@@ -16,4 +16,5 @@ public class QuestionResponse {
     UUID authorId;
     @JsonProperty(required = true)
     String title;
+    String authorLogin;
 }

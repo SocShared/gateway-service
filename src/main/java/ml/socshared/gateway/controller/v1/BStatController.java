@@ -25,7 +25,7 @@ public class BStatController {
 
     private final BStatService bStatService;
 
-
+    @PreAuthorize("hasRole('CONTENT_MANAGER')")
     @GetMapping("/protected/social/{soc}/groups/{systemGroupId}/stat")
     GroupInfoResponse getStatisticOfGroup(@PathVariable UUID systemGroupId, @PathVariable SocialNetwork soc,
                                           @PathParam("begin") Long begin, @PathParam("end") Long end,
@@ -35,6 +35,7 @@ public class BStatController {
         return bStatService.getGroupInfo(systemUserId, systemGroupId, soc, begin, end);
     }
 
+    @PreAuthorize("hasRole('CONTENT_MANAGER')")
     @GetMapping("/protected/social/{soc}/groups/{systemGroupId}/posts/{systemPostId}/stat")
     PostInfoByTimeResponse getStatisticOfPost(@PathVariable UUID systemGroupId, @PathVariable UUID systemPostId,
                                               @PathVariable SocialNetwork soc,

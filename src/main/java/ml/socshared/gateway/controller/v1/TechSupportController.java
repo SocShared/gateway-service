@@ -3,10 +3,7 @@ package ml.socshared.gateway.controller.v1;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ml.socshared.gateway.api.v1.rest.TechSupportApi;
-import ml.socshared.gateway.domain.tech_support.response.Comment;
-import ml.socshared.gateway.domain.tech_support.response.FullQuestionResponse;
-import ml.socshared.gateway.domain.tech_support.response.Question;
-import ml.socshared.gateway.domain.tech_support.response.ShortQuestion;
+import ml.socshared.gateway.domain.tech_support.response.*;
 import ml.socshared.gateway.exception.impl.HttpBadRequestException;
 import ml.socshared.gateway.security.jwt.JwtTokenProvider;
 import ml.socshared.gateway.service.TechSupportService;
@@ -14,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,17 +42,20 @@ public class TechSupportController  implements TechSupportApi {
     @Override
     @GetMapping("/protected/support")
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
-    public Page<ShortQuestion> getQuestionsList(Pageable pageable) {
+    public QuestionsPage getQuestionsList(Pageable pageable, HttpServletRequest request) {
         log.info("Request of get support page " + pageable.toString());
-        return service.getQuestionList(pageable);
+        UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
+        return service.getQuestionList(pageable, systemUserId);
     }
 
     @Override
     @PreAuthorize("hasRole('CONTENT_MANAGER')")
     @GetMapping("/protected/support/questions/{questionId}")
-    public FullQuestionResponse getFullQuestion(@PathVariable Integer questionId, Pageable pageable) {
+    public FullQuestionResponse getFullQuestion(@PathVariable Integer questionId, Pageable pageable,
+                                                HttpServletRequest request) {
         log.info("Request get of page with question " + questionId);
-        return service.getFullQuestion(questionId, pageable);
+        UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
+        return service.getFullQuestion(questionId, pageable, systemUserId);
     }
 
     @Override
@@ -71,16 +72,19 @@ public class TechSupportController  implements TechSupportApi {
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/protected/support/questions/{questionId}")
-    public void removeQuestion(@PathVariable Integer questionId) {
+    public void removeQuestion(@PathVariable Integer questionId, HttpServletRequest request) {
         log.info("Request remove question " + questionId);
-        service.removeQuestion(questionId);
+        UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
+        service.removeQuestion(questionId, systemUserId);
     }
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/protected/support/questions/{questionId}/comments/{commentId}")
-    public void removeComment(@PathVariable Integer questionId,@PathVariable Integer commentId) {
+    public void removeComment(@PathVariable Integer questionId,@PathVariable Integer commentId,
+                              HttpServletRequest request) {
         log.info("Request delete comment " + commentId + " of question " + questionId);
-        service.removeComment(questionId, commentId);
+        UUID systemUserId = jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request));
+        service.removeComment(questionId, commentId, systemUserId);
     }
 }
