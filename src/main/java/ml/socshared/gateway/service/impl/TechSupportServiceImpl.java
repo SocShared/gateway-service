@@ -4,17 +4,13 @@ package ml.socshared.gateway.service.impl;
 import lombok.RequiredArgsConstructor;
 import ml.socshared.gateway.client.TechSupportServiceClient;
 import ml.socshared.gateway.domain.tech_support.response.*;
-import ml.socshared.gateway.security.client.AuthClient;
-import ml.socshared.gateway.security.jwt.JwtTokenProvider;
 import ml.socshared.gateway.security.model.TokenObject;
 import ml.socshared.gateway.service.TechSupportService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service

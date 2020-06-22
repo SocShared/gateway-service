@@ -4,8 +4,7 @@ import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ml.socshared.gateway.domain.model.SpringUserDetails;
-import ml.socshared.gateway.security.model.ServiceDetails;
-import ml.socshared.gateway.security.client.AuthClient;
+import ml.socshared.gateway.client.AuthClient;
 import ml.socshared.gateway.security.request.CheckTokenRequest;
 import ml.socshared.gateway.security.request.ServiceTokenRequest;
 import ml.socshared.gateway.security.response.ServiceTokenResponse;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.UUID;
 import java.util.stream.Collectors;
