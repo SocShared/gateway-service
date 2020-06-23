@@ -1,6 +1,7 @@
 package ml.socshared.gateway.client;
 
 import ml.socshared.gateway.domain.RestResponsePage;
+import ml.socshared.gateway.domain.stat.SocCountResponse;
 import ml.socshared.gateway.domain.stat.errorstat.ErrorsStatResponse;
 import ml.socshared.gateway.domain.stat.userstat.UsersStatResponse;
 import ml.socshared.gateway.domain.stat.usingsocial.UsingSocialNetworkResponse;
@@ -64,5 +65,8 @@ public interface StatClient {
 
     @GetMapping(value = "/api/v1/private/stat/errors")
     ErrorsStatResponse getErrorsStat(@RequestHeader("Authorization") String token);
+
+    @GetMapping(value = "/api/v1/private/stat/soc/count")
+    SocCountResponse getSocCount(@RequestHeader("Authorization") String token);
 
 }
