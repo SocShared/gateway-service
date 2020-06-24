@@ -64,7 +64,6 @@ public class TechSupportServiceImpl implements TechSupportService {
         FullQuestion res = client.getFullQuestion(questionId, pageable.getPageNumber(), pageable.getPageSize(),
                 techSupportAuthToken());
         String authorLogin = getUserLogin(res.getAuthorId());
-        res.setAuthorLogin(authorLogin);
         int i = 0;
         if(!res.getComments().getData().isEmpty() &&
                 res.getComments().getData().get(0).getAuthorId() != null &&
@@ -87,19 +86,20 @@ public class TechSupportServiceImpl implements TechSupportService {
         if(res.getAuthorId() != null && res.getAuthorId().equals(systemUserID)) {
             response.setCanCreateComment(true);
             response.setCanDeleteQuestion(false);
-        }
-        if(userIsAdmin(systemUserID)) {
-            response.setCanCreateComment(true);
-            response.setCanDeleteQuestion(true);
         } else {
             response.setCanCreateComment(false);
             response.setCanDeleteQuestion(false);
+        }
+
+        if(userIsAdmin(systemUserID)) {
+            response.setCanCreateComment(true);
+            response.setCanDeleteQuestion(true);
         }
         response.setComments(page);
         response.setAuthorId(res.getAuthorId());
         response.setQuestionId(res.getQuestionId());
         response.setTitle(res.getTitle());
-        response.setAuthorLogin(res.getAuthorLogin());
+        response.setAuthorLogin(authorLogin);
         return response;
     }
 
