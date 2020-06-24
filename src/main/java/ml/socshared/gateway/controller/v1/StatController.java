@@ -3,6 +3,7 @@ package ml.socshared.gateway.controller.v1;
 import lombok.RequiredArgsConstructor;
 import ml.socshared.gateway.domain.RestResponsePage;
 import ml.socshared.gateway.domain.stat.SocCountResponse;
+import ml.socshared.gateway.domain.stat.TotalStatsResponse;
 import ml.socshared.gateway.domain.stat.errorstat.ErrorsStatResponse;
 import ml.socshared.gateway.domain.stat.userstat.UsersStatResponse;
 import ml.socshared.gateway.domain.stat.usingsocial.UsingSocialNetworkResponse;
@@ -115,6 +116,12 @@ public class StatController {
     @GetMapping(value = "/protected/stat/soc/count")
     public SocCountResponse getSocCount() {
         return statService.getSocCount();
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = "/protected/stat/total/count")
+    public TotalStatsResponse getTotalCount() {
+        return statService.getTotalCount();
     }
 
 }
