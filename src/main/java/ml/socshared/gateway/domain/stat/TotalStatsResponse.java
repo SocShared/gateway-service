@@ -1,10 +1,8 @@
 package ml.socshared.gateway.domain.stat;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 public class TotalStatsResponse {
 
     private Long usingFacebookPercent;
