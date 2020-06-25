@@ -2,6 +2,7 @@ package ml.socshared.gateway.service;
 
 import ml.socshared.gateway.domain.RestResponsePage;
 import ml.socshared.gateway.domain.stat.SocCountResponse;
+import ml.socshared.gateway.domain.stat.TotalStatsResponse;
 import ml.socshared.gateway.domain.stat.errorstat.ErrorsStatResponse;
 import ml.socshared.gateway.domain.stat.userstat.UsersStatResponse;
 import ml.socshared.gateway.domain.stat.usingsocial.UsingSocialNetworkResponse;
@@ -26,5 +27,6 @@ public interface StatService {
     RestResponsePage<AuthUserResponse> getAllUsers(Integer page, Integer size);
     ErrorsStatResponse getErrorsStat();
     SocCountResponse getSocCount();
+    TotalStatsResponse getTotalCount();
 
 }
