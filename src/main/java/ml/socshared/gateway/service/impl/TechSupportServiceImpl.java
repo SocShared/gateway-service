@@ -47,14 +47,14 @@ public class TechSupportServiceImpl implements TechSupportService {
             String userLogin = getUserLogin(el.getAuthorId());
             el.setAuthorLogin(userLogin);
         }
-        Pageable p = PageRequest.of(questions.getPage(), pageable.getPageSize());
+        Pageable p = PageRequest.of(questions.getPage(), questions.getSize());
         QuestionsPage rp = new QuestionsPage();
         if(userIsAdmin(systemUserID)) {
             rp.setCanDelete(true);
         } else {
             rp.setCanDelete(false);
         }
-        rp.setShortQuestions(new PageImpl(questions.getData(), p, 0));
+        rp.setShortQuestions(new PageImpl(questions.getData(), p, questions.getTotalElements()));
         return rp;
 
     }
