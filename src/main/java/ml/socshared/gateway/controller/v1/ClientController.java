@@ -67,4 +67,9 @@ public class ClientController {
         authService.updateClient(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), clientId, newClientRequest);
     }
 
+    @PreAuthorize("hasRole('CONTENT_MANAGER')")
+    @DeleteMapping(value = "/protected/users/clients/{clientId}")
+    public void deleteClientById(@PathVariable UUID clientId, HttpServletRequest request) {
+        authService.deleteClient(jwtTokenProvider.getUserId(jwtTokenProvider.resolveToken(request)), clientId);
+    }
 }

@@ -59,8 +59,12 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void deleteClient(UUID clientId) {
-        authClient.deleteClient(clientId, tokenAuth());
+    public void deleteClient(UUID userId, UUID clientId) {
+        try {
+            ClientResponse clientResponse = findByUserIdAndClientId(userId, clientId);
+            if (clientResponse != null && clientResponse.getClientId().equals(clientId))
+                authClient.deleteClient(clientId, tokenAuth());
+        } catch (Exception ignore) {}
     }
 
     @Override
