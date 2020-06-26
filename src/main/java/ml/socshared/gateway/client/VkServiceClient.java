@@ -40,4 +40,6 @@ public interface VkServiceClient {
     VkGroupResponse getGroupInfoById(@PathVariable UUID systemUserId,
                                      @PathVariable String socGroupId,
                                      @RequestHeader("Authorization") String token);
+
+
 }

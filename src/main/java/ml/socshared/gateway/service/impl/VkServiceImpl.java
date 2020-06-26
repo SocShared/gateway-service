@@ -41,7 +41,7 @@ public class VkServiceImpl implements VkService {
 
     @Override
     public void unsetAccessTokenApp(UUID systemUserId) {
-        storageClient.deleteVkGroupsByUserId(systemUserId, storageToken());
+        //storageClient.deleteVkGroupsByUserId(systemUserId, storageToken());
         vkClient.appReset(systemUserId, vkAuthToken());
     }
 
